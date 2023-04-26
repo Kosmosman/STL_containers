@@ -1,9 +1,12 @@
-#include <iostream>
+// #include <iostream>
 #include "s21_stack.h"
-#include <stack>
+// #include <stack>
 
 int main() {
-    std::stack<int> stack;
+    // s21::Stack<int> st = new s21::Stack<int>(5);
+    s21::Stack<int> *stack = new s21::Stack<int>();
+
+    stack->push(4);
     
     return 0;
 }

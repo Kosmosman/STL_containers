@@ -5,6 +5,7 @@
         "iterator": "cpp",
         "queue": "cpp",
         "*.tcc": "cpp",
-        "deque": "cpp"
+        "deque": "cpp",
+        "*.tpp": "cpp"
     }
 }

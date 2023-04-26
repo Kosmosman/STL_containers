@@ -7,7 +7,7 @@ STLIB = s21_stack.a
 all: clean build s21_stack.a test clean
 
 run:
-	$(CC) $(FLAGS) *.cc -o main && ./main
+	$(CC) $(FLAGS) main.cc -o main && ./main
 
 build: s21_stack.cpp
 	@$(CC) -c $(FLAGS) -std=c++17 s21_stack.cpp -o s21_stack.o
@@ -21,7 +21,7 @@ test: $(STLIB)
 
 clean:
 	rm -rf *.o *.a
-	rm -rf unit_test
+	rm -rf unit_test main
 
 check:
 	@cp ../materials/linters/.clang-format ./
