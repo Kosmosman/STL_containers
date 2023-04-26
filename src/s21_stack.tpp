@@ -8,8 +8,13 @@ namespace s21 {
 
     template<typename T>
     Stack<T>::~Stack() {
-        // дописать полное очищение стека
-        head_ = nullptr;
+        Node* tmp = nullptr;
+        while (head_) {
+            tmp = head_;
+            head_ = head_->next;
+            delete tmp;
+            tmp = nullptr;
+        }
     }
 
     template<typename T>
