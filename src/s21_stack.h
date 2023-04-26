@@ -10,6 +10,7 @@ namespace s21 {
         public:
             Stack();
             Stack(const Stack &s);
+            Stack(Stack &&s) noexcept;
             ~Stack();
 
             using value_type = T;

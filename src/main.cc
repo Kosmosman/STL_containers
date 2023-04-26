@@ -12,13 +12,14 @@ int main() {
     // stack.top() = 4;
     // std::cout << stack.top();
 
-    s21::Stack<int> stack_2;
+    s21::Stack<int> stack_2(stack);
+    std::cout << stack_2.size();
 
-    stack_2.push(4);
-    stack_2.push(5);
+    // stack_2.push(4);
+    // stack_2.push(5);
     
-    stack.swap(stack_2);
-    std::cout << stack.top();
+    // stack.swap(stack_2);
+    // std::cout << stack.top();
     // std::stack<int> example;
     // example.push(4);
     // // std::cout << example.size();
