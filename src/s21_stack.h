@@ -17,6 +17,7 @@ namespace s21 {
             using size_type = size_t;
 
             void push(const_reference node);
+            bool empty();
             size_type size();
 
         private:

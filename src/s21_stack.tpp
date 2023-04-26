@@ -26,4 +26,6 @@ namespace s21 {
     template<typename T>
     typename Stack<T>::size_type Stack<T>::size() { return size_; }
     
+    template<typename T>
+    bool Stack<T>::empty() {return size_ == 0; }
 };
