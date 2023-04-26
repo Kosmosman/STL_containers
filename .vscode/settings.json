@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "stack": "cpp",
+        "functional": "cpp",
+        "iterator": "cpp",
+        "queue": "cpp",
+        "*.tcc": "cpp",
+        "deque": "cpp"
+    }
+}
