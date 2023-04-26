@@ -4,7 +4,10 @@
 
 namespace s21 {
     template<typename T>
-    Stack<T>::Stack(): head_(nullptr), size_(0) { }
+    Stack<T>::Stack() : head_(nullptr), size_(0) { }
+
+    template<typename T>
+    Stack<T>::Stack(const Stack &s) : head_(s->head_), size_(s->size_) { }
 
     template<typename T>
     Stack<T>::~Stack() {
@@ -43,6 +46,12 @@ namespace s21 {
         }
     }
 
-        template<typename T>
-        typename Stack<T>::const_reference Stack<T>::top() { return head_->value; }
+    template<typename T>
+    typename Stack<T>::const_reference Stack<T>::top() { return head_->value; }
+    
+    template<typename T>
+    void Stack<T>::swap(Stack& other) {
+        std::swap(head_, other.head_);
+        std::swap(size_, other.size_);
+    }
 };

@@ -6,9 +6,10 @@
 
 namespace s21 {
     template<typename T>
-    class Stack{
+    class Stack { // с маленькой или большой??
         public:
             Stack();
+            Stack(const Stack &s);
             ~Stack();
 
             using value_type = T;
@@ -21,6 +22,7 @@ namespace s21 {
             bool empty();
             size_type size();
             const_reference top();
+            void swap(Stack& other);
 
         private:
             struct Node {
