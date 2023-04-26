@@ -7,7 +7,6 @@ namespace s21 {
     Stack<T>::Stack() : head_(nullptr), size_(0) { }
 
     template<typename T>
-    // Stack<T>::Stack(const Stack &s) : head_(s->head_), size_(s->size_) { }
     // почему тут тачки, а не стрелочки. Это разве нее ссылки?
     Stack<T>::Stack(const Stack &s) : head_(nullptr), size_(0) {
         Node* tmp = s.head_;
@@ -17,7 +16,8 @@ namespace s21 {
         }
     } 
 
-    //  можно ли тут просто вызвать конструктор копирования и присвоить второму null?
+
+    // или лучше swap?
     template<typename T>
     Stack<T>::Stack(Stack &&s) noexcept : head_(s.head_), size_(s.size_) {
         s.head_ = nullptr;
@@ -33,10 +33,6 @@ namespace s21 {
             delete tmp;
             tmp = nullptr;
         }
-        // while (head_ != nullptr) {
-        // Node* temp = head_;
-        // head_ = head_->next;
-        // delete temp;
     }
     
 
@@ -73,5 +69,14 @@ namespace s21 {
     void Stack<T>::swap(Stack& other) {
         std::swap(head_, other.head_);
         std::swap(size_, other.size_);
+    }
+
+    template<typename T>
+    // как перезаписать?
+    Stack<T>& Stack<T>::operator=(Stack &&s) {
+        if (*this == s)
+            return *this;
+        
+        
     }
 };

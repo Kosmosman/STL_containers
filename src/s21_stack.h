@@ -23,7 +23,10 @@ namespace s21 {
             bool empty();
             size_type size();
             const_reference top();
+            
             void swap(Stack& other);
+            // почему по заданию без Stack<T>& ?
+            Stack<T>& operator=(Stack &&s);
 
         private:
             struct Node {
