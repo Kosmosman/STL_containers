@@ -28,4 +28,15 @@ namespace s21 {
     
     template<typename T>
     bool Stack<T>::empty() {return size_ == 0; }
+
+    template<typename T>
+    void Stack<T>::pop() {
+        if (head_) {
+            Node *temp_node = head_;
+            head_ = head_->next;
+            delete temp_node;
+            temp_node = nullptr;
+            size_ -= 1;
+        }
+    }
 };

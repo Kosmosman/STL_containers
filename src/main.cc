@@ -6,7 +6,8 @@ int main() {
     // s21::Stack<int>* st = new s21::Stack<int>();
     s21::Stack<int> stack;
 
-    // stack.push(4);
+    stack.push(4);
+    stack.pop();
     std::cout << stack.empty();
     
     return 0;
