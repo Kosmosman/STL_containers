@@ -77,6 +77,17 @@ namespace s21 {
         if (*this == s)
             return *this;
         
+        // почему деструктро только через this?
+        *this->~stack();
+        // или swap?
+        // std::swap(head_, s.head_);
+        // std::swap(size_, s.size_);
+        head_ = s.head_;
+        size_ = s.size_;
 
+        s.head_ = nullptr;
+        s.size_ = 0;
+
+        return *this;
     }
 };

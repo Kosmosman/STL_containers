@@ -10,7 +10,7 @@ namespace s21 {
         public:
             stack();
             stack(const stack &s);
-            stack(std::initializer_list<value_type> const &items);
+            // stack(std::initializer_list<value_type> const &items);
             stack(stack &&s) noexcept;
             ~stack();
 
