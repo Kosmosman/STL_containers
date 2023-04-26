@@ -24,8 +24,6 @@ namespace s21 {
         node->next = head_;
         head_ = node;
         size_ += 1;
-
-        // std::cout << value;
     }
 
     template<typename T>
@@ -44,4 +42,7 @@ namespace s21 {
             size_ -= 1;
         }
     }
+
+        template<typename T>
+        typename Stack<T>::const_reference Stack<T>::top() { return head_->value; }
 };

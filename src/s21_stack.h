@@ -20,6 +20,7 @@ namespace s21 {
             void pop();
             bool empty();
             size_type size();
+            const_reference top();
 
         private:
             struct Node {
