@@ -6,12 +6,13 @@
 
 namespace s21 {
     template<typename T>
-    class Stack { // с маленькой или большой??
+    class stack { // Почему нужно с маленькой?
         public:
-            Stack();
-            Stack(const Stack &s);
-            Stack(Stack &&s) noexcept;
-            ~Stack();
+            stack();
+            stack(const stack &s);
+            stack(std::initializer_list<value_type> const &items);
+            stack(stack &&s) noexcept;
+            ~stack();
 
             using value_type = T;
             using reference = T&;
@@ -24,9 +25,9 @@ namespace s21 {
             size_type size();
             const_reference top();
             
-            void swap(Stack& other);
-            // почему по заданию без Stack<T>& ?
-            Stack<T>& operator=(Stack &&s);
+            void swap(stack& other);
+            // почему по заданию без stack<T>& ?
+            stack<T>& operator=(stack &&s);
 
         private:
             struct Node {

@@ -4,11 +4,11 @@
 
 namespace s21 {
     template<typename T>
-    Stack<T>::Stack() : head_(nullptr), size_(0) { }
+    stack<T>::stack() : head_(nullptr), size_(0) { }
 
     template<typename T>
     // почему тут тачки, а не стрелочки. Это разве нее ссылки?
-    Stack<T>::Stack(const Stack &s) : head_(nullptr), size_(0) {
+    stack<T>::stack(const stack &s) : head_(nullptr), size_(0) {
         Node* tmp = s.head_;
         while(tmp) {
             push(tmp->value);
@@ -19,13 +19,13 @@ namespace s21 {
 
     // или лучше swap?
     template<typename T>
-    Stack<T>::Stack(Stack &&s) noexcept : head_(s.head_), size_(s.size_) {
+    stack<T>::stack(stack &&s) noexcept : head_(s.head_), size_(s.size_) {
         s.head_ = nullptr;
         s.size_ = 0;
     }
 
     template<typename T>
-    Stack<T>::~Stack() {
+    stack<T>::~stack() {
         Node* tmp = nullptr;
         while (head_ != nullptr) {
             tmp = head_;
@@ -37,7 +37,7 @@ namespace s21 {
     
 
     template<typename T>
-    void Stack<T>::push(const_reference value) {
+    void stack<T>::push(const_reference value) {
         Node* node = new Node();
         node->value = value;
         node->next = head_;
@@ -46,13 +46,13 @@ namespace s21 {
     }
 
     template<typename T>
-    typename Stack<T>::size_type Stack<T>::size() { return size_; }
+    typename stack<T>::size_type stack<T>::size() { return size_; }
     
     template<typename T>
-    bool Stack<T>::empty() {return size_ == 0; }
+    bool stack<T>::empty() {return size_ == 0; }
 
     template<typename T>
-    void Stack<T>::pop() {
+    void stack<T>::pop() {
         if (head_) {
             Node *temp_node = head_;
             head_ = head_->next;
@@ -63,20 +63,20 @@ namespace s21 {
     }
 
     template<typename T>
-    typename Stack<T>::const_reference Stack<T>::top() { return head_->value; }
+    typename stack<T>::const_reference stack<T>::top() { return head_->value; }
     
     template<typename T>
-    void Stack<T>::swap(Stack& other) {
+    void stack<T>::swap(stack& other) {
         std::swap(head_, other.head_);
         std::swap(size_, other.size_);
     }
 
     template<typename T>
     // как перезаписать?
-    Stack<T>& Stack<T>::operator=(Stack &&s) {
+    stack<T>& stack<T>::operator=(stack &&s) {
         if (*this == s)
             return *this;
         
-        
+
     }
 };

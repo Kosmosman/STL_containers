@@ -3,8 +3,8 @@
 #include <stack>
 
 int main() {
-    // s21::Stack<int>* st = new s21::Stack<int>();
-    s21::Stack<int> stack;
+    // s21::stack<int>* st = new s21::stack<int>();
+    s21::stack<int> stack;
 
     stack.push(4);
     stack.push(5);
@@ -12,7 +12,7 @@ int main() {
     // stack.top() = 4;
     // std::cout << stack.top();
 
-    s21::Stack<int> stack_2(stack);
+    s21::stack<int> stack_2(stack);
     std::cout << stack_2.size();
 
     // stack_2.push(4);
