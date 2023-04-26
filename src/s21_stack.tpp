@@ -1,6 +1,7 @@
 
 // это можно убрать
 #include "s21_stack.h"
+
 namespace s21 {
     template<typename T>
     Stack<T>::Stack(): head_(nullptr), size_(0) { }
@@ -19,7 +20,10 @@ namespace s21 {
         head_ = node;
         size_ += 1;
 
-        std::cout << value;
+        // std::cout << value;
     }
+
+    template<typename T>
+    typename Stack<T>::size_type Stack<T>::size() { return size_; }
     
 };

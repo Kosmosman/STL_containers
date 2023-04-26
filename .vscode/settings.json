@@ -6,6 +6,17 @@
         "queue": "cpp",
         "*.tcc": "cpp",
         "deque": "cpp",
-        "*.tpp": "cpp"
+        "*.tpp": "cpp",
+        "string": "cpp",
+        "string_view": "cpp",
+        "ranges": "cpp",
+        "__hash_table": "cpp",
+        "__split_buffer": "cpp",
+        "array": "cpp",
+        "bitset": "cpp",
+        "initializer_list": "cpp",
+        "memory": "cpp",
+        "unordered_map": "cpp",
+        "vector": "cpp"
     }
 }
