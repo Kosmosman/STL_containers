@@ -9,9 +9,6 @@ namespace s21 {
     class Stack{
         public:
             Stack();
-            // Stack(T value) {
-            //     value_ = value;
-            // }
             ~Stack();
 
             using value_type = T;
@@ -26,9 +23,9 @@ namespace s21 {
                 T value;
                 Node* next;
             };
-            // T value_;
-            
+
             Node* head_;
+            size_type size_;
     };
 };
 #include "s21_stack.tpp"

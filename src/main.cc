@@ -3,10 +3,10 @@
 // #include <stack>
 
 int main() {
-    // s21::Stack<int> st = new s21::Stack<int>(5);
-    s21::Stack<int> *stack = new s21::Stack<int>();
+    // s21::Stack<int>* st = new s21::Stack<int>();
+    s21::Stack<int> stack;
 
-    stack->push(4);
+    stack.push(4);
     
     return 0;
 }
