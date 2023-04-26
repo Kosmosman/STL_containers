@@ -9,12 +9,18 @@ namespace s21 {
     template<typename T>
     // Stack<T>::Stack(const Stack &s) : head_(s->head_), size_(s->size_) { }
     // почему тут тачки, а не стрелочки. Это разве нее ссылки?
-    Stack<T>::Stack(const Stack &s) : head_(s.head_), size_(s.size_) { } 
+    Stack<T>::Stack(const Stack &s) : head_(nullptr), size_(0) {
+        Node* tmp = s.head_;
+        while(tmp) {
+            push(tmp->value);
+            tmp = tmp->next;
+        }
+    } 
 
     //  можно ли тут просто вызвать конструктор копирования и присвоить второму null?
     template<typename T>
     Stack<T>::Stack(Stack &&s) noexcept : head_(s.head_), size_(s.size_) {
-        s.head = nullptr;
+        s.head_ = nullptr;
         s.size_ = 0;
     }
 
@@ -27,7 +33,12 @@ namespace s21 {
             delete tmp;
             tmp = nullptr;
         }
+        // while (head_ != nullptr) {
+        // Node* temp = head_;
+        // head_ = head_->next;
+        // delete temp;
     }
+    
 
     template<typename T>
     void Stack<T>::push(const_reference value) {
