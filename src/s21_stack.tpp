@@ -21,6 +21,13 @@ namespace s21 {
 
     } 
 
+    template<typename T>
+    Stack<T>::Stack(std::initializer_list<value_type> const &items) : head_(nullptr), size_(0) {
+        for (auto it = items.begin(); it < items.end(); it++) {
+            push(*it);
+        }
+    }
+
 
     // или лучше swap?
     template<typename T>

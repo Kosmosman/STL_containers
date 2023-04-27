@@ -10,7 +10,7 @@ namespace s21 {
         public:
             Stack();
             Stack(const Stack &s);
-            // Stack(std::initializer_list<value_type> const &items);
+
             Stack(Stack &&s) noexcept;
             ~Stack();
 
@@ -18,6 +18,8 @@ namespace s21 {
             using reference = T&;
             using const_reference = const T&;
             using size_type = size_t;
+
+            Stack(std::initializer_list<value_type> const &items);
 
             void push(const_reference node);
             void pop();
