@@ -17,6 +17,17 @@ Queue<T>::Queue(std::initializer_list<value_type> const &items)
 }
 
 template <typename T>
+Queue<T>::~Queue() {
+  Node *tmp = nullptr;
+  while (first_ != nullptr) {
+    tmp = first_;
+    first_ = first_->next;
+    delete tmp;
+    tmp = nullptr;
+  }
+}
+
+template <typename T>
 void Queue<T>::push(const_reference value) {
   Node *tmp = new Node();
   tmp->value = value;
