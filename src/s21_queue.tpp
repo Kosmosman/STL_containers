@@ -34,10 +34,9 @@ Queue<T>::Queue(Queue &&q) noexcept
 }
 
 template <typename T>
-Queue<T>& Queue<T>::operator=(Queue&& s) noexcept {
-  if (*this == s)
-    return *this;
-  
+Queue<T> &Queue<T>::operator=(Queue &&s) noexcept {
+  if (*this == s) return *this;
+
   ~Queue();
   first_ = q.first_;
   last_ = q.last_;
@@ -103,7 +102,7 @@ void Queue<T>::pop() {
 }
 
 template <typename T>
-void Queue<T>::swap(Queue& other) {
+void Queue<T>::swap(Queue &other) {
   std::swap(first_, q.first_);
   std::swap(last_, q.last_);
   std::swap(size_, q.size_);
