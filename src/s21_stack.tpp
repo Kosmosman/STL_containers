@@ -78,6 +78,7 @@ void Stack<T>::pop() {
 }
 
 template <typename T>
+// нужен тест на top() = 5; В оригинале она заменяет
 typename Stack<T>::const_reference Stack<T>::top() {
   return head_->value;
 }

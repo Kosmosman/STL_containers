@@ -14,7 +14,7 @@ class Stack {  // Почему нужно с маленькой?
   ~Stack();
 
   using value_type = T;
-  using reference = T&;
+  using reference = T&; // зачем это, если я его нигде не использовал?
   using const_reference = const T&;
   using size_type = size_t;
 
