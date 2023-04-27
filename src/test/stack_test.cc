@@ -74,3 +74,18 @@ TEST(StackTest, Empty) {
     stack.pop();
     EXPECT_EQ(stack.empty(), true);
 }
+
+TEST(StackTest, Size) {
+    s21::Stack<int> stack = {1, 2, 431};
+    EXPECT_EQ(stack.size(), 3);
+    stack.pop();
+    EXPECT_EQ(stack.size(), 2);
+    stack.push(123);
+    EXPECT_EQ(stack.size(), 3);
+    stack.pop();
+    EXPECT_EQ(stack.size(), 2);
+    stack.pop();
+    EXPECT_EQ(stack.size(), 1);
+    stack.pop();
+    EXPECT_EQ(stack.size(), 0);
+}
