@@ -111,7 +111,7 @@ typename Stack<T>::size_type Stack<T>::size() {
 }
 
 /*
- * @brief Inserts element at the top
+ * @brief Inserts value at the top
  */
 template <typename T>
 void Stack<T>::push(const_reference value) {

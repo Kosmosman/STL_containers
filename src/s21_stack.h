@@ -21,7 +21,7 @@ class Stack {
   reference top();
   bool empty();
   size_type size();
-  void push(const_reference node);
+  void push(const_reference value);
   void pop();
   void swap(Stack& other);
 

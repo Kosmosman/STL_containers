@@ -11,7 +11,10 @@ class Queue {
   using size_type = size_t;
 
   Queue();
-  
+
+  void push(const_reference value);
+  const_reference front() const;
+  const_reference back() const;
  private:
   struct Node {
     value_type value;
