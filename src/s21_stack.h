@@ -27,7 +27,7 @@ class Stack {
 
  private:
   struct Node {
-    T value;
+    value_type value;
     Node* next;
   };
 
@@ -35,5 +35,5 @@ class Stack {
   size_type size_;
 };
 };  // namespace s21
-#include "s21_Stack.tpp"
+#include "s21_stack.tpp"
 #endif  // SRC_S21_STACK_H_
