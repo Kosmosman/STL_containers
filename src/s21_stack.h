@@ -9,7 +9,6 @@ class Stack {  // Почему нужно с маленькой?
  public:
   Stack();
   Stack(const Stack& s);
-
   Stack(Stack&& s) noexcept;
   ~Stack();
 
