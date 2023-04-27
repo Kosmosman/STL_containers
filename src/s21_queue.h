@@ -13,9 +13,10 @@ class Queue {
   Queue();
   Queue(std::initializer_list<value_type> const& items);
   Queue(const Queue& q);
-  Queue(Queue &&q);
-
+  Queue(Queue&& q) noexcept;
+  Queue<T>& operator=(Queue&& s) noexcept;
   ~Queue();
+
   void push(const_reference value);
   const_reference front() const;
   const_reference back() const;

@@ -23,16 +23,26 @@ Queue<T>::Queue(const Queue &q) : first_(nullptr), last_(nullptr), size_(0) {
     push(tmp->value);
     tmp = tmp->next;
   }
-
 }
 
 template <typename T>
-Queue<T>::Queue(Queue &&q) : first_(q.first_), last_(q.last_), size_(q.size_) {
+Queue<T>::Queue(Queue &&q) noexcept
+    : first_(q.first_), last_(q.last_), size_(q.size_) {
   q.first_ = nullptr;
   q.last_ = nullptr;
   q.size_ = 0;
 }
 
+template <typename T>
+Queue<T>& Queue<T>::operator=(Queue&& s) noexcept {
+  if (*this == s)
+    return *this;
+  
+  ~Queue();
+  first_ = q.first_;
+  last_ = q.last_;
+  size_ = q.size;
+}
 
 template <typename T>
 Queue<T>::~Queue() {
@@ -44,7 +54,6 @@ Queue<T>::~Queue() {
     tmp = nullptr;
   }
 }
-
 
 template <typename T>
 void Queue<T>::push(const_reference value) {
@@ -73,21 +82,24 @@ typename Queue<T>::const_reference Queue<T>::back() const {
 }
 
 template <typename T>
-bool Queue<T>::empty() { return size_ == 0; }
+bool Queue<T>::empty() {
+  return size_ == 0;
+}
 
 template <typename T>
-typename Queue<T>::size_type Queue<T>::size() { return size_; }
+typename Queue<T>::size_type Queue<T>::size() {
+  return size_;
+}
 
 template <typename T>
 void Queue<T>::pop() {
   if (first_) {
-    Node* tmp = first_;
+    Node *tmp = first_;
     first_ = first_->next;
     delete tmp;
     tmp = nullptr;
     size_ -= 1;
   }
-
 }
 
 };  // namespace s21
