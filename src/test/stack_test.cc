@@ -57,3 +57,20 @@ TEST(StackTest, AssignmentOperatorMoving) {
     stack_2.pop();
     EXPECT_DOUBLE_EQ(stack_2.top(), 1231.4);
 }
+
+// нужно разобраться с этим
+// TEST(StackTest, TopElement) {
+//     s21::Stack<int> stack = {324, 232, 45};
+//     EXPECT_EQ(stack.top(), 45);
+//     stack.top() = 12;
+//     EXPECT_EQ(stack.top(), 12);
+// }
+
+TEST(StackTest, Empty) {
+    s21::Stack<int> stack;
+    EXPECT_EQ(stack.empty(), true);
+    stack.push(123);
+    EXPECT_EQ(stack.empty(), false);
+    stack.pop();
+    EXPECT_EQ(stack.empty(), true);
+}
