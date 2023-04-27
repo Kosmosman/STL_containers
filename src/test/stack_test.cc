@@ -108,3 +108,30 @@ TEST(StackTest, Pop) {
     stack.pop();
     EXPECT_EQ(stack.size(), 0);
 }
+
+TEST(StackTest, Swap) {
+    s21::Stack<int> stack_1 = {1123, 23, 431, 31};
+    s21::Stack<int> stack_2 = {43, 12, 4};
+    stack_1.swap(stack_2);
+    EXPECT_EQ(stack_1.top(), 4);
+    EXPECT_EQ(stack_1.size(), 3);
+    stack_1.pop();
+    EXPECT_EQ(stack_1.top(), 12);
+    EXPECT_EQ(stack_1.size(), 2);
+    stack_1.pop();
+    EXPECT_EQ(stack_1.top(), 43);
+    EXPECT_EQ(stack_1.size(), 1);
+
+    EXPECT_EQ(stack_2.top(), 31);
+    EXPECT_EQ(stack_2.size(), 4);
+    stack_2.pop();
+    EXPECT_EQ(stack_2.top(), 431);
+    EXPECT_EQ(stack_2.size(), 3);
+    stack_2.pop();
+    EXPECT_EQ(stack_2.top(), 23);
+    EXPECT_EQ(stack_2.size(), 2);
+    stack_2.pop();
+    EXPECT_EQ(stack_2.top(), 1123);
+    EXPECT_EQ(stack_2.size(), 1);
+
+}
