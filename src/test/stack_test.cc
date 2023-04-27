@@ -89,3 +89,22 @@ TEST(StackTest, Size) {
     stack.pop();
     EXPECT_EQ(stack.size(), 0);
 }
+
+TEST(StackTest, Push) {
+    s21::Stack<int> stack = {1, 2, 431};
+    stack.push(123);
+    EXPECT_EQ(stack.top(), 123);
+    EXPECT_EQ(stack.size(), 4);
+}
+
+TEST(StackTest, Pop) {
+    s21::Stack<int> stack = {1123, 23, 431};
+    stack.pop();
+    EXPECT_EQ(stack.top(), 23);
+    EXPECT_EQ(stack.size(), 2);
+    stack.pop();
+    EXPECT_EQ(stack.top(), 1123);
+    EXPECT_EQ(stack.size(), 1);
+    stack.pop();
+    EXPECT_EQ(stack.size(), 0);
+}
