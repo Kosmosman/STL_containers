@@ -14,7 +14,7 @@ namespace s21 {
         while(other_p) {
             *this_p = new Node();
             (*this_p)->value = other_p->value;
-            *this_p = &((*this_p)->next);
+            this_p = &((*this_p)->next);
             other_p = other_p->next;
             size_ += 1;
         }
@@ -97,14 +97,3 @@ namespace s21 {
         return *this;
     }
 };
-
-
-        // Node** this_p = &head_;
-        // Node* other_p = s.head_;
-        // while (other_p) {
-        //     *this_p = new Node();
-        //     (*this_p)->value = other_p->value;
-        //     this_p = &((*this_p)->next);
-        //     other_p = other_p->next;
-        //     size_ += 1;
-        // }
