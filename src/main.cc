@@ -4,15 +4,15 @@
 
 int main() {
     // s21::Stack<int>* st = new s21::Stack<int>();
-    s21::Stack<int> Stack;
+    s21::Stack<int> stack;
 
-    Stack.push(4);
-    Stack.push(5);
-    Stack.push(324);
+    stack.push(4);
+    stack.push(5);
+    stack.push(324);
     // Stack.top() = 4;
     // std::cout << Stack.top();
 
-    s21::Stack<int> Stack_2(Stack);
+    s21::Stack<int> Stack_2(stack);
     std::cout << Stack_2.size();
 
     // Stack_2.push(4);

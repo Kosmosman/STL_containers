@@ -7,18 +7,23 @@ namespace s21 {
     Stack<T>::Stack() : head_(nullptr), size_(0) { }
 
     template<typename T>
-    // почему тут тачки, а не стрелочки. Это разве нее ссылки?
     Stack<T>::Stack(const Stack &s) : head_(nullptr), size_(0) {
-        Node* tmp = s.head_;
-        while(tmp) {
-            push(tmp->value);
-            tmp = tmp->next;
+        Node** this_p = &head_;
+        Node* other_p = s.head_;
+        while (other_p) {
+            *this_p = new Node();
+           (*this_p)->value = other_p->value;
+            this_p = &((*this_p)->next);
+            other_p = other_p->next;
+            size_ += 1;
         }
+
     } 
 
 
     // или лучше swap?
     template<typename T>
+    // почему тут точки, а не стрелочки. Это разве нее ссылки?
     Stack<T>::Stack(Stack &&s) noexcept : head_(s.head_), size_(s.size_) {
         s.head_ = nullptr;
         s.size_ = 0;
