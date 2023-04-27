@@ -17,6 +17,15 @@ Queue<T>::Queue(std::initializer_list<value_type> const &items)
 }
 
 template <typename T>
+Queue<T>::Queue(const Queue &q) : first_(nullptr), last_(nullptr), size_(0) {
+  Node *tmp = q.first_;
+  while (tmp) {
+    push(tmp->value);
+    tmp = tmp->next;
+  }
+}
+
+template <typename T>
 Queue<T>::~Queue() {
   Node *tmp = nullptr;
   while (first_ != nullptr) {

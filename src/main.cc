@@ -8,9 +8,9 @@
 
 int main() {
   s21::Queue<int> q = {1, 2, 3};
-  //   q.push(4);
-  std::cout << q.front() << std::endl;
-  std::cout << q.back() << std::endl;
+  s21::Queue<int> q_2(q);
+  std::cout << q_2.front() << std::endl;
+  std::cout << q_2.back() << std::endl;
 
   //   q.push(5);
   //   std::cout << q.front() << std::endl;
