@@ -23,6 +23,7 @@ class Queue {
   bool empty();
   size_type size();
   void pop();
+  void swap(Queue& other);
 
  private:
   struct Node {

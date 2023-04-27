@@ -82,6 +82,7 @@
         "any": "cpp",
         "map": "cpp",
         "set": "cpp",
-        "variant": "cpp"
+        "variant": "cpp",
+        "__functional_03": "cpp"
     }
 }

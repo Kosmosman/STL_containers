@@ -102,4 +102,11 @@ void Queue<T>::pop() {
   }
 }
 
+template <typename T>
+void Queue<T>::swap(Queue& other) {
+  std::swap(first_, q.first_);
+  std::swap(last_, q.last_);
+  std::swap(size_, q.size_);
+}
+
 };  // namespace s21
