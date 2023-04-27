@@ -11,7 +11,7 @@ AvlTree<K, V>::AvlTree(std::initializer_list<K> init) : AvlTree() {
 };
 
 template <typename K, typename V>
-AvlTree<K, V>::AvlTree(const AvlTree& other)
+AvlTree<K, V>::AvlTree(const AvlTree<K, V>& other)
     : size_(other.size_), head_(nullptr) {
   if (other.head_) {
     head_ = new Node<K, V>();
@@ -20,7 +20,7 @@ AvlTree<K, V>::AvlTree(const AvlTree& other)
 };
 
 template <typename K, typename V>
-AvlTree<K, V>::AvlTree(AvlTree&& other) noexcept
+AvlTree<K, V>::AvlTree(AvlTree<K, V>&& other) noexcept
     : size_(other.size_), head_(other.head_) {
   other.head_ = nullptr;
   other.size_ = 0;
@@ -265,19 +265,20 @@ void AvlTree<K, V>::CopyNode(Node<K, V>* node, const Node<K, V>* other_node) {
 /* ------------------------- ITERATORS ----------------------------- */
 
 template <typename K, typename V>
-AvlTree<K, V>::TreeIterator& AvlTree<K, V>::TreeIterator::Begin() {
+TreeIterator<K, V> AvlTree<K, V>::Begin() {
   if (head_) {
-    iterator_node_ = head_;
-    while (iterator_node_->left) iterator_node_ = iterator_node_->left;
+    it->iterator_node_ = head_;
+    while (iterator_node_->left) it->iterator_node_ = it->iterator_node_->left;
   }
-  return *this;
+  return it;
 };
 
 template <typename K, typename V>
-AvlTree<K, V>::TreeIterator& AvlTree<K, V>::TreeIterator::End() {
+TreeIterator<K, V> AvlTree<K, V>::End() {
   if (head_) {
-    iterator_node_ = head_;
+    it->iterator_node_ = head_;
   }
+  return it;
 };
 
 };  // namespace s21

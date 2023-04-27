@@ -8,7 +8,7 @@
 namespace s21 {
 
 template <typename K, typename V>
-class map {
+class Map {
  public:
   using key_type = K;
   using mapped_type = V;
@@ -19,8 +19,8 @@ class map {
   using const_iterator = MapConstIterator<K, V>;
   using size_type = size_t;
 
-  map(/* args */);
-  ~map();
+  Map(/* args */);
+  ~Map();
 
  private:
   /* data */

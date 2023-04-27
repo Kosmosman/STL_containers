@@ -5,7 +5,7 @@
 
 namespace s21 {
 template <typename K>
-class set {
+class Set {
  public:
   using key_type = K;
   using value_type = K;
@@ -15,13 +15,13 @@ class set {
   using const_iterator = SetConstIterator<K>;
   using size_type = size_t;
 
-  set() : tree(){};
-  set(std::initializer_list<value_type> const &items) : tree{items} {};
-  set(const set &s);
-  set(set &&s);
-  ~set();
+  Set() : tree(){};
+  Set(std::initializer_list<value_type> const &items) : tree{items} {};
+  Set(const Set &s);
+  Set(Set &&s);
+  ~Set();
 
-  operator=(set &&s);
+  operator=(Set &&s);
 
   bool Empty();
   size_type Size();
@@ -30,8 +30,8 @@ class set {
   void Clear();
   std::pair<iterator, bool> Insert(const value_type &value);
   void Erase(iterator pos);
-  void Swap(set &other);
-  void Merge(set &other);
+  void Swap(Set &other);
+  void Merge(Set &other);
 
   iterator Find(const Key &key);
   bool Contains(const Key &key);

@@ -4,8 +4,8 @@
 #include <algorithm>
 #include <initializer_list>
 #include <iostream>
+#include <list>
 #include <queue>
-
 namespace s21 {
 
 template <typename K, typename V>
@@ -13,6 +13,7 @@ struct Node {
   Node() : key(0), value(0), height(0){};
   Node(K o_key, V o_value, int o_height)
       : key(o_key), value(o_value), height(o_height){};
+  std::pair<K, V> key_value;
   K key;
   V value;
   int height;
@@ -20,25 +21,23 @@ struct Node {
 };
 
 template <typename K, typename V>
+class TreeIterator {
+ public:
+  TreeIterator() : iterator_node_(nullptr){};
+  TreeIterator& operator++(){};
+  std::pair<K, V>& operator->(){};
+  K operator*() { return iterator_node_->key; }
+
+ private:
+  Node<K, V>* iterator_node_;
+};
+
+template <typename K, typename V>
+class ConstTreeIterator {};
+
+template <typename K, typename V>
 class AvlTree {
  public:
-  class TreeIterator {
-   public:
-    using iterator = AvlTree<K, V>::TreeIterator;
-    TreeIterator() : iterator_node_(nullptr){};
-    operator++(){};
-    operator->(){};
-    iterator& Begin();
-    iterator& End();
-
-   private:
-    Node<K, V>* iterator_node_;
-  };
-
-  class ConstTreeIterator {
-    using const_iterator = AvlTree<K, V>::ConstTreeIterator;
-  };
-
   AvlTree() noexcept;
   explicit AvlTree(std::initializer_list<K> init);
   explicit AvlTree(const AvlTree& other);
@@ -50,11 +49,16 @@ class AvlTree {
   Node<K, V>* Find(const K& key);
   size_t GetSize() const { return size_; };
 
+  TreeIterator<K, V> Begin();
+  TreeIterator<K, V> End();
+
   void PrintTree();
 
  private:
   size_t size_;
   Node<K, V>* head_;
+  TreeIterator<K, V>* it;
+  ConstTreeIterator<K, V>* const_it;
 
   void Clear(Node<K, V>* node);
   void InnerInsert(Node<K, V>* node, const K& key, const V& value);
