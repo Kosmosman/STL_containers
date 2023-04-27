@@ -3,9 +3,16 @@
 #include "s21_Stack.h"
 
 namespace s21 {
+/*
+ * @brief Default constructor, creates empty stack
+ */
 template <typename T>
 Stack<T>::Stack() : head_(nullptr), size_(0) {}
 
+/*
+ * @brief Initializer list constructor, creates stack initizialized using
+ * std::initializer_list
+ */
 template <typename T>
 Stack<T>::Stack(std::initializer_list<value_type> const &items)
     : head_(nullptr), size_(0) {
@@ -14,6 +21,9 @@ Stack<T>::Stack(std::initializer_list<value_type> const &items)
   }
 }
 
+/*
+ * @brief Copy constructor
+ */
 template <typename T>
 Stack<T>::Stack(const Stack &s) : head_(nullptr), size_(0) {
   Node **this_p = &head_;
@@ -28,12 +38,18 @@ Stack<T>::Stack(const Stack &s) : head_(nullptr), size_(0) {
   }
 }
 
+/*
+ * @brief Move constructor
+ */
 template <typename T>
 Stack<T>::Stack(Stack &&s) noexcept : head_(s.head_), size_(s.size_) {
   s.head_ = nullptr;
   s.size_ = 0;
 }
 
+/*
+ * @brief Destructor
+ */
 template <typename T>
 Stack<T>::~Stack() {
   Node *tmp = nullptr;
@@ -45,6 +61,9 @@ Stack<T>::~Stack() {
   }
 }
 
+/*
+ * @brief Assignment operator overload for moving object
+ */
 template <typename T>
 Stack<T> &Stack<T>::operator=(Stack &&s) noexcept {
   if (*this == s) return *this;
@@ -59,26 +78,41 @@ Stack<T> &Stack<T>::operator=(Stack &&s) noexcept {
   return *this;
 }
 
+/*
+ * @brief Get value of the top value
+ */
 template <typename T>
 typename Stack<T>::const_reference Stack<T>::top() const {
   return head_->value;
 }
 
+/*
+ * @brief Get access to the top value
+ */
 template <typename T>
 typename Stack<T>::reference Stack<T>::top() {
   return head_->value;
 }
 
+/*
+ * @brief Checks whether the container is empty
+ */
 template <typename T>
 bool Stack<T>::empty() {
   return size_ == 0;
 }
 
+/*
+ * @brief Returns the number of elements
+ */
 template <typename T>
 typename Stack<T>::size_type Stack<T>::size() {
   return size_;
 }
 
+/*
+ * @brief Inserts element at the top
+ */
 template <typename T>
 void Stack<T>::push(const_reference value) {
   Node *node = new Node();
@@ -88,6 +122,9 @@ void Stack<T>::push(const_reference value) {
   size_ += 1;
 }
 
+/*
+ * @brief Removes the top element
+ */
 template <typename T>
 void Stack<T>::pop() {
   if (head_) {
@@ -99,6 +136,9 @@ void Stack<T>::pop() {
   }
 }
 
+/*
+ * @brief Swaps the contents
+ */
 template <typename T>
 void Stack<T>::swap(Stack &other) {
   std::swap(head_, other.head_);
