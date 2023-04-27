@@ -21,7 +21,7 @@ test:
 
 format:
 	@cp ../materials/linters/.clang-format ./
-	clang-format -i *.tpp *.cc test/*.cc *.h 
+	clang-format -i *.tpp *.cc *.h test/*.cc test/*.h 
 	@rm -rf .clang-format
 
 clean:
@@ -30,5 +30,5 @@ clean:
 
 check:
 	@cp ../materials/linters/.clang-format ./
-	clang-format -n *.cpp test/*.cpp *.h 
+	clang-format -n *.cpp test/*.cpp test/*.h *.h 
 	@rm -rf .clang-format

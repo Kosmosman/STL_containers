@@ -5,4 +5,4 @@
 
 #include "../s21_stack.h"
 
-#endif // SRC_TEST_TEST_H
+#endif  // SRC_TEST_TEST_H
