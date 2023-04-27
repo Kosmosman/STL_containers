@@ -59,12 +59,12 @@ TEST(StackTest, AssignmentOperatorMoving) {
 }
 
 // нужно разобраться с этим
-// TEST(StackTest, TopElement) {
-//     s21::Stack<int> stack = {324, 232, 45};
-//     EXPECT_EQ(stack.top(), 45);
-//     stack.top() = 12;
-//     EXPECT_EQ(stack.top(), 12);
-// }
+TEST(StackTest, TopElement) {
+    s21::Stack<int> stack = {324, 232, 45};
+    EXPECT_EQ(stack.top(), 45);
+    stack.top() = 12;
+    EXPECT_EQ(stack.top(), 12);
+}
 
 TEST(StackTest, Empty) {
     s21::Stack<int> stack;

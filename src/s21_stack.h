@@ -23,7 +23,9 @@ class Stack {  // Почему нужно с маленькой?
   void pop();
   bool empty();
   size_type size();
-  const_reference top();
+
+  const_reference top() const;
+  reference top();
 
   void swap(Stack& other);
   // почему по заданию без Stack<T>& ?
