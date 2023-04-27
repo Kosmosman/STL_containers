@@ -19,6 +19,8 @@ class Queue {
   void push(const_reference value);
   const_reference front() const;
   const_reference back() const;
+  bool empty();
+  size_type size();
 
  private:
   struct Node {

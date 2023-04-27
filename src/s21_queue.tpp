@@ -23,14 +23,11 @@ Queue<T>::Queue(const Queue &q) : first_(nullptr), last_(nullptr), size_(0) {
   //   push(tmp->value);
   //   tmp = tmp->next;
   // }
+
 }
 
 template <typename T>
-Queue<T>::Queue(Queue &&q) : first_(nullptr), last_(nullptr), size_(0) {
-  first_ = q.first_;
-  last_ = q.last_;
-  size_ = q.size_;
-
+Queue<T>::Queue(Queue &&q) : first_(q.first_), last_(q.last_), size_(q.size_) {
   q.first_ = nullptr;
   q.last_ = nullptr;
   q.size_ = 0;
@@ -74,5 +71,11 @@ template <typename T>
 typename Queue<T>::const_reference Queue<T>::back() const {
   return last_->value;
 }
+
+template <typename T>
+bool Queue<T>::empty() { return size_ == 0; }
+
+template <typename T>
+typename Queue<T>::size_type Queue<T>::size() { return size_; }
 
 };  // namespace s21
