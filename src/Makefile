@@ -19,6 +19,11 @@ test: $(STLIB)
 	@$(CC) $(FLAGS) -lgtest -std=c++17 $(STLIB) test/*.cpp -o unit_test
 	@./unit_test
 
+format:
+	@cp ../materials/linters/.clang-format ./
+	clang-format -i *.tpp *.cc test/*.cc *.h 
+	@rm -rf .clang-format
+
 clean:
 	rm -rf *.o *.a
 	rm -rf unit_test main
