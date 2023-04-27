@@ -13,6 +13,7 @@ class Queue {
   Queue();
   Queue(std::initializer_list<value_type> const& items);
   Queue(const Queue& q);
+  Queue(Queue &&q);
 
   ~Queue();
   void push(const_reference value);
