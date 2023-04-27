@@ -21,6 +21,7 @@ class Queue {
   const_reference back() const;
   bool empty();
   size_type size();
+  void pop();
 
  private:
   struct Node {

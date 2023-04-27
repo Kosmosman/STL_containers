@@ -18,11 +18,11 @@ Queue<T>::Queue(std::initializer_list<value_type> const &items)
 
 template <typename T>
 Queue<T>::Queue(const Queue &q) : first_(nullptr), last_(nullptr), size_(0) {
-  // Node *tmp = q.first_;
-  // while (tmp) {
-  //   push(tmp->value);
-  //   tmp = tmp->next;
-  // }
+  Node *tmp = q.first_;
+  while (tmp) {
+    push(tmp->value);
+    tmp = tmp->next;
+  }
 
 }
 
@@ -77,5 +77,17 @@ bool Queue<T>::empty() { return size_ == 0; }
 
 template <typename T>
 typename Queue<T>::size_type Queue<T>::size() { return size_; }
+
+template <typename T>
+void Queue<T>::pop() {
+  if (first_) {
+    Node* tmp = first_;
+    first_ = first_->next;
+    delete tmp;
+    tmp = nullptr;
+    size_ -= 1;
+  }
+
+}
 
 };  // namespace s21
