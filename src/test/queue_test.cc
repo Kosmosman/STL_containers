@@ -69,9 +69,13 @@ TEST(QueueTest, Back) {
   EXPECT_DOUBLE_EQ(queue.back(), 32.1);
 }
 
-// TEST(QueueTest, Empty) {
+TEST(QueueTest, Empty) {
+  s21::Queue<double> queue_1;
+  EXPECT_EQ(queue_1.empty(), true);
 
-// }
+  s21::Queue<double> queue_2 = {5.1, 3324.1};
+  EXPECT_EQ(queue_2.empty(), false);
+}
 
 // TEST(QueueTest, Size) {
 
