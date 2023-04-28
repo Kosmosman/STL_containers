@@ -55,6 +55,20 @@ TEST(QueueTest, Front) {
   EXPECT_DOUBLE_EQ(queue.front(), 32.1);
 }
 
+TEST(QueueTest, BackConst) {
+  s21::Queue<double> queue = {5.1, 324.1};
+  EXPECT_DOUBLE_EQ(queue.back(), 324.1);
+  queue.push(3243.12);
+  EXPECT_DOUBLE_EQ(queue.back(), 3243.12);
+}
+
+TEST(QueueTest, Back) {
+  s21::Queue<double> queue = {5.1, 3324.1};
+  EXPECT_DOUBLE_EQ(queue.back(), 3324.1);
+  queue.back() = 32.1;
+  EXPECT_DOUBLE_EQ(queue.back(), 32.1);
+}
+
 // TEST(QueueTest, Empty) {
 
 // }
