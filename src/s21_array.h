@@ -1,7 +1,7 @@
 #ifndef SRC_S21_ARRAY_H_
 #define SRC_S21_ARRAY_H_
 namespace s21 {
-template <typename T>
+template <typename T, size_t N>
 class Array {
  public:
   using value_type = T;
