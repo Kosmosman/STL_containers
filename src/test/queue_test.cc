@@ -77,9 +77,17 @@ TEST(QueueTest, Empty) {
   EXPECT_EQ(queue_2.empty(), false);
 }
 
-// TEST(QueueTest, Size) {
-
-// }
+TEST(QueueTest, Size) {
+  s21::Queue<int> queue;
+  EXPECT_EQ(queue.size(), 0);
+  queue.push(13);
+  queue.push(234);
+  EXPECT_EQ(queue.size(), 2);
+  queue.pop();
+  EXPECT_EQ(queue.size(), 1);
+  queue.pop();
+  EXPECT_EQ(queue.size(), 0);
+}
 
 // TEST(QueueTest, Push) {
 
