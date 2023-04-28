@@ -40,9 +40,20 @@ TEST(QueueTest, AssignmentOperatorMoving) {
   EXPECT_EQ(queue_1.size(), 0);
 }
 
-// TEST(QueueTest, TopElement) {
+TEST(QueueTest, FrontConst) {
+  s21::Queue<double> queue = {5.1};
+  EXPECT_DOUBLE_EQ(queue.front(), 5.1);
+  queue.pop();
+  queue.push(3243.12);
+  EXPECT_DOUBLE_EQ(queue.front(), 3243.12);
+}
 
-// }
+TEST(QueueTest, Front) {
+  s21::Queue<double> queue = {5.1};
+  EXPECT_DOUBLE_EQ(queue.front(), 5.1);
+  queue.front() = 32.1;
+  EXPECT_DOUBLE_EQ(queue.front(), 32.1);
+}
 
 // TEST(QueueTest, Empty) {
 
