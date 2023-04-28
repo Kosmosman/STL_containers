@@ -17,13 +17,13 @@ class Queue {
   Queue<T>& operator=(Queue&& q) noexcept;
   ~Queue();
 
-  void push(const_reference value);
   reference front();
   const_reference front() const;
   reference back();
   const_reference back() const;
   bool empty();
   size_type size();
+  void push(const_reference value);
   void pop();
   void swap(Queue& other);
 

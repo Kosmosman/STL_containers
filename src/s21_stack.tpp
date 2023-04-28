@@ -48,20 +48,6 @@ Stack<T>::Stack(Stack &&s) noexcept : head_(s.head_), size_(s.size_) {
 }
 
 /*
- * @brief Destructor
- */
-template <typename T>
-Stack<T>::~Stack() {
-  Node *tmp = nullptr;
-  while (head_ != nullptr) {
-    tmp = head_;
-    head_ = head_->next;
-    delete tmp;
-    tmp = nullptr;
-  }
-}
-
-/*
  * @brief Assignment operator overload for moving object
  */
 template <typename T>
@@ -76,6 +62,20 @@ Stack<T> &Stack<T>::operator=(Stack &&s) noexcept {
   s.size_ = 0;
 
   return *this;
+}
+
+/*
+ * @brief Destructor
+ */
+template <typename T>
+Stack<T>::~Stack() {
+  Node *tmp = nullptr;
+  while (head_ != nullptr) {
+    tmp = head_;
+    head_ = head_->next;
+    delete tmp;
+    tmp = nullptr;
+  }
 }
 
 /*

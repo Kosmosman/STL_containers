@@ -3,7 +3,7 @@
 
 #include <gtest/gtest.h>
 
-#include "../s21_stack.h"
 #include "../s21_queue.h"
+#include "../s21_stack.h"
 
 #endif  // SRC_TEST_TEST_H
