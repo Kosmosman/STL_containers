@@ -1,12 +1,15 @@
 #include "test.h"
 
 TEST(QueueTest, DefaultConstructor) {
-  s21::Queue<int> aaaa;
-  EXPECT_EQ(aaaa.size(), 0);
+  s21::Queue<int> queue;
+  EXPECT_EQ(queue.size(), 0);
 }
 
 TEST(QueueTest, InitializerListConstructor) {
-
+  s21::Queue<char> queue = {'a', 'b', 'c', 'd'};
+  EXPECT_EQ(queue.front(), 'a');
+  EXPECT_EQ(queue.back(), 'd');
+  EXPECT_EQ(queue.size(), 4);
 }
 
 TEST(QueueTest, CopyConstructor) {
