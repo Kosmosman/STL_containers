@@ -35,7 +35,7 @@ Queue<T>::Queue(Queue &&q) noexcept
 
 template <typename T>
 Queue<T> &Queue<T>::operator=(Queue &&q) noexcept {
-  if (*this == s) return *this;
+  if (*this == q) return *this;
 
   ~Queue();
   first_ = q.first_;
