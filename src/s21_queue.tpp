@@ -1,9 +1,10 @@
+// это можно убрать
 #include "s21_queue.h"
 
 namespace s21 {
 
 template <typename T>
-Queue<T>::Queue() : first_(nullptr), last_(nullptr) {}
+Queue<T>::Queue() : first_(nullptr), last_(nullptr), size_(0) {}
 
 template <typename T>
 Queue<T>::Queue(std::initializer_list<value_type> const &items)
