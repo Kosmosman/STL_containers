@@ -15,7 +15,11 @@ int main() {
   // std::cout << q_2.back() << std::endl;
   std::queue<int> original;
   original.push(40);
-  std::cout << original.size();
+  original.push(50);
+  std::cout << original.size() << std::endl;
+  original.front() = 123213;
+  std::cout << original.front() << std::endl;
+  std::cout << original.back() << std::endl;
 
   return 0;
 }

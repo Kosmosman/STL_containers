@@ -76,7 +76,18 @@ typename Queue<T>::const_reference Queue<T>::front() const {
 }
 
 template <typename T>
+typename Queue<T>::reference Queue<T>::front() {
+  return first_->value;
+}
+
+
+template <typename T>
 typename Queue<T>::const_reference Queue<T>::back() const {
+  return last_->value;
+}
+
+template <typename T>
+typename Queue<T>::reference Queue<T>::back() {
   return last_->value;
 }
 

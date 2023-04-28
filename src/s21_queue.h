@@ -18,7 +18,9 @@ class Queue {
   ~Queue();
 
   void push(const_reference value);
+  reference front();
   const_reference front() const;
+  reference back();
   const_reference back() const;
   bool empty();
   size_type size();
