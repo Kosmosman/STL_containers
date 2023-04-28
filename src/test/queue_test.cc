@@ -99,9 +99,16 @@ TEST(QueueTest, Push) {
   EXPECT_EQ(queue.back(), 42);
 }
 
-// TEST(QueueTest, Pop) {
-
-// }
+TEST(QueueTest, Pop) {
+  s21::Queue<int> queue = {1, 2, 3, 4, 5};
+  EXPECT_EQ(queue.front(), 1);
+  EXPECT_EQ(queue.back(), 5);
+  EXPECT_EQ(queue.size(), 5);
+  queue.pop();
+  EXPECT_EQ(queue.front(), 2);
+  EXPECT_EQ(queue.back(), 5);
+  EXPECT_EQ(queue.size(), 4);
+}
 
 // TEST(QueueTest, Swap) {
 
