@@ -19,6 +19,9 @@ class Array {
   iterator end();
   iterator data();
   reference at(size_type pos);
+  bool empty();
+  size_type size();
+  size_type max_size();
  private:
   value_type arr_[N];
   iterator begin_;

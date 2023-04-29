@@ -46,4 +46,14 @@ namespace s21 {
 
       return arr_[pos];
   }
+
+  template <typename T, size_t N>
+  bool Array<T, N>::empty() { return size_ == 0; }
+
+  template <typename T, size_t N>
+  typename Array<T, N>::size_type Array<T, N>::size() { return size_; }
+
+  template <typename T, size_t N>
+  typename Array<T, N>::size_type Array<T, N>::max_size() { return size_; }
+
 };
