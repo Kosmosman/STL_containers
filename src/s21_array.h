@@ -11,8 +11,15 @@ class Array {
   using const_iterator = const T*;
   using size_type = size_t;
 
+  Array();
+  Array(std::initializer_list<value_type> const &items);
+
+  reference operator[](size_type pos);
  private:
-  value_type arr[N];
+  value_type arr_[N];
+  iterator begin_;
+  iterator end_;
+  size_type size_;
 };
 };  // namespace s21
 
