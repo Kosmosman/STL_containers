@@ -11,23 +11,20 @@ namespace s21 {
         throw std::out_of_range("too many initializers for Array");
       }
 
-      int i = 0;
+      size_t i = 0; // кажется можно заменить на items.size()
       for (auto it = items.begin(); it != items.end(); it++) {
           arr_[i] = *it;
           i++;
       }
-      // заполнение нулями оставшейся части
-      for (int j = N - 1; j <= i; j++) {
+      // if items.size() < N, fill zero from items.size() ... N
+      for (size_t j = i; j < N; j++) {
         arr_[j] = 0;
       }
   }
 
+
   template <typename T, size_t N>
   typename Array<T, N>::reference Array<T, N>::operator[](size_type pos) { return arr_[pos]; }
-
-  // template <typename T, size_t N>
-  // typename Array<T, N>::reference Array<T, N>::back() {return *end_; }
-
 
   template <typename T, size_t N>
   typename Array<T, N>::iterator Array<T, N>::begin() {return begin_; }
@@ -56,4 +53,13 @@ namespace s21 {
   template <typename T, size_t N>
   typename Array<T, N>::size_type Array<T, N>::max_size() { return size_; }
 
+  template <typename T, size_t N>
+  typename Array<T, N>::const_reference Array<T, N>::front() const {
+    return *begin_;
+  }
+
+  template <typename T, size_t N>
+  typename Array<T, N>::const_reference Array<T, N>::back() const {
+    return *(end_ - 1);
+  }
 };
