@@ -10,6 +10,14 @@ class Array {
   using iterator = T*;
   using const_iterator = const T*;
   using size_type = size_t;
+
+  Array();
+
+ private:
+  value_type arr_[N];
+  iterator begin_;
+  iterator end_;
+  size_type size_;
 };
 };  // namespace s21
 
