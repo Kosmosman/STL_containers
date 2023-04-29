@@ -15,9 +15,10 @@ class Array {
   Array(std::initializer_list<value_type> const &items);
 
   reference operator[](size_type pos);
-  // reference back();
   iterator begin();
   iterator end();
+  iterator data();
+  reference at(size_type pos);
  private:
   value_type arr_[N];
   iterator begin_;

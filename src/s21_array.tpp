@@ -34,4 +34,16 @@ namespace s21 {
 
   template <typename T, size_t N>
   typename Array<T, N>::iterator Array<T, N>::end() {return end_; }
+
+  template <typename T, size_t N>
+  typename Array<T, N>::iterator Array<T, N>::data() {return end_; }
+
+  template <typename T, size_t N>
+  typename Array<T, N>::reference Array<T, N>::at(size_type pos) {
+      if (pos >= size_) {
+        throw std::out_of_range("Index out of range");
+      }
+
+      return arr_[pos];
+  }
 };
