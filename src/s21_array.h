@@ -12,7 +12,9 @@ class Array {
   using size_type = size_t;
 
   Array();
+  Array(std::initializer_list<value_type> const &items);
 
+  reference operator[](size_type pos);
  private:
   value_type arr_[N];
   iterator begin_;

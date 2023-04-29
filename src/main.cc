@@ -10,13 +10,16 @@
 #include <array>
 
 int main() {
-  // std::array<int, 4> ar;
+  std::array<int, 4> ar = {1, 2, 3, 4};
+  std::cout << ar[3];
+  std::array<int, 4> ar = {1, 2, 3, 4};
+  std::cout << ar[3];
   // // std::cout << *(ar.end());
   // *ar.begin() = 1423;
   // std::cout << *(ar.begin()) << std::endl;
   // std::cout << *(ar.begin()) << std::endl;
-  int arr[5] = {1, 2, 3, 4, 5};
-  std::cout << *(arr + 5) << std::endl;
+  // int arr[5] = {1, 2, 3, 4, 5};
+  // std::cout << *(arr + 5) << std::endl;
 }
 
 // что такое вирутальные методы?
