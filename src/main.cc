@@ -10,10 +10,10 @@
 #include <array>
 
 int main() {
-  std::array<int, 4> ar = {1, 2, 3, 4};
-  std::cout << ar[3];
-  std::array<int, 4> ar = {1, 2, 3, 4};
-  std::cout << ar[3];
+  // std::array<int, 2> ar = {1, 2, 3, 4};
+  // std::cout << ar[3];
+  s21::Array<int, 4> ar = {1, 2, 3};
+  std::cout << *ar.begin()  << std::endl;
   // // std::cout << *(ar.end());
   // *ar.begin() = 1423;
   // std::cout << *(ar.begin()) << std::endl;
