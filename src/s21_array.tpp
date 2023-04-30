@@ -53,6 +53,19 @@ namespace s21 {
   }
 
   template <typename T, size_t N>
+  Array<T, N>& Array<T, N>::operator=(Array &&a) {
+    ~Array(); // нужен ли здесь дестурктор?
+    // сделать общую функцию копирования?
+    for (size_type i = 0; i < N; i++) {
+      arr_[i] = a.arr_[i];
+    }
+    begin_ = arr_;
+    end_ = arr_ + N;
+    size_ = a.size_;
+  }
+
+
+  template <typename T, size_t N>
   Array<T, N>::~Array() {
     for (size_t i = 0; i < N; i++) {
       arr_[i] = 0;
@@ -112,5 +125,19 @@ namespace s21 {
   template <typename T, size_t N>
   typename Array<T, N>::reference Array<T, N>::back() {
     return *(end_ - 1);
+  }
+
+  template <typename T, size_t N>
+  void Array<T, N>::swap(Array& other) {
+    value_type temp[N];
+    for (size_type i = 0; i < N; i++) {
+      temp[i] = arr_[i];
+    }
+
+    for (size_type i = 0; i < N; i++) {
+      arr_[i] = other.arr_[i];
+      other.arr_[i] = temp[i];
+    }
+
   }
 };

@@ -10,14 +10,15 @@
 #include <array>
 
 int main() {
-  // std::array<int, 5> ar = {1, 2, 3, 4};
-  // // std::cout << ar.back() << std::endl;
-  // std::array<int, 5> ar_2(std::move(ar));
-  // std::cout << ar_2.size() << std::endl;
+  // std::array<int, 6> ar = {1, 2, 3, 4, 5};
+  // std::array<int, 5> ar_2= {11, 12, 13, 14, 15};
+  // ar_2.swap(ar);
+  // std::cout << ar_2.back() << std::endl;
   // int a = 3;
   // int arr[14];
   s21::Array<int, 4> arr_1 = {1, 2, 3, 4};
-  s21::Array<int, 4> arr_2(std::move(arr_1));
+  s21::Array<int, 4> arr_2 = {11, 12, 13, 14};
+  arr_2.swap(arr_1);
   std::cout << arr_2.back() << std::endl;
   // ar.fr
   // std::cout << ar.front()  << std::endl;
