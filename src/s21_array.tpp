@@ -39,6 +39,19 @@ namespace s21 {
     size_ = a.size_;
   }
 
+
+  template <typename T, size_t N>
+  Array<T, N>::Array(Array &&a) {
+    // нужно ли здесь выкидывать ошибку??
+    for (size_type i = 0; i < N; i++) {
+      arr_[i] = a.arr_[i];
+    }
+    begin_ = arr_;
+    end_ = arr_ + N;
+    size_ = a.size_;
+
+  }
+
   template <typename T, size_t N>
   Array<T, N>::~Array() {
     for (size_t i = 0; i < N; i++) {
