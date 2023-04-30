@@ -22,6 +22,17 @@ namespace s21 {
       }
   }
 
+  template <typename T, size_t N>
+  Array<T, N>::~Array() {
+    for (size_t i = 0; i < N; i++) {
+      arr_[i] = 0;
+    }
+
+    begin_ = nullptr;
+    end_ = nullptr;
+    size_ = 0;
+  }
+
 
   template <typename T, size_t N>
   typename Array<T, N>::reference Array<T, N>::operator[](size_type pos) { return arr_[pos]; }

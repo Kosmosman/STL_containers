@@ -13,6 +13,7 @@ class Array {
 
   Array();
   Array(std::initializer_list<value_type> const &items);
+  ~Array();
 
   reference operator[](size_type pos);
   iterator begin();
