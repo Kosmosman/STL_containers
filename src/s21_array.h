@@ -20,7 +20,9 @@ class Array {
   iterator data();
   reference at(size_type pos);
   const_reference front() const;
+  reference front();
   const_reference back() const;
+  reference back();
   bool empty();
   size_type size();
   size_type max_size();

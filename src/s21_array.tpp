@@ -59,7 +59,17 @@ namespace s21 {
   }
 
   template <typename T, size_t N>
+  typename Array<T, N>::reference Array<T, N>::front() {
+    return *begin_;
+  }
+
+  template <typename T, size_t N>
   typename Array<T, N>::const_reference Array<T, N>::back() const {
+    return *(end_ - 1);
+  }
+
+  template <typename T, size_t N>
+  typename Array<T, N>::reference Array<T, N>::back() {
     return *(end_ - 1);
   }
 };
