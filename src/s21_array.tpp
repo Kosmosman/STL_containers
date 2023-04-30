@@ -21,6 +21,22 @@ namespace s21 {
         arr_[j] = 0;
       }
   }
+  template <typename T, size_t N>
+  Array<T, N>::Array(const Array<T, N> &a) {
+    if (a.size_ != N) {
+      throw std::out_of_range("Size should be equals");
+    }
+    // static_assert(std::is_same<T, decltype(a)>::value, "Type mismatch");
+    // if (std::is_same<T, decltype(a)>::value, "Type mismatch") {
+    //   throw std::out_of_range("Type Error");
+    // }
+    for (size_type i = 0; i < N; i++) {
+      arr_[i] = a.arr_[i];
+    }
+    begin_ = arr_;
+    end_ = arr_ + N;
+    size_ = a.size_;
+  }
 
   template <typename T, size_t N>
   Array<T, N>::~Array() {
