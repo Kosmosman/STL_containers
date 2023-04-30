@@ -140,4 +140,11 @@ namespace s21 {
     }
 
   }
+
+  template <typename T, size_t N>
+  void Array<T, N>::fill(const_reference value) {
+    for (size_type i = 0; i < size_; i++) {
+      arr_[i] = value;
+    }
+  }
 };

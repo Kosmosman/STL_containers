@@ -22,7 +22,7 @@ class Array {
   reference operator[](size_type pos);
   iterator begin();
   iterator end();
-  iterator data();
+  iterator data(); // или написать свой итератор?
   reference at(size_type pos);
   const_reference front() const;
   reference front();
@@ -32,6 +32,7 @@ class Array {
   size_type size();
   size_type max_size();
   void swap(Array& other);
+  void fill(const_reference value);
  private:
   value_type arr_[N];
   iterator begin_;

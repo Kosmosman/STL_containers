@@ -12,14 +12,14 @@
 int main() {
   // std::array<int, 6> ar = {1, 2, 3, 4, 5};
   // std::array<int, 5> ar_2= {11, 12, 13, 14, 15};
-  // ar_2.swap(ar);
+  // ar_2.fill(5);
   // std::cout << ar_2.back() << std::endl;
   // int a = 3;
   // int arr[14];
   s21::Array<int, 4> arr_1 = {1, 2, 3, 4};
-  s21::Array<int, 4> arr_2 = {11, 12, 13, 14};
-  arr_2.swap(arr_1);
-  std::cout << arr_2.back() << std::endl;
+  // s21::Array<int, 4> arr_2 = {11, 12, 13, 14};
+  arr_1.fill(12);
+  std::cout << arr_1.back() << std::endl;
   // ar.fr
   // std::cout << ar.front()  << std::endl;
 }
