@@ -22,7 +22,8 @@ namespace s21 {
       }
   }
   template <typename T, size_t N>
-  Array<T, N>::Array(const Array<T, N> &a) {
+  // Array<T, N>::Array(const Array<T, N> &a) {
+  Array<T, N>::Array(const Array &a) {
     if (a.size_ != N) {
       throw std::out_of_range("Size should be equals");
     }
