@@ -13,8 +13,8 @@ class Array {
 
   Array();
   Array(std::initializer_list<value_type> const &items);
-  // Array(const Array &a);
-  Array(const Array<T, N> &a);
+  Array(const Array &a);
+  // Array(const Array<T, N> &a);
   Array(Array &&a);
   Array<T, N>& operator=(Array &&a);
   ~Array();

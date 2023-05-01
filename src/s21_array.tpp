@@ -148,3 +148,6 @@ namespace s21 {
     }
   }
 };
+
+// static_assert(!is_const<_Tp>::value,
+          // "cannot swap zero-sized array of type 'const T'");
