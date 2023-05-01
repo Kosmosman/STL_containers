@@ -50,6 +50,10 @@ namespace s21 {
     end_ = arr_ + N;
     size_ = a.size_;
 
+    a.size_ = 0;
+    a.begin_ = nullptr;
+    a.end_ = nullptr;
+
   }
 
   template <typename T, size_t N>

@@ -10,10 +10,12 @@
 #include <array>
 
 int main() {
-  std::array<int, 6> ar = {'1', 2, 3, 4, 5, 6};
-  // std::array<int, 5> ar_2= {11, 12, 13, 14, 15};
+  // std::array<int, 6> ar = {'1', 2, 3, 4, 5, 6};
+  // std::array<int, 6> ar_2 = std::move(ar);
   // ar_2.fill(5);
-  std::cout << ar.front() << std::endl;
+  s21::Array<int, 6> ar = {'1', 2, 3, 4, 5, 6};
+  s21::Array<char, 6> ar_2 = std::move(ar);
+  std::cout << ar_2.front() << std::endl;
 
   // s21::Array<int, 4> arr_1 = {'f', 2, 3, 4};
   // arr_1.fill(12);
