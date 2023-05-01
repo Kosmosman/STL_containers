@@ -42,15 +42,31 @@ TEST(ArrayTest, MoveConstructor) {
     EXPECT_EQ(array_1.size(), 0);
 }
 
-// TEST(ArrayTest, AssignmentOperatorMoving) {
-//   s21::Queue<char> queue_1 = {'a', 'b', 'c', 'd'};
-//   s21::Queue<char> queue_2 = std::move(queue_1);
-//   EXPECT_EQ(queue_2.front(), 'a');
-//   EXPECT_EQ(queue_2.back(), 'd');
-//   EXPECT_EQ(queue_2.size(), 4);
+TEST(ArrayTest, AssignmentOperatorMoving) {
+    s21::Array<int, 4> array_1 = {1, 2, 3, 4};
+    s21::Array<int, 4> array_2 = std::move(array_1);
 
-//   EXPECT_EQ(queue_1.size(), 0);
-// }
+    EXPECT_EQ(array_2.size(), 4);
+    EXPECT_EQ(array_2[0], 1);
+    EXPECT_EQ(array_2[1], 2);
+    EXPECT_EQ(array_2[2], 3);
+    EXPECT_EQ(array_2[3], 4);
+
+    EXPECT_EQ(array_1.size(), 0);
+}
+
+TEST(ArrayTest, At) {
+    // s21::Array<int, 4> array_1 = {1, 2, 3, 4};
+    // s21::Array<int, 4> array_2 = std::move(array_1);
+
+    // EXPECT_EQ(array_2.size(), 4);
+    // EXPECT_EQ(array_2[0], 1);
+    // EXPECT_EQ(array_2[1], 2);
+    // EXPECT_EQ(array_2[2], 3);
+    // EXPECT_EQ(array_2[3], 4);
+
+    // EXPECT_EQ(array_1.size(), 0);
+}
 
 // TEST(ArrayTest, FrontConst) {
 //   s21::Queue<double> queue = {5.1};
