@@ -33,6 +33,14 @@ class list {
     //     cout << endl;
     // }
     // нужна функция init struct Node
+      void init() {
+        m_size = 0;
+        m_head = nullptr;
+        m_tail = nullptr;
+        m_end = new Node();
+        m_end->prev = nullptr;
+        m_end->next = nullptr;
+    }
 
 
     size_type size;
