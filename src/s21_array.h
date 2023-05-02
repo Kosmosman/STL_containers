@@ -23,7 +23,7 @@ class Array {
   iterator begin();
   iterator end();
   iterator data(); // или написать свой итератор?
-  reference at(size_type pos);
+  reference at(size_type pos); // может нужна перегрузка constexpr
   const_reference front() const;
   reference front();
   const_reference back() const;
