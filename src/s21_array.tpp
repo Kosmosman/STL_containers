@@ -71,7 +71,7 @@ namespace s21 {
 
   template <typename T, size_t N>
   Array<T, N>::~Array() {
-    for (size_t i = 0; i < N; i++) {
+    for (size_t i = 0; i < size_; i++) {
       arr_[i] = 0;
     }
 
@@ -91,7 +91,7 @@ namespace s21 {
   typename Array<T, N>::iterator Array<T, N>::end() {return end_; }
 
   template <typename T, size_t N>
-  typename Array<T, N>::iterator Array<T, N>::data() {return end_; }
+  typename Array<T, N>::iterator Array<T, N>::data() {return begin_; }
 
   template <typename T, size_t N>
   typename Array<T, N>::reference Array<T, N>::at(size_type pos) {
