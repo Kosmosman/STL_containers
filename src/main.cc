@@ -10,7 +10,18 @@
 #include <array>
 
 int main() {
-  // std::array<int, 6> ar = {'1', 2, 3, 4, 5, 6};
+  std::stack<int> stack;
+  stack.push(1);
+  stack.push(2);
+  stack.push(3);
+  stack.emplace({4, 5});
+  std::cout << stack.top() << std::endl;
+  // std::array<int, 6> ar = {1, 2, 3, 4, 5, 6};
+  // ar.at(0) = 33;
+  // std::cout << ar[0] << std::endl;
+  // for (auto i : ar) {
+  //   std::cout << i << std::endl;
+  // }
   // std::array<int, 6> ar_2 = std::move(ar);
   // ar_2.fill(5);
   // s21::Array<int, 6> ar = {'1', 2, 3, 4, 5, 6};
@@ -20,6 +31,7 @@ int main() {
   // s21::Array<int, 4> arr_1 = {'f', 2, 3, 4};
   // arr_1.fill(12);
   // std::cout << arr_1.back() << std::endl;
+  return 0;
 
 }
 

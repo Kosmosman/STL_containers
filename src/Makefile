@@ -7,7 +7,7 @@ STLIB = s21_stack.a
 all: clean build s21_stack.a test clean
 
 run:
-	$(CC) $(FLAGS) main.cc -o main && ./main
+	$(CC) $(FLAGS) -std=c++17 main.cc -o main && ./main
 
 build: s21_stack.tpp
 	@$(CC) -c $(FLAGS) -std=c++17 s21_stack.tpp -o s21_stack.o

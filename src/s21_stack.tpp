@@ -145,4 +145,8 @@ void Stack<T>::swap(Stack &other) {
   std::swap(size_, other.size_);
 }
 
+// template <typename T, class Args>
+// void Stack<T>::emplace_front(Args&&... args) {
+  
+// };
 };  // namespace s21

@@ -19,15 +19,15 @@ class Array {
   Array<T, N>& operator=(Array &&a);
   ~Array();
 
-  reference operator[](size_type pos);
-  iterator begin();
-  iterator end();
-  iterator data(); // или написать свой итератор?
   reference at(size_type pos); // может нужна перегрузка constexpr
+  reference operator[](size_type pos);
   const_reference front() const;
   reference front();
   const_reference back() const;
   reference back();
+  iterator data(); // или написать свой итератор?  
+  iterator begin();
+  iterator end();
   bool empty();
   size_type size();
   size_type max_size();
