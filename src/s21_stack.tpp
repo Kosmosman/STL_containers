@@ -145,7 +145,8 @@ void Stack<T>::swap(Stack &other) {
   std::swap(size_, other.size_);
 }
 
-/* @brief Appends new elements to the top of the stack
+/*
+* @brief Appends new elements to the top of the stack
 * @tparam T 
 * @param ...args 
 */

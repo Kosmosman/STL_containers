@@ -26,6 +26,9 @@ class Queue {
   void push(const_reference value);
   void pop();
   void swap(Queue& other);
+  
+  template <class... Args>
+  void emplace_back(Args&&... args);
 
  private:
   struct Node {

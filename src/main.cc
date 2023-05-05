@@ -4,7 +4,7 @@
 #include <ostream>
 #include <queue>
 
-// #include "s21_queue.h"
+#include "s21_queue.h"
 #include "s21_stack.h"
 #include "s21_array.h"
 #include <array>
@@ -21,15 +21,15 @@ class Example {
 
 
 int main() {
-  // std::stack<Example> stack_1;
-  // stack_1.push(Example(1, 2));
-  // stack_1.emplace('ad');
-  // std::cout << stack_1.top().getX() << std::endl;
+  // std::queue<Example> queue_1;
+  // queue_1.push(Example(1, 2));
+  // queue_1.emplace(4, 5);
+  // std::cout << queue_1.back().getX() << std::endl;
 
-  s21::Stack<Example> stack_2;
-  stack_2.push(Example(1, 2));
-  stack_2.emplace_front('da');
-  std::cout << stack_2.top().getX() << std::endl;
+  s21::Queue<Example> queue_2;
+  queue_2.push(Example(1, 2));
+  queue_2.emplace_back(4, 5);
+  std::cout << queue_2.back().getX() << std::endl;
 
   return 0;
 
