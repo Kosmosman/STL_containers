@@ -136,19 +136,20 @@ TEST(StackTest, Swap) {
 
 TEST(StackTest, EmplaceFront) {
   class Example {
-  public:
-    Example() : x_(0), y_ (0) {};
-    Example(int x, int y): x_(x), y_(y) {};
+   public:
+    Example() : x_(0), y_(0){};
+    Example(int x, int y) : x_(x), y_(y){};
     int getX() { return x_; }
     int getY() { return y_; }
-  private:
+
+   private:
     int x_, y_;
   };
 
   s21::Stack<Example> stack;
   stack.push(Example(1, 2));
-  stack.emplace_front(4,5);
-  
+  stack.emplace_front(4, 5);
+
   EXPECT_EQ(stack.top().getX(), 4);
   EXPECT_EQ(stack.top().getY(), 5);
 }

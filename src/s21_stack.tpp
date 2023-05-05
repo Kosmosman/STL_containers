@@ -146,10 +146,10 @@ void Stack<T>::swap(Stack &other) {
 }
 
 /*
-* @brief Appends new elements to the top of the stack
-* @tparam T 
-* @param ...args 
-*/
+ * @brief Appends new elements to the top of the stack
+ * @tparam T
+ * @param ...args
+ */
 template <typename T>
 template <typename... Args>
 void Stack<T>::emplace_front(Args &&...args) {

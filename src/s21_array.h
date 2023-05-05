@@ -5,10 +5,10 @@ template <typename T, size_t N>
 class Array {
  public:
   using value_type = T;
-  using reference = T&;
-  using const_reference = const T&;
-  using iterator = T*;
-  using const_iterator = const T*;
+  using reference = T &;
+  using const_reference = const T &;
+  using iterator = T *;
+  using const_iterator = const T *;
   using size_type = size_t;
 
   Array();
@@ -16,23 +16,24 @@ class Array {
   Array(const Array &a);
   // Array(const Array<T, N> &a);
   Array(Array &&a);
-  Array<T, N>& operator=(Array &&a);
+  Array<T, N> &operator=(Array &&a);
   ~Array();
 
-  reference at(size_type pos); // может нужна перегрузка constexpr
+  reference at(size_type pos);  // может нужна перегрузка constexpr
   reference operator[](size_type pos);
   const_reference front() const;
   reference front();
   const_reference back() const;
   reference back();
-  iterator data(); // или написать свой итератор?  
+  iterator data();  // или написать свой итератор?
   iterator begin();
   iterator end();
   bool empty();
   size_type size();
   size_type max_size();
-  void swap(Array& other);
+  void swap(Array &other);
   void fill(const_reference value);
+
  private:
   value_type arr_[N];
   iterator begin_;

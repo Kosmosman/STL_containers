@@ -126,19 +126,20 @@ TEST(QueueTest, Swap) {
 
 TEST(QueueTest, EmplaceBack) {
   class Example {
-  public:
-    Example() : x_(0), y_ (0) {};
-    Example(int x, int y): x_(x), y_(y) {};
+   public:
+    Example() : x_(0), y_(0){};
+    Example(int x, int y) : x_(x), y_(y){};
     int getX() { return x_; }
     int getY() { return y_; }
-  private:
+
+   private:
     int x_, y_;
   };
 
   s21::Queue<Example> queue;
   queue.push(Example(1, 2));
-  queue.emplace_back(4,5);
-  
+  queue.emplace_back(4, 5);
+
   EXPECT_EQ(queue.back().getX(), 4);
   EXPECT_EQ(queue.back().getY(), 5);
 }

@@ -165,11 +165,11 @@ void Queue<T>::swap(Queue &other) {
   std::swap(size_, other.size_);
 }
 
-/* 
-* @brief Appends new elements to the end of the queue
-* @tparam T 
-* @param ...args 
-*/
+/*
+ * @brief Appends new elements to the end of the queue
+ * @tparam T
+ * @param ...args
+ */
 template <typename T>
 template <typename... Args>
 void Queue<T>::emplace_back(Args &&...args) {
