@@ -99,7 +99,7 @@ typename Stack<T>::reference Stack<T>::top() {
  */
 template <typename T>
 bool Stack<T>::empty() {
-  return size_ == 0; // измени на size
+  return size_ == 0;  // измени на size
 }
 
 /*
@@ -145,10 +145,13 @@ void Stack<T>::swap(Stack &other) {
   std::swap(size_, other.size_);
 }
 
-
+/* @brief Appends new elements to the top of the stack
+* @tparam T 
+* @param ...args 
+*/
 template <typename T>
 template <typename... Args>
-void Stack<T>::emplace_front(Args&&... args) {
+void Stack<T>::emplace_front(Args &&...args) {
   value_type temp(std::forward<Args>(args)...);
   push(temp);
 };
