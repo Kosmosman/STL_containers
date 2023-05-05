@@ -99,7 +99,7 @@ typename Stack<T>::reference Stack<T>::top() {
  */
 template <typename T>
 bool Stack<T>::empty() {
-  return size_ == 0;
+  return size_ == 0; // измени на size
 }
 
 /*
@@ -145,8 +145,11 @@ void Stack<T>::swap(Stack &other) {
   std::swap(size_, other.size_);
 }
 
-// template <typename T, class Args>
-// void Stack<T>::emplace_front(Args&&... args) {
-  
-// };
+
+template <typename T>
+template <typename... Args>
+void Stack<T>::emplace_front(Args&&... args) {
+  value_type temp(std::forward<Args>(args)...);
+  push(temp);
+};
 };  // namespace s21

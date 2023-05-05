@@ -24,7 +24,9 @@ class Stack {
   void push(const_reference value);
   void pop();
   void swap(Stack& other);
-  // void emplace_front(Args&&... args);
+
+  template <class... Args>
+  void emplace_front(Args&&... args);
 
  private:
   struct Node {
