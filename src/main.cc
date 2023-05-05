@@ -21,15 +21,15 @@ class Example {
 
 
 int main() {
-  std::stack<Example> stack_1;
-  stack_1.push(Example(1, 2));
-  stack_1.emplace('ad');
-  std::cout << stack_1.top().getX() << std::endl;
+  // std::stack<Example> stack_1;
+  // stack_1.push(Example(1, 2));
+  // stack_1.emplace('ad');
+  // std::cout << stack_1.top().getX() << std::endl;
 
-  // s21::Stack<Example> stack_2;
-  // stack_2.push(Example(1, 2));
-  // stack_2.emplace_front('da');
-  // std::cout << stack_2.top().getX() << std::endl;
+  s21::Stack<Example> stack_2;
+  stack_2.push(Example(1, 2));
+  stack_2.emplace_front('da');
+  std::cout << stack_2.top().getX() << std::endl;
 
   return 0;
 
