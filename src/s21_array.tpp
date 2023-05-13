@@ -5,6 +5,7 @@ namespace s21 {
 template <typename T, size_t N>
 Array<T, N>::Array() : begin_(arr_), end_(arr_ + N), size_(N) {}
 
+// кажется тут не доделано
 template <typename T, size_t N>
 Array<T, N>::Array(std::initializer_list<value_type> const &items)
     : begin_(arr_), end_(arr_ + N), size_(N) {
