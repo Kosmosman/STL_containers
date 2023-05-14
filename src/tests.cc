@@ -35,12 +35,7 @@ TEST(Containers, CreateTreeMove) {
   EXPECT_EQ(two.GetSize() == 3, true);
 }
 
-TEST(Containers, TreeIterator) {
-  s21::AvlTree<int, int> one{1, 2, 3, 4, 5};
-  EXPECT_EQ(*one.Begin() == 1, true);
-}
-
 int main(int argc, char **argv) {
-  one::testing::InitGoogleTest(&argc, argv);
+  ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }

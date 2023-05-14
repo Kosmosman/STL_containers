@@ -6,7 +6,7 @@ template <typename K, typename V>
 AvlTree<K, V>::AvlTree() noexcept : size_{0}, head_(nullptr){};
 
 template <typename K, typename V>
-AvlTree<K, V>::AvlTree(std::initializer_list<K> init) : AvlTree() {
+AvlTree<K, V>::AvlTree(std::initializer_list<K> const& init) : AvlTree() {
   for (auto i : init) Insert(i, i);
 };
 
@@ -37,30 +37,37 @@ AvlTree<K, V>::~AvlTree() {
 
 /// @brief Добавление элемента в множество
 template <typename K, typename V>
-void AvlTree<K, V>::InnerInsert(Node<K, V>* node, const K& key,
-                                const V& value) {
+Node<K, V>* AvlTree<K, V>::InnerInsert(Node<K, V>* node, const K& key,
+                                       const V& value) {
+  Node<K, V>* tmp = nullptr;
   if (key > node->key && node->right) InnerInsert(node->right, key, value);
   if (key < node->key && node->left) InnerInsert(node->left, key, value);
   if (!node->right && key > node->key) {
     node->right = new Node<K, V>{key, value, 0};
+    tmp = node->right;
     ++size_;
   } else if (!node->left && key < node->key) {
     node->left = new Node<K, V>{key, value, 0};
+    tmp = node->left;
     ++size_;
   }
   UpdateHeight(node);
   Balance(node, GetBalance(node));
+  return tmp;
 }
 
 /// @brief Добавление первого элемента в множество
 template <typename K, typename V>
-void AvlTree<K, V>::Insert(const K& key, const V& value) {
+Node<K, V>* AvlTree<K, V>::Insert(const K& key, const V& value) {
+  Node<K, V>* result = nullptr;
   if (!size_) {
     size_ = 1;
     head_ = new Node<K, V>{key, value, 0};
+    result = head_;
   } else {
-    InnerInsert(head_, key, value);
+    result = InnerInsert(head_, key, value);
   }
+  return result;
 }
 
 /// @brief Обход дерева с выбором режима взаимодействия
@@ -117,15 +124,19 @@ void AvlTree<K, V>::LeftRotate(Node<K, V>* node) {
   UpdateHeight(node);
 }
 
-/// @brief Обмен ключ-значение между двумя узлами
 template <typename K, typename V>
-void AvlTree<K, V>::SwapNode(Node<K, V>* one, Node<K, V>* two) {
-  K buffer_key = one->key;
-  V buffer_value = one->value;
-  one->key = two->key;
-  one->value = two->value;
-  two->key = buffer_key;
-  two->value = buffer_value;
+void AvlTree<K, V>::UpdateHeight(Node<K, V>* node) {
+  node->height = std::max(GetHeight(node->left), GetHeight(node->right)) + 1;
+}
+
+template <typename K, typename V>
+int AvlTree<K, V>::GetHeight(const Node<K, V>* node) const {
+  return node ? node->height : -1;
+}
+
+template <typename K, typename V>
+int AvlTree<K, V>::GetBalance(const Node<K, V>* node) const {
+  return GetHeight(node->left) - GetHeight(node->right);
 }
 
 /* ------------------ ERACE ---------------------- */
@@ -225,23 +236,11 @@ void AvlTree<K, V>::PrintTree() {
   }
 }
 
-template <typename K, typename V>
-void AvlTree<K, V>::UpdateHeight(Node<K, V>* node) {
-  node->height = std::max(GetHeight(node->left), GetHeight(node->right)) + 1;
-}
+/* -------------------- COPY AND SWAP ---------------------- */
 
 template <typename K, typename V>
-int AvlTree<K, V>::GetHeight(const Node<K, V>* node) const {
-  return node ? node->height : -1;
-}
-
-template <typename K, typename V>
-int AvlTree<K, V>::GetBalance(const Node<K, V>* node) const {
-  return GetHeight(node->left) - GetHeight(node->right);
-}
-
-template <typename K, typename V>
-void AvlTree<K, V>::CopyTree(Node<K, V>* node, const Node<K, V>* other_node) {
+AvlTree<K, V>& AvlTree<K, V>::CopyTree(Node<K, V>* node,
+                                       const Node<K, V>* other_node) {
   CopyNode(node, other_node);
   if (other_node->left) {
     node->left = new Node<K, V>();
@@ -253,6 +252,7 @@ void AvlTree<K, V>::CopyTree(Node<K, V>* node, const Node<K, V>* other_node) {
     node->right->parent = node;
     CopyTree(node->right, other_node->right);
   }
+  return *this;
 }
 
 template <typename K, typename V>
@@ -262,23 +262,43 @@ void AvlTree<K, V>::CopyNode(Node<K, V>* node, const Node<K, V>* other_node) {
   node->value = other_node->value;
 }
 
-/* ------------------------- ITERATORS ----------------------------- */
+template <typename K, typename V>
+AvlTree<K, V>& AvlTree<K, V>::SwapTree(AvlTree<K, V>&& other_tree) {
+  std::swap(head_, other_tree.head_);
+  std::swap(size_, other_tree.size_);
+  other_tree.Clear();
+  return *this;
+}
+
+/// @brief Обмен ключ-значение между двумя узлами
+template <typename K, typename V>
+void AvlTree<K, V>::SwapNode(Node<K, V>* one, Node<K, V>* two) {
+  K buffer_key = one->key;
+  V buffer_value = one->value;
+  one->key = two->key;
+  one->value = two->value;
+  two->key = buffer_key;
+  two->value = buffer_value;
+}
+
+/* -------------------- BEGIN AND END ------------------------- */
 
 template <typename K, typename V>
-TreeIterator<K, V> AvlTree<K, V>::Begin() {
+Node<K, V>* AvlTree<K, V>::Begin() {
+  Node<K, V>* tmp = head_;
   if (head_) {
-    it->iterator_node_ = head_;
-    while (iterator_node_->left) it->iterator_node_ = it->iterator_node_->left;
+    while (tmp->left) tmp = tmp->left;
   }
-  return it;
+  return tmp;
 };
 
 template <typename K, typename V>
-TreeIterator<K, V> AvlTree<K, V>::End() {
+Node<K, V>* AvlTree<K, V>::End() {
+  Node<K, V>* tmp = head_;
   if (head_) {
-    it->iterator_node_ = head_;
+    while (tmp->right) tmp = tmp->right;
   }
-  return it;
+  return tmp;
 };
 
 };  // namespace s21

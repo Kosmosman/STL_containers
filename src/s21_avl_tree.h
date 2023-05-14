@@ -21,59 +21,47 @@ struct Node {
 };
 
 template <typename K, typename V>
-class TreeIterator {
- public:
-  TreeIterator() : iterator_node_(nullptr){};
-  TreeIterator& operator++(){};
-  std::pair<K, V>& operator->(){};
-  K operator*() { return iterator_node_->key; }
-
- private:
-  Node<K, V>* iterator_node_;
-};
-
-template <typename K, typename V>
-class ConstTreeIterator {};
-
-template <typename K, typename V>
 class AvlTree {
  public:
   AvlTree() noexcept;
-  explicit AvlTree(std::initializer_list<K> init);
+  explicit AvlTree(std::initializer_list<K> const& init);
   explicit AvlTree(const AvlTree& other);
   AvlTree(AvlTree&& other) noexcept;
   ~AvlTree();
 
-  void Insert(const K& key, const V& value);
+  Node<K, V>* Insert(const K& key, const V& value);
   void Erase(const K& key);
   Node<K, V>* Find(const K& key);
   size_t GetSize() const { return size_; };
+  bool Empty() const { return head_; };
 
-  TreeIterator<K, V> Begin();
-  TreeIterator<K, V> End();
+  AvlTree& operator=(const AvlTree& other) { CopyTree(head_, other.head_); };
+  AvlTree& operator=(AvlTree&& other) { SwapTree(other); };
+
+  Node<K, V>* Begin();
+  Node<K, V>* End();
 
   void PrintTree();
 
  private:
   size_t size_;
   Node<K, V>* head_;
-  TreeIterator<K, V>* it;
-  ConstTreeIterator<K, V>* const_it;
 
   void Clear(Node<K, V>* node);
-  void InnerInsert(Node<K, V>* node, const K& key, const V& value);
+  Node<K, V>* InnerInsert(Node<K, V>* node, const K& key, const V& value);
   bool InnerErase(Node<K, V>* node, const K& key);
   Node<K, V>* InnerFind(Node<K, V>* node, const K& key, bool& res);
   void Balance(Node<K, V>* node, int diff);
   void SwapNode(Node<K, V>* one, Node<K, V>* two);
+  AvlTree& SwapTree(AvlTree<K, V>&& other_tree);
   void LeftRotate(Node<K, V>* node);
   void RightRotate(Node<K, V>* node);
   void UpdateHeight(Node<K, V>* node);
   Node<K, V>* FindExtremum(Node<K, V>* node, int balance);
   int GetHeight(const Node<K, V>* node) const;
   int GetBalance(const Node<K, V>* node) const;
-  void CopyTree(Node<K, V>* node, const Node<K, V>* other_node);
   void CopyNode(Node<K, V>* node, const Node<K, V>* other_node);
+  AvlTree& CopyTree(Node<K, V>* node, const Node<K, V>* other_node);
 };
 };  // namespace s21
 
