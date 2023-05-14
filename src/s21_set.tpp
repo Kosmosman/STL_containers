@@ -14,7 +14,16 @@ Set<value_type> &Set<value_type>::operator=(Set<value_type> &&s) {
   return *this;
 };
 
-/* ------------------------- MODIFIRE ---------------------------- */
+template <typename value_type>
+Set<value_type>::iterator &Set<value_type>::iterator::operator++(
+    Set<value_type>::iterator &pos){
+
+};
+
+template <typename value_type>
+Set<value_type>::referensce Set<value_type>::SetIterator::operator->(){};
+
+/* ------------------------- MODIFIRE ------------------------   ---- */
 
 template <typename value_type>
 std::pair<typename Set<value_type>::iterator, bool> Set<value_type>::Insert(
@@ -24,12 +33,20 @@ std::pair<typename Set<value_type>::iterator, bool> Set<value_type>::Insert(
 };
 
 template <typename value_type>
-void Set<value_type>::Erase(iterator pos){};
+void Set<value_type>::Erase(iterator pos) {
+  tree.Erase(pos.iterator_node_);
+};
 
 template <typename value_type>
-void Set<value_type>::Swap(Set<value_type> &other){};
+void Set<value_type>::Swap(Set<value_type> &other) {
+  std::swap(tree, other.tree);
+};
 
 template <typename value_type>
-void Set<value_type>::Merge(Set<value_type> &other){};
+void Set<value_type>::Merge(Set<value_type> &other) {
+  for (auto it = other.Begin(); it != other.End(); it++) {
+    Insert(it.iterator_node_);
+  }
+};
 
 }  // namespace s21

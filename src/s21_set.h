@@ -14,8 +14,8 @@ class Set {
   using value_type = K;
   using referensce = value_type &;
   using const_reference = const value_type &;
-  using iterator = SetIterator<K>;
-  using const_iterator = SetConstIterator<K>;
+  using iterator = SetIterator;
+  using const_iterator = SetConstIterator;
   using size_type = size_t;
 
   class SetIterator {
@@ -23,13 +23,14 @@ class Set {
     SetIterator() : iterator_node_{nullptr} {};
     explicit SetIterator(Node<key_type, value_type> *node)
         : iterator_node_(node){};
-    SetIterator &operator++(){};
-    referensce operator->(){};
+    iterator &operator++(iterator &pos);
+    referensce operator->();
     value_type operator*() { return iterator_node_->key; }
 
    private:
     Node<key_type, value_type> *iterator_node_;
   };
+
   class SetConstIterator {};
 
   Set() : tree{} {};

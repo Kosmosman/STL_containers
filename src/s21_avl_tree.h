@@ -30,7 +30,7 @@ class AvlTree {
   ~AvlTree();
 
   Node<K, V>* Insert(const K& key, const V& value);
-  void Erase(const K& key);
+  void Erase(Node<K, V>*);
   Node<K, V>* Find(const K& key);
   size_t GetSize() const { return size_; };
   bool Empty() const { return head_; };
@@ -49,7 +49,6 @@ class AvlTree {
 
   void Clear(Node<K, V>* node);
   Node<K, V>* InnerInsert(Node<K, V>* node, const K& key, const V& value);
-  bool InnerErase(Node<K, V>* node, const K& key);
   Node<K, V>* InnerFind(Node<K, V>* node, const K& key, bool& res);
   void Balance(Node<K, V>* node, int diff);
   void SwapNode(Node<K, V>* one, Node<K, V>* two);

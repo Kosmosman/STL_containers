@@ -143,48 +143,32 @@ int AvlTree<K, V>::GetBalance(const Node<K, V>* node) const {
 
 /// @brief Поиск ключа и удаление листа
 template <typename K, typename V>
-bool AvlTree<K, V>::InnerErase(Node<K, V>* node, const K& key) {
-  bool res = true;
-  if (node) {
-    if (key == node->key) {
-      Node<K, V>* tmp = node;
-      if (!node->left && !node->right) {
-        tmp = node->parent;
-        key == tmp->left->key ? tmp->left = nullptr : tmp->right = nullptr;
-        delete node;
-      } else if (!node->right) {
-        SwapNode(node, node->left);
-        node->height = 0;
-        delete node->left;
-        node->left = nullptr;
-      } else if (!node->left) {
-        SwapNode(node, node->right);
-        node->height = 0;
-        delete node->right;
-        node->right = nullptr;
-      } else {
-        tmp = FindExtremum(tmp, GetBalance(tmp));
-        SwapNode(node, tmp);
-        res = InnerErase(tmp, tmp->key);
-      }
-      while (tmp) {
-        UpdateHeight(tmp);
-        tmp = tmp->parent;
-      }
-    } else {
-      key > node->key ? res = InnerErase(node->right, key)
-                      : res = InnerErase(node->left, key);
-    }
+void AvlTree<K, V>::Erase(Node<K, V>* node) {
+  Node<K, V>* tmp = node;
+  if (!node->left && !node->right) {
+    tmp = node->parent;
+    key == tmp->left->key ? tmp->left = nullptr : tmp->right = nullptr;
+    delete node;
+  } else if (!node->right) {
+    SwapNode(node, node->left);
+    node->height = 0;
+    delete node->left;
+    node->left = nullptr;
+  } else if (!node->left) {
+    SwapNode(node, node->right);
+    node->height = 0;
+    delete node->right;
+    node->right = nullptr;
   } else {
-    res = false;
+    tmp = FindExtremum(tmp, GetBalance(tmp));
+    SwapNode(node, tmp);
+    InnerErase(tmp);
   }
-  return res;
-}
-
-/// @brief Вызов метода удаления
-template <typename K, typename V>
-void AvlTree<K, V>::Erase(const K& key) {
-  if (InnerErase(head_, key)) size_--;
+  while (tmp) {
+    UpdateHeight(tmp);
+    Balance(tmp, GetBalance(tmp));
+    tmp = tmp->parent;
+  }
 }
 
 /* ---------------------- FIND ------------------------ */
