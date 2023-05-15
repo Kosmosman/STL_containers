@@ -39,7 +39,8 @@ class AvlTree {
   AvlTree& operator=(AvlTree&& other) { SwapTree(other); };
 
   Node<K, V>* Begin();
-  Node<K, V>* End();
+  Node<K, V>* End() { return nullptr; };
+  Node<K, V>* Rbegin();
 
   void PrintTree();
 
@@ -49,7 +50,6 @@ class AvlTree {
 
   void Clear(Node<K, V>* node);
   Node<K, V>* InnerInsert(Node<K, V>* node, const K& key, const V& value);
-  Node<K, V>* InnerFind(Node<K, V>* node, const K& key, bool& res);
   void Balance(Node<K, V>* node, int diff);
   void SwapNode(Node<K, V>* one, Node<K, V>* two);
   AvlTree& SwapTree(AvlTree<K, V>&& other_tree);

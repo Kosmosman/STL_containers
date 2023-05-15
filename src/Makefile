@@ -17,10 +17,13 @@ ifeq ($(OS),Darwin)
 endif
 
 create_test:
-	$(CC) $(CPPFLAGS) $(LIBS) $(TEST) -o test  #$(SANITIZER)
+	$(CC) $(CPPFLAGS) $(LIBS) $(TEST) -o test
 
 test: clean create_test
 	./test
+
+debug: clean
+	$(CC) $(CPPFLAGS) $(LIBS) $(TEST) -o test $(SANITIZER)
 
 leaks: create_test
 	leaks -atExit -- ./test

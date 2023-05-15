@@ -4,14 +4,14 @@
 #include "s21_avl_tree.h"
 
 namespace s21 {
-template <typename K>
+template <typename Key>
 class Set {
  public:
   class SetIterator;
   class SetConstIterator;
 
-  using key_type = K;
-  using value_type = K;
+  using key_type = Key;
+  using value_type = Key;
   using referensce = value_type &;
   using const_reference = const value_type &;
   using iterator = SetIterator;
@@ -22,10 +22,15 @@ class Set {
    public:
     SetIterator() : iterator_node_{nullptr} {};
     explicit SetIterator(Node<key_type, value_type> *node)
-        : iterator_node_(node){};
-    iterator &operator++(iterator &pos);
-    referensce operator->();
-    value_type operator*() { return iterator_node_->key; }
+        : iterator_node_{node} {};
+    iterator &operator++();
+    iterator &operator--();
+    bool operator!=(const iterator &it) {
+      return iterator_node_ != it.iterator_node_;
+    };
+    value_type operator*() {
+      return iterator_node_ ? iterator_node_->key : tree.GetSize();
+    };
 
    private:
     Node<key_type, value_type> *iterator_node_;
@@ -39,15 +44,16 @@ class Set {
   Set(Set &&s) : tree{std::move(s.tree)} {};
   Set &operator=(const Set &s);
   Set &operator=(Set &&s);
-  ~Set() { tree.Clear(); };
+  ~Set(){};
 
-  iterator Begin() { return iterator(tree.Begin()); };
-  iterator End() { return iterator(tree.End()); };
+  iterator begin() { return iterator(tree.Begin()); };
+  iterator end() { return iterator(tree.End()); };
 
   bool Empty() { return tree.Empty(); };
   size_type Size() { return tree.GetSize(); };
-  size_type Max_size(){return std::numeric_limits<size_type>::max() /
-                              sizeof(value_type)};
+  size_type Max_size() {
+    return std::numeric_limits<size_type>::max() / sizeof(value_type);
+  };
 
   void Clear() { tree.Clear(); };
   std::pair<iterator, bool> Insert(const value_type &value);
@@ -55,8 +61,8 @@ class Set {
   void Swap(Set &other);
   void Merge(Set &other);
 
-  iterator Find(const Key &key);
-  bool Contains(const Key &key);
+  iterator Find(const key_type &key) { return iterator(tree.Find(key)); };
+  bool Contains(const key_type &key) { return tree.Find(key); };
 
  private:
   AvlTree<key_type, value_type> tree;

@@ -147,7 +147,7 @@ void AvlTree<K, V>::Erase(Node<K, V>* node) {
   Node<K, V>* tmp = node;
   if (!node->left && !node->right) {
     tmp = node->parent;
-    key == tmp->left->key ? tmp->left = nullptr : tmp->right = nullptr;
+    node->key == tmp->left->key ? tmp->left = nullptr : tmp->right = nullptr;
     delete node;
   } else if (!node->right) {
     SwapNode(node, node->left);
@@ -175,22 +175,16 @@ void AvlTree<K, V>::Erase(Node<K, V>* node) {
 
 template <typename K, typename V>
 Node<K, V>* AvlTree<K, V>::Find(const K& key) {
-  Node<K, V>* tmp = head_;
-  bool check = false;
-  return InnerFind(head_, key, check);
-}
-
-template <typename K, typename V>
-Node<K, V>* AvlTree<K, V>::InnerFind(Node<K, V>* node, const K& key,
-                                     bool& res) {
-  if (node) {
-    if (!res && key > node->key) node = InnerFind(node->right, key, res);
-    if (!res && key < node->key) node = InnerFind(node->left, key, res);
-    if (!res && node->key == key) res = true;
-  } else {
-    res = true;
+  Node<K, V>* tmp{head_};
+  while (tmp) {
+    if (key == tmp->key)
+      break;
+    else if (key < tmp->key)
+      tmp = tmp->left;
+    else
+      tmp = tmp->right;
   }
-  return node;
+  return tmp;
 }
 
 template <typename K, typename V>
@@ -277,7 +271,7 @@ Node<K, V>* AvlTree<K, V>::Begin() {
 };
 
 template <typename K, typename V>
-Node<K, V>* AvlTree<K, V>::End() {
+Node<K, V>* AvlTree<K, V>::Rbegin() {
   Node<K, V>* tmp = head_;
   if (head_) {
     while (tmp->right) tmp = tmp->right;
