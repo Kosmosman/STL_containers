@@ -2,7 +2,7 @@
 
 #include "test.h"
 
-// namespace s21 {
+namespace s21 {
 class S21StackTest : public testing::Test {
  protected:
   class Example {
@@ -11,7 +11,7 @@ class S21StackTest : public testing::Test {
     Example(int x, int y) : x_(x), y_(y){};
     int getX() { return x_; }
     int getY() { return y_; }
-    bool operator==(const Example& other) const  {
+    bool operator==(const Example& other) const {
       return x_ == other.x_ && y_ == other.y_;
     }
 
@@ -165,3 +165,4 @@ TEST_F(S21StackTest, EmplaceFront) {
   EXPECT_EQ(s21_stack_emplace.top(), std_stack_emplace.top());
 }
 
+}  // namespace s21
