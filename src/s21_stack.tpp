@@ -65,6 +65,31 @@ Stack<T> &Stack<T>::operator=(Stack &&s) noexcept {
 }
 
 /*
+ * @brief Assignment operator overload for copy object
+ */
+template <typename T>
+Stack<T> &Stack<T>::operator=(const Stack &s) {
+  if (this == &s) return *this;
+
+  this->~Stack();
+  head_ = nullptr;
+  size_ = 0;
+
+  Node **this_p = &head_;
+  Node *other_p = s.head_;
+
+  while (other_p) {
+    *this_p = new Node();
+    (*this_p)->value = other_p->value;
+    this_p = &((*this_p)->next);
+    other_p = other_p->next;
+    size_ += 1;
+  }
+
+  return *this;
+}
+
+/*
  * @brief Destructor
  */
 template <typename T>

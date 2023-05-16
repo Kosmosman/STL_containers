@@ -2,6 +2,13 @@ CC = g++
 FLAGS = -Wall -Werror -Wextra
 STLIB = s21_stack.a
 
+ifeq ($(OS),Linux)
+TEST_LIBS = -lcheck -lm -lpthread -lrt -lsubunit -fprofile-arcs -ftest-coverage
+else
+TEST_LIBS = -lcheck -lm -lpthread -fprofile-arcs -ftest-coverage
+endif
+
+
 .PHONY: all build s21_stack.a test check
 
 all: clean build s21_stack.a test clean
@@ -9,14 +16,17 @@ all: clean build s21_stack.a test clean
 run:
 	$(CC) $(FLAGS) -std=c++17 main.cc -o main && ./main
 
-build: s21_stack.tpp
-	@$(CC) -c $(FLAGS) -std=c++17 s21_stack.tpp -o s21_stack.o
+# s21_stack.o:
+# 	$(CC) $(FLAGS) -c 
 
-s21_stack.a: build
-	@ar rcs $(STLIB) s21_*.o
+build: s21_stack.tpp
+	@$(CC) $(FLAGS) -std=c++17 s21_stack.tpp -o s21_stack.o
+
+$(STLIB): build
+	@ar -crs $(STLIB) s21_*.o
 
 test:
-	@$(CC) $(FLAGS) -lgtest -std=c++17  test/*.cc -o unit_test
+	@$(CC) $(FLAGS) -lgtest -std=c++17 test/*.cc  -o unit_test
 	@./unit_test
 
 format:
@@ -24,8 +34,16 @@ format:
 	clang-format -i *.tpp *.cc *.h test/*.cc test/*.h 
 	@rm -rf .clang-format
 
+gcov_report: clean 
+	$(CC) $(FLAGS) -lgtest -std=c++17 test/*.cc $(TEST_LIBS) -o unit_test
+	./unit_test
+	lcov -t "./unit_test"  -o report.info --no-external -c -d .
+	genhtml -o report report.info
+	open ./report/index.html
+
+
 clean:
-	rm -rf *.o *.a
+	rm -rf *.o *.a *.gcda *.gcno *.info
 	rm -rf unit_test main
 
 check:

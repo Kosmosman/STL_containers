@@ -14,6 +14,7 @@ class Stack {
   Stack(std::initializer_list<value_type> const& items);
   Stack(const Stack& s);
   Stack(Stack&& s) noexcept;
+  Stack<T>& operator=(const Stack& s);
   Stack<T>& operator=(Stack&& s) noexcept;
   ~Stack();
 
