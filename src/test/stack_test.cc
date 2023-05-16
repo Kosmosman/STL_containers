@@ -93,8 +93,29 @@ TEST_F(S21StackTest, AssignmentOperatorMoving) {
   s21::Stack<double> s21_stack_for_move{init_list_for_copy};
   std::stack<double> std_stack_for_move{init_list_for_copy};
 
-  s21::Stack<double> s21_stack = std::move(s21_stack_for_move);
-  std::stack<double> std_stack = std::move(std_stack_for_move);
+  s21::Stack<double> s21_stack;
+  s21_stack = std::move(s21_stack_for_move);
+  std::stack<double> std_stack;
+  std_stack = std::move(std_stack_for_move);
+  EXPECT_EQ(s21_stack.size(), std_stack.size());
+  while (!s21_stack.empty() && !std_stack.empty()) {
+    EXPECT_EQ(s21_stack.top(), std_stack.top());
+    s21_stack.pop();
+    std_stack.pop();
+  }
+
+  EXPECT_EQ(s21_stack_for_move.size(), std_stack_for_move.size());
+}
+
+TEST_F(S21StackTest, AssignmentOperatorCopy) {
+  std::initializer_list<double> init_list_for_copy = {1231.4, 1.342, 3.23, 4.4};
+  s21::Stack<double> s21_stack_for_move{init_list_for_copy};
+  std::stack<double> std_stack_for_move{init_list_for_copy};
+
+  s21::Stack<double> s21_stack;
+  s21_stack = s21_stack_for_move;
+  std::stack<double> std_stack;
+  std_stack = std_stack_for_move;
   EXPECT_EQ(s21_stack.size(), std_stack.size());
   while (!s21_stack.empty() && !std_stack.empty()) {
     EXPECT_EQ(s21_stack.top(), std_stack.top());
@@ -141,6 +162,8 @@ TEST_F(S21StackTest, Swap) {
   std::stack<int> std_stack{init_list};
   std::stack<int> std_stack_for_swap{init_list_for_swap};
 
+  s21_stack.swap(s21_stack_for_swap);
+  std_stack.swap(std_stack_for_swap);
   while (!s21_stack.empty() && !std_stack.empty()) {
     EXPECT_EQ(s21_stack.top(), std_stack.top());
     s21_stack.pop();

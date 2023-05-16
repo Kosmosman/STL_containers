@@ -26,9 +26,11 @@ int main() {
   // std::stack<int> stack;
   // std::vector<int> vector{1, 2, 3};
   // std::cout << vector.front() << std::endl;
-  std::stack<Example> stack;
-  stack.emplace(4, 5, 5);
-  std::cout << stack.top().getX() << std::endl;
+  s21::Stack<int> stack_1 = {1, 2, 3};
+  s21::Stack<int> stack_result;
+  stack_result = std::move(stack_1);
+  // stack.emplace(4, 5, 5);
+  // std::cout << stack.top().getX() << std::endl;
 
   return 0;
 }
