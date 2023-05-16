@@ -24,13 +24,15 @@ class Set {
     explicit SetIterator(Node<key_type, value_type> *node)
         : iterator_node_{node} {};
     iterator &operator++();
+    iterator &operator++(int);
     iterator &operator--();
+    iterator &operator--(int);
+    iterator &operator=(const iterator &s);
+    iterator &operator=(iterator &&s);
     bool operator!=(const iterator &it) {
       return iterator_node_ != it.iterator_node_;
     };
-    value_type operator*() {
-      return iterator_node_ ? iterator_node_->key : tree.GetSize();
-    };
+    value_type operator*() { return iterator_node_ ? iterator_node_->key : 0; };
 
    private:
     Node<key_type, value_type> *iterator_node_;

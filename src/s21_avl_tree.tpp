@@ -15,6 +15,7 @@ AvlTree<K, V>::AvlTree(const AvlTree<K, V>& other)
     : size_(other.size_), head_(nullptr) {
   if (other.head_) {
     head_ = new Node<K, V>();
+    CreateEnd();
     CopyTree(head_, other.head_);
   }
 };
@@ -25,13 +26,6 @@ AvlTree<K, V>::AvlTree(AvlTree<K, V>&& other) noexcept
   other.head_ = nullptr;
   other.size_ = 0;
 }
-
-/* ----------------- DESTRUCTOR ------------------- */
-
-template <typename K, typename V>
-AvlTree<K, V>::~AvlTree() {
-  if (head_) Clear(head_);
-};
 
 /* ------------------- INSERT --------------------- */
 
@@ -44,10 +38,12 @@ Node<K, V>* AvlTree<K, V>::InnerInsert(Node<K, V>* node, const K& key,
   if (key < node->key && node->left) InnerInsert(node->left, key, value);
   if (!node->right && key > node->key) {
     node->right = new Node<K, V>{key, value, 0};
+    node->right->parent = node;
     tmp = node->right;
     ++size_;
   } else if (!node->left && key < node->key) {
     node->left = new Node<K, V>{key, value, 0};
+    node->left->parent = node;
     tmp = node->left;
     ++size_;
   }
@@ -64,17 +60,26 @@ Node<K, V>* AvlTree<K, V>::Insert(const K& key, const V& value) {
     size_ = 1;
     head_ = new Node<K, V>{key, value, 0};
     result = head_;
+    CreateEnd();
   } else {
     result = InnerInsert(head_, key, value);
   }
   return result;
 }
 
+template <typename K, typename V>
+void AvlTree<K, V>::Clear() {
+  if (head_) {
+    delete head_->parent;
+    DeleteNodes(head_);
+    head_ = nullptr;
+  };
+}
 /// @brief Обход дерева с выбором режима взаимодействия
 template <typename K, typename V>
-void AvlTree<K, V>::Clear(Node<K, V>* node) {
-  if (node->left) Clear(node->left);
-  if (node->right) Clear(node->right);
+void AvlTree<K, V>::DeleteNodes(Node<K, V>* node) {
+  if (node->left) DeleteNodes(node->left);
+  if (node->right) DeleteNodes(node->right);
   delete node;
 }
 
@@ -145,6 +150,7 @@ int AvlTree<K, V>::GetBalance(const Node<K, V>* node) const {
 template <typename K, typename V>
 void AvlTree<K, V>::Erase(Node<K, V>* node) {
   Node<K, V>* tmp = node;
+  if (size_ == 1) delete head_->parent;
   if (!node->left && !node->right) {
     tmp = node->parent;
     node->key == tmp->left->key ? tmp->left = nullptr : tmp->right = nullptr;
@@ -162,9 +168,10 @@ void AvlTree<K, V>::Erase(Node<K, V>* node) {
   } else {
     tmp = FindExtremum(tmp, GetBalance(tmp));
     SwapNode(node, tmp);
-    InnerErase(tmp);
+    Erase(tmp);
   }
-  while (tmp) {
+  --size_;
+  while (tmp->parent != head_) {
     UpdateHeight(tmp);
     Balance(tmp, GetBalance(tmp));
     tmp = tmp->parent;
@@ -265,18 +272,18 @@ template <typename K, typename V>
 Node<K, V>* AvlTree<K, V>::Begin() {
   Node<K, V>* tmp = head_;
   if (head_) {
-    while (tmp->left) tmp = tmp->left;
+    while (tmp->left) {
+      tmp = tmp->left;
+    }
   }
   return tmp;
 };
 
 template <typename K, typename V>
-Node<K, V>* AvlTree<K, V>::Rbegin() {
-  Node<K, V>* tmp = head_;
-  if (head_) {
-    while (tmp->right) tmp = tmp->right;
-  }
-  return tmp;
-};
+void AvlTree<K, V>::CreateEnd() {
+  Node<K, V>* tmp = new Node<K, V>{head_->key, head_->value, -1};
+  tmp->parent = head_;
+  head_->parent = tmp;
+}
 
 };  // namespace s21

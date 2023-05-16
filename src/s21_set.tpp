@@ -14,16 +14,7 @@ Set<value_type> &Set<value_type>::operator=(Set<value_type> &&s) {
   return *this;
 };
 
-template <typename value_type>
-Set<value_type>::iterator &Set<value_type>::iterator::operator++(
-    Set<value_type>::iterator &pos){
-
-};
-
-template <typename value_type>
-Set<value_type>::referensce Set<value_type>::SetIterator::operator->(){};
-
-/* ------------------------- MODIFIRE ------------------------   ---- */
+/* ------------------------- MODIFIRE ---------------------------- */
 
 template <typename value_type>
 std::pair<typename Set<value_type>::iterator, bool> Set<value_type>::Insert(
@@ -44,9 +35,66 @@ void Set<value_type>::Swap(Set<value_type> &other) {
 
 template <typename value_type>
 void Set<value_type>::Merge(Set<value_type> &other) {
-  for (auto it = other.Begin(); it != other.End(); it++) {
+  for (iterator it = other.begin(); it != other.end(); it++) {
     Insert(it.iterator_node_);
   }
+};
+
+/* ---------------------------- ITERATORS ------------------------------ */
+
+template <typename value_type>
+typename Set<value_type>::iterator &Set<value_type>::iterator::operator=(
+    const iterator &it) {
+  iterator_node_ = it.iterator_node_;
+};
+
+template <typename value_type>
+typename Set<value_type>::iterator &Set<value_type>::iterator::operator=(
+    iterator &&it) {
+  iterator_node_ = it.iterator_node_;
+  it.iterator_node_ = nullptr;
+};
+
+template <typename value_type>
+typename Set<value_type>::iterator &Set<value_type>::iterator::operator++(){
+
+};
+
+template <typename value_type>
+typename Set<value_type>::iterator &Set<value_type>::iterator::operator++() {
+  if (iterator_node_) {
+    if (iterator_node_->right) {
+      iterator_node_ = iterator_node_->right;
+      while (iterator_node_->left) iterator_node_ = iterator_node_->left;
+    } else {
+      while (iterator_node_->parent->parent != iterator_node_ &&
+             iterator_node_->parent->key < iterator_node_->key) {
+        iterator_node_ = iterator_node_->parent;
+      }
+      iterator_node_ = iterator_node_->parent;
+    }
+  }
+  return *this;
+};
+
+template <typename value_type>
+typename Set<value_type>::iterator &Set<value_type>::iterator::operator--() {
+  if (iterator_node_) {
+    if (iterator_node_->parent->parent == iterator_node_ &&
+        iterator_node_->height == -1) {
+      iterator_node_ = iterator_node_->parent;
+      while (iterator_node_->right) iterator_node_ = iterator_node_->right;
+    } else if (iterator_node_->left) {
+      iterator_node_ = iterator_node_->left;
+      while (iterator_node_->right) iterator_node_ = iterator_node_->right;
+    } else {
+      while (iterator_node_->parent->key > iterator_node_->key) {
+        iterator_node_ = iterator_node_->parent;
+      }
+      iterator_node_ = iterator_node_->parent;
+    }
+  }
+  return *this;
 };
 
 }  // namespace s21

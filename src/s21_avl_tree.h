@@ -27,20 +27,20 @@ class AvlTree {
   explicit AvlTree(std::initializer_list<K> const& init);
   explicit AvlTree(const AvlTree& other);
   AvlTree(AvlTree&& other) noexcept;
-  ~AvlTree();
+  ~AvlTree() { Clear(); };
 
   Node<K, V>* Insert(const K& key, const V& value);
   void Erase(Node<K, V>*);
   Node<K, V>* Find(const K& key);
   size_t GetSize() const { return size_; };
-  bool Empty() const { return head_; };
+  bool Empty() const { return !head_; };
+  void Clear();
 
   AvlTree& operator=(const AvlTree& other) { CopyTree(head_, other.head_); };
   AvlTree& operator=(AvlTree&& other) { SwapTree(other); };
 
   Node<K, V>* Begin();
-  Node<K, V>* End() { return nullptr; };
-  Node<K, V>* Rbegin();
+  Node<K, V>* End() { return head_->parent; };
 
   void PrintTree();
 
@@ -48,7 +48,7 @@ class AvlTree {
   size_t size_;
   Node<K, V>* head_;
 
-  void Clear(Node<K, V>* node);
+  void DeleteNodes(Node<K, V>* node);
   Node<K, V>* InnerInsert(Node<K, V>* node, const K& key, const V& value);
   void Balance(Node<K, V>* node, int diff);
   void SwapNode(Node<K, V>* one, Node<K, V>* two);
@@ -61,6 +61,7 @@ class AvlTree {
   int GetBalance(const Node<K, V>* node) const;
   void CopyNode(Node<K, V>* node, const Node<K, V>* other_node);
   AvlTree& CopyTree(Node<K, V>* node, const Node<K, V>* other_node);
+  void CreateEnd();
 };
 };  // namespace s21
 
