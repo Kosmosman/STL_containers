@@ -26,7 +26,6 @@ Stack<T>::Stack(std::initializer_list<value_type> const &items)
  */
 template <typename T>
 Stack<T>::Stack(const Stack &s) : head_(nullptr), size_(0) {
-  std::cout << "copy constructor" << std::endl;
   Node **this_p = &head_;
   Node *other_p = s.head_;
 
@@ -44,7 +43,6 @@ Stack<T>::Stack(const Stack &s) : head_(nullptr), size_(0) {
  */
 template <typename T>
 Stack<T>::Stack(Stack &&s) noexcept : head_(s.head_), size_(s.size_) {
-  std::cout << "move constructor" << std::endl;
   s.head_ = nullptr;
   s.size_ = 0;
 }
@@ -55,7 +53,6 @@ Stack<T>::Stack(Stack &&s) noexcept : head_(s.head_), size_(s.size_) {
 template <typename T>
 Stack<T> &Stack<T>::operator=(Stack &&s) noexcept {
   if (this == &s) return *this;
-  std::cout << "move operator" << std::endl;
 
   this->~Stack();
   head_ = s.head_;
@@ -73,7 +70,6 @@ Stack<T> &Stack<T>::operator=(Stack &&s) noexcept {
 template <typename T>
 Stack<T> &Stack<T>::operator=(const Stack &s) {
   if (this == &s) return *this;
-  std::cout << "copy operator" << std::endl;
 
   this->~Stack();
   head_ = nullptr;

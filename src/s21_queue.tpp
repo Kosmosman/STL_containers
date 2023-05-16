@@ -48,6 +48,23 @@ Queue<T>::Queue(Queue &&q) noexcept
 }
 
 /*
+ * @brief Assignment operator overload for copying an object
+ */
+template <typename T>
+Queue<T> &Queue<T>::operator=(const Queue &q) {
+  if (this == &q) return *this;
+
+  this->~Queue();
+  Node *tmp = q.first_;
+  while (tmp) {
+    push(tmp->value);
+    tmp = tmp->next;
+  }
+
+  return *this;
+}
+
+/*
  * @brief Assignment operator overload for moving an object
  */
 template <typename T>
@@ -58,9 +75,6 @@ Queue<T> &Queue<T>::operator=(Queue &&q) noexcept {
   std::swap(first_, q.first_);
   std::swap(last_, q.last_);
   std::swap(size_, q.size_);
-  // first_ = q.first_;
-  // last_ = q.last_;
-  // size_ = q.size_;
 
   return *this;
 }
