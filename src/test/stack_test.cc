@@ -164,6 +164,9 @@ TEST_F(S21StackTest, Swap) {
 
   s21_stack.swap(s21_stack_for_swap);
   std_stack.swap(std_stack_for_swap);
+
+  EXPECT_EQ(s21_stack.size(), std_stack.size());
+  EXPECT_EQ(s21_stack_for_swap.size(), std_stack_for_swap.size());
   while (!s21_stack.empty() && !std_stack.empty()) {
     EXPECT_EQ(s21_stack.top(), std_stack.top());
     s21_stack.pop();
