@@ -52,9 +52,9 @@ Stack<T>::Stack(Stack &&s) noexcept : head_(s.head_), size_(s.size_) {
  */
 template <typename T>
 Stack<T> &Stack<T>::operator=(Stack &&s) noexcept {
-  if (*this == s) return *this;
+  if (this == &s) return *this;
 
-  ~Stack();
+  this->~Stack();
   head_ = s.head_;
   size_ = s.size_;
 

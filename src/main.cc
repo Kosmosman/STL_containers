@@ -4,6 +4,8 @@
 #include <iostream>
 #include <ostream>
 #include <queue>
+#include <set>
+#include <vector>
 
 #include "s21_array.h"
 #include "s21_queue.h"
@@ -21,19 +23,9 @@ class Example {
 };
 
 int main() {
-  // std::queue<Example> queue_1;
-  // queue_1.push(Example(1, 2));
-  // queue_1.emplace(4, 5);
-  // std::cout << queue_1.back().getX() << std::endl;
-
-  s21::Queue<Example> queue_2;
-  queue_2.push(Example(1, 2));
-  queue_2.emplace_back(4, 5);
-  std::cout << queue_2.back().getX() << std::endl;
+  // std::stack<int> stack;
+  std::vector<int> vector{1, 2, 3};
+  std::cout << vector.front() << std::endl;
 
   return 0;
 }
-
-// что такое вирутальные методы?
-// можно ли перезаписывать конструкторы и деструкторы ?
-// обязательно ли потомку создавать конструктор и деструктор?
