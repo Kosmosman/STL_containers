@@ -23,14 +23,16 @@ class Example {
 };
 
 int main() {
-  // std::stack<int> stack;
-  // std::vector<int> vector{1, 2, 3};
-  // std::cout << vector.front() << std::endl;
-  s21::Stack<int> stack_1 = {1, 2, 3};
-  s21::Stack<int> stack_result;
-  stack_result = std::move(stack_1);
-  // stack.emplace(4, 5, 5);
-  // std::cout << stack.top().getX() << std::endl;
+  s21::Queue<int> s21_queue_empty;
+  s21_queue_empty.push(1);
+  s21::Queue<int>::const_reference s21_const_front =
+      static_cast<s21::Queue<int>::const_reference>(s21_queue_empty.front());
+
+  int arr[s21_const_front];
+  arr[0] = 3;
+  std::cout << arr[0] << std::endl;
+
+  std::cout << s21_const_front << std::endl;
 
   return 0;
 }

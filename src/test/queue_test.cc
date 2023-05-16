@@ -138,6 +138,20 @@ TEST_F(S21QueueTest, Push) {
   EXPECT_EQ(s21_queue_empty.size(), std_queue_empty.size());
 }
 
+// почему-то не работает
+// TEST_F(S21QueueTest, FrontBackConst) {
+//   s21_queue_empty.push(1);
+//   std_queue_empty.push(1);
+//   s21::Queue<int>::const_reference s21_const_front = s21_queue_empty.front();
+//   std::queue<int>::const_reference std_const_front = std_queue_empty.front();
+
+//   s21::Queue<int>::const_reference s21_const_back = s21_queue_empty.back();
+//   std::queue<int>::const_reference std_const_back = std_queue_empty.back();
+
+//   EXPECT_EQ(s21_const_front, std_const_front);
+//   EXPECT_EQ(s21_const_back, std_const_back);
+// }
+
 TEST_F(S21QueueTest, Pop) {
   s21_queue_empty.push(1);
   std_queue_empty.push(1);

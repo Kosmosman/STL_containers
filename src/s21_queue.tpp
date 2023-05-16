@@ -99,6 +99,7 @@ Queue<T>::~Queue() {
  */
 template <typename T>
 typename Queue<T>::const_reference Queue<T>::front() const {
+  std::cout << "const_reference" << std::endl;
   return first_->value;
 }
 
