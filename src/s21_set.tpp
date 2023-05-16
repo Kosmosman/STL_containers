@@ -56,8 +56,17 @@ typename Set<value_type>::iterator &Set<value_type>::iterator::operator=(
 };
 
 template <typename value_type>
-typename Set<value_type>::iterator &Set<value_type>::iterator::operator++(){
+typename Set<value_type>::iterator Set<value_type>::iterator::operator++(int) {
+  iterator tmp = *this;
+  operator++();
+  return tmp;
+};
 
+template <typename value_type>
+typename Set<value_type>::iterator Set<value_type>::iterator::operator--(int) {
+  iterator tmp = *this;
+  operator--();
+  return tmp;
 };
 
 template <typename value_type>

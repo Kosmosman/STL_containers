@@ -103,6 +103,13 @@ TEST(Set, ConstructorMove) {
   EXPECT_TRUE(!two.Empty());
 }
 
+TEST(Set, OperatorsTest) {
+  s21::Set<int> one{10, 20, 40, 30, 2};
+  s21::Set<int>::iterator it(one.begin());
+  EXPECT_TRUE(*(it++) == 2);
+  EXPECT_TRUE(*(++it) == 20);
+}
+
 int main(int argc, char** argv) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

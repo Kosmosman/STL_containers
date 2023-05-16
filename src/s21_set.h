@@ -23,10 +23,16 @@ class Set {
     SetIterator() : iterator_node_{nullptr} {};
     explicit SetIterator(Node<key_type, value_type> *node)
         : iterator_node_{node} {};
+    SetIterator(const iterator &other)
+        : iterator_node_{other.iterator_node_} {};
+    SetIterator(iterator &&other) : iterator_node_{other.iterator_node_} {
+      other.iterator_node_ = nullptr;
+    };
+
     iterator &operator++();
-    iterator &operator++(int);
+    iterator operator++(int);
     iterator &operator--();
-    iterator &operator--(int);
+    iterator operator--(int);
     iterator &operator=(const iterator &s);
     iterator &operator=(iterator &&s);
     bool operator!=(const iterator &it) {
