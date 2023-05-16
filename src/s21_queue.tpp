@@ -52,12 +52,17 @@ Queue<T>::Queue(Queue &&q) noexcept
  */
 template <typename T>
 Queue<T> &Queue<T>::operator=(Queue &&q) noexcept {
-  if (*this == q) return *this;
+  if (this == &q) return *this;
 
-  ~Queue();
-  first_ = q.first_;
-  last_ = q.last_;
-  size_ = q.size;
+  this->~Queue();
+  std::swap(first_, q.first_);
+  std::swap(last_, q.last_);
+  std::swap(size_, q.size_);
+  // first_ = q.first_;
+  // last_ = q.last_;
+  // size_ = q.size_;
+
+  return *this;
 }
 
 /*
@@ -72,6 +77,7 @@ Queue<T>::~Queue() {
     delete tmp;
     tmp = nullptr;
   }
+  size_ = 0;
 }
 
 /*

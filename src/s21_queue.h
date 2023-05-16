@@ -15,6 +15,7 @@ class Queue {
   Queue(const Queue& q);
   Queue(Queue&& q) noexcept;
   Queue<T>& operator=(Queue&& q) noexcept;
+  // Добавить оператор перемещения копированием
   ~Queue();
 
   reference front();
