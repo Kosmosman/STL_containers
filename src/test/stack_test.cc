@@ -11,7 +11,7 @@ class S21StackTest : public testing::Test {
     Example(int x, int y) : x_(x), y_(y){};
     int getX() { return x_; }
     int getY() { return y_; }
-    bool operator==(const Example& other) {
+    bool operator==(const Example& other) const  {
       return x_ == other.x_ && y_ == other.y_;
     }
 
@@ -26,11 +26,6 @@ class S21StackTest : public testing::Test {
 
   std::stack<int> std_empty;
   std::stack<Example> std_stack_emplace;
-  // std::initializer_list<int> init_list_for_copy = {1, 1, 2, 3, 5, 8, 13};
-  // std::stack<int> std_stack_for_copy{init_list_for_copy};
-  //  public:
-  //   S21StackTest() = default;
-  // std::stack<char> std_init_list{'c', 'b', 'a'};
 };
 
 TEST_F(S21StackTest, DefaultConstructor) {
@@ -162,126 +157,11 @@ TEST_F(S21StackTest, Swap) {
 TEST_F(S21StackTest, EmplaceFront) {
   s21_stack_emplace.push(Example(1, 2));
   std_stack_emplace.push(Example(1, 2));
-
-  // stack.push(Example(1, 2));
-  // stack.emplace_front(4, 5);
-
-  // EXPECT_EQ(stack.top().getX(), 4);
-  // EXPECT_EQ(stack.top().getY(), 5);
+  EXPECT_EQ(s21_stack_emplace.size(), std_stack_emplace.size());
+  EXPECT_EQ(s21_stack_emplace.top(), std_stack_emplace.top());
+  s21_stack_emplace.emplace_front(4, 5);
+  std_stack_emplace.emplace(4, 5);
+  EXPECT_EQ(s21_stack_emplace.size(), std_stack_emplace.size());
+  EXPECT_EQ(s21_stack_emplace.top(), std_stack_emplace.top());
 }
 
-// TEST(Stack, simple_test) {
-//   s21::Stack<int> my_stack;
-//   std::stack<int> orig_stack;
-//   my_stack.push(1);
-//   my_stack.push(2);
-//   my_stack.push(2555);
-//   my_stack.push(365434);
-//   orig_stack.push(1);
-//   orig_stack.push(2);
-//   orig_stack.push(2555);
-//   orig_stack.push(365434);
-//   while (!orig_stack.empty() && !my_stack.empty()) {
-//     ASSERT_EQ(orig_stack.top(), my_stack.top());
-//     orig_stack.pop();
-//     my_stack.pop();
-//   }
-//   ASSERT_EQ(orig_stack.empty(), my_stack.empty());
-// }
-// TEST(Stack, swap_test) {
-//   std::stack<double> orig_stack1;
-//   orig_stack1.push(2.55);
-//   orig_stack1.push(3.55);
-//   orig_stack1.push(222.55);
-//   orig_stack1.push(984.55);
-//   orig_stack1.push(123.55);
-//   orig_stack1.push(0.55);
-//   orig_stack1.push(-34.55);
-//   std::stack<double> orig_stack2;
-//   orig_stack2.push(342.22);
-//   orig_stack2.push(355.01);
-//   orig_stack2.push(123.99);
-//   orig_stack2.push(888.34);
-//   orig_stack2.push(-23.11);
-//   orig_stack2.push(1002.88);
-//   orig_stack2.push(1.55);
-//   s21::Stack<double> my_stack1;
-//   my_stack1.push(2.55);
-//   my_stack1.push(3.55);
-//   my_stack1.push(222.55);
-//   my_stack1.push(984.55);
-//   my_stack1.push(123.55);
-//   my_stack1.push(0.55);
-//   my_stack1.push(-34.55);
-//   s21::Stack<double> my_stack2;
-//   my_stack2.push(342.22);
-//   my_stack2.push(355.01);
-//   my_stack2.push(123.99);
-//   my_stack2.push(888.34);
-//   my_stack2.push(-23.11);
-//   my_stack2.push(1002.88);
-//   my_stack2.push(1.55);
-//   orig_stack1.swap(orig_stack2);
-//   my_stack1.swap(my_stack2);
-//   while (!orig_stack1.empty() && !my_stack1.empty()) {
-//     ASSERT_DOUBLE_EQ(orig_stack1.top(), my_stack1.top());
-//     orig_stack1.pop();
-//     my_stack1.pop();
-//   }
-//   while (!orig_stack2.empty() && !my_stack2.empty()) {
-//     ASSERT_DOUBLE_EQ(orig_stack2.top(), my_stack2.top());
-//     orig_stack2.pop();
-//     my_stack2.pop();
-//   }
-//   ASSERT_EQ(orig_stack2.empty(), my_stack2.empty());
-// }
-
-// TEST(Stack, move_operator_test) {
-//   std::stack<int> orig_stack1;
-//   orig_stack1.push(55);
-//   orig_stack1.push(555);
-//   orig_stack1.push(5555);
-//   orig_stack1.push(55555);
-//   std::stack<int> orig_stack2;
-//   orig_stack2.push(1);
-//   orig_stack2.push(2);
-//   orig_stack2 = std::move(orig_stack1);
-//   s21::Stack<int> copy_stack1;
-//   copy_stack1.push(55);
-//   copy_stack1.push(555);
-//   copy_stack1.push(5555);
-//   copy_stack1.push(55555);
-//   s21::Stack<int> copy_stack2{1, 2};
-//   copy_stack2 = std::move(copy_stack1);
-//   while (!orig_stack2.empty() && !copy_stack2.empty()) {
-//     ASSERT_EQ(orig_stack2.top(), copy_stack2.top());
-//     orig_stack2.pop();
-//     copy_stack2.pop();
-//   }
-//   ASSERT_EQ(orig_stack1.size(), copy_stack1.size());
-// }
-
-// TEST(Stack, emplace_test) {
-//   std::stack<int> orig_stack1;
-//   orig_stack1.push(55);
-//   orig_stack1.push(555);
-//   orig_stack1.push(5555);
-//   orig_stack1.push(55555);
-//   orig_stack1.emplace(345);
-//   orig_stack1.emplace(234);
-//   orig_stack1.emplace(889);
-//   s21::Stack<int> copy_stack1;
-//   copy_stack1.push(55);
-//   copy_stack1.push(555);
-//   copy_stack1.push(5555);
-//   copy_stack1.push(55555);
-//   copy_stack1.emplace_front(345);
-//   copy_stack1.emplace_front(234);
-//   copy_stack1.emplace_front(889);
-//   while (!orig_stack1.empty() && !copy_stack1.empty()) {
-//     ASSERT_EQ(orig_stack1.top(), copy_stack1.top());
-//     orig_stack1.pop();
-//     copy_stack1.pop();
-//   }
-//   ASSERT_EQ(orig_stack1.size(), copy_stack1.size());
-// }
