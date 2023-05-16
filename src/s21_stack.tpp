@@ -150,6 +150,8 @@ void Stack<T>::swap(Stack &other) {
  * @tparam T
  * @param ...args
  */
+
+// должны добавляться элементы, а не создаваться новые и добавлять
 template <typename T>
 template <typename... Args>
 void Stack<T>::emplace_front(Args &&...args) {
