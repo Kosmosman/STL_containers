@@ -29,11 +29,12 @@ Array<T, N>::Array(const Array &a) {
   if (a.size_ != N) {
     throw std::out_of_range("Size should be equals");
   }
+
   // static_assert(std::is_same<T, decltype(a)>::value, "Type mismatch");
   // if (std::is_same<T, decltype(a)>::value, "Type mismatch") {
   //   throw std::out_of_range("Type Error");
   // }
-  for (size_type i = 0; i < N; i++) {
+  for (size_type i = 0; i < size(); i++) {
     arr_[i] = a.arr_[i];
   }
   begin_ = arr_;
@@ -44,21 +45,21 @@ Array<T, N>::Array(const Array &a) {
 template <typename T, size_t N>
 Array<T, N>::Array(Array &&a) {
   // нужно ли здесь выкидывать ошибку??
-  for (size_type i = 0; i < N; i++) {
+  for (size_type i = 0; i < size(); i++) {
     arr_[i] = a.arr_[i];
   }
   begin_ = arr_;
   end_ = arr_ + N;
   size_ = a.size_;
 
-  a.size_ = 0;
-  a.begin_ = nullptr;
-  a.end_ = nullptr;
+  // a.size_ = 0;
+  // a.begin_ = nullptr;
+  // a.end_ = nullptr;
 }
 
 template <typename T, size_t N>
 Array<T, N> &Array<T, N>::operator=(Array &&a) {
-  ~Array();  // нужен ли здесь дестурктор?
+  this->~Array();  // нужен ли здесь дестурктор?
   // сделать общую функцию копирования?
   for (size_type i = 0; i < N; i++) {
     arr_[i] = a.arr_[i];
@@ -66,6 +67,8 @@ Array<T, N> &Array<T, N>::operator=(Array &&a) {
   begin_ = arr_;
   end_ = arr_ + N;
   size_ = a.size_;
+
+  return *this;
 }
 
 template <typename T, size_t N>

@@ -23,16 +23,11 @@ class Example {
 };
 
 int main() {
-  s21::Queue<int> s21_queue_empty;
-  s21_queue_empty.push(1);
-  s21::Queue<int>::const_reference s21_const_front =
-      static_cast<s21::Queue<int>::const_reference>(s21_queue_empty.front());
+  std::array<int, 5> ar1{1, 2};
+  std::array<int, 5> ar2(std::move(ar1));
+  std::cout << ar1.at(0) << std::endl;
 
-  int arr[s21_const_front];
-  arr[0] = 3;
-  std::cout << arr[0] << std::endl;
-
-  std::cout << s21_const_front << std::endl;
+  // std::cout << s21_const_front << std::endl;
 
   return 0;
 }
