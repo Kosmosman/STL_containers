@@ -102,6 +102,18 @@ TEST_F(s21ArrayTest, Swap) {
   }
 }
 
+TEST_F(s21ArrayTest, Fill) {
+  s21_array_init.fill('o');
+  std_array_init.fill('o');
+
+  EXPECT_EQ(s21_array_init.size(), std_array_init.size());
+  EXPECT_EQ(s21_array_init.front(), std_array_init.front());
+  EXPECT_EQ(s21_array_init.back(), std_array_init.back());
+  for (size_t i = 0; i < s21_array_init.size(); i++) {
+    EXPECT_EQ(s21_array_init[i], std_array_init[i]);
+  }
+}
+
 class TestArray {
  public:
   s21::Array<int, 0> s21_array_empty;
@@ -116,30 +128,6 @@ class TestArray {
   std::array<double, 5> orig_array1{2.5, 3.4, 255.3, 1.2, 0.5};
   std::array<double, 5> orig_array2{-5.3, 1.18, -4.3, 255.34, 1.23};
 };
-
-TEST(Array, simple_test) {
-  TestArray logger;
-  for (int i{}; i < 3; i++)
-    ASSERT_EQ(logger.orig_array.at(i), logger.copy_array.at(i));
-  ASSERT_EQ(logger.orig_array.size(), logger.copy_array.size());
-  ASSERT_EQ(logger.orig_array.max_size(), logger.copy_array.max_size());
-  ASSERT_EQ(logger.orig_ar1.empty(), logger.copy_ar1.empty());
-}
-TEST(Array, swap_test) {
-  TestArray logger;
-  logger.orig_array1.swap(logger.orig_array2);
-  logger.copy_array1.swap(logger.copy_array2);
-  for (int i{}; i < 5; i++) {
-    ASSERT_DOUBLE_EQ(logger.orig_array1[i], logger.copy_array1[i]);
-    ASSERT_DOUBLE_EQ(logger.orig_array2[i], logger.copy_array2[i]);
-  }
-  ASSERT_EQ(logger.orig_array1.size(), logger.copy_array1.size());
-  ASSERT_EQ(logger.orig_array2.max_size(), logger.copy_array2.max_size());
-  ASSERT_EQ(logger.orig_array1.front(), logger.copy_array1.front());
-  ASSERT_EQ(logger.orig_array2.front(), logger.copy_array2.front());
-  ASSERT_EQ(logger.orig_array1.back(), logger.copy_array1.back());
-  ASSERT_EQ(logger.orig_array2.back(), logger.copy_array2.back());
-}
 
 TEST(Array, move_operator_test) {
   std::array<int, 5> orig_array1{234, 21, 11, 34, 999};
