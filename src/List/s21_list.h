@@ -12,51 +12,44 @@ class list {
     typedef struct Node
     {
         value_type value;
-        Node* prev;
-        Node* next;
+        Node* prev = nullptr;
+        Node* next = nullptr;
     };
 
-
-    // void insert(int value) {
-    //     Node* newNode = new Node; // Allocate memory for a new node
-    //     newNode->value = value;
-    //     newNode->next = head;
-    //     head = newNode;
+    // Node() : value(), prev(nullptr), next(nullptr) {}
+    //   void init() {
+    //     m_size = 0;
+    //     m_head = nullptr;
+    //     m_tail = nullptr;
+    //     m_end = new Node();
+    //     m_end->prev = nullptr;
+    //     m_end->next = nullptr;
     // }
 
-    // void printList() {
-    //     Node* current = head;
-    //     while (current != NULL) {
-    //         cout << current->data << " ";
-    //         current = current->next;
-    //     }
-    //     cout << endl;
-    // }
-    // нужна функция init struct Node
-      void init() {
-        m_size = 0;
-        m_head = nullptr;
-        m_tail = nullptr;
-        m_end = new Node();
-        m_end->prev = nullptr;
-        m_end->next = nullptr;
-    }
-
-
-    size_type size;
-    Node* headNode;
-    Node* teilNode;
-    Node* endNode;
+    size_type size = 0;
+    Node* headNode = nullptr;
+    Node* teilNode = nullptr;
+    Node* endNode = nullptr;
 
     //В этой таблице перечислены основные 
     //публичные методы для взаимодействия с классом:
     public:
-  list(); // конструктор по умолчанию, создает пустой список
-  list(size_type n); // параметризованный конструктор, создает список размера n
-  list(std::initializer_list<value_type> const& items); // конструктор списка инициализаторов, создает список, инициализированный с помощью std::initializer_list
-  list(const list& l); // конструктор копирования
-  list(list&& l); // конструктор перемещения
-  ~list(); // деструктор
-  list& operator=(list&& l); // Перегрузка оператора присваивания для движущегося объекта
+    list(); // конструктор по умолчанию, создает пустой список
+    list(size_type n); // параметризованный конструктор, создает список размера n
+    list(std::initializer_list<value_type> const& items); // конструктор списка инициализаторов, создает список, инициализированный с помощью std::initializer_list
+    list(const list& l); // конструктор копирования
+    list(list&& l); // конструктор перемещения
+    ~list(); // деструктор
+    list& operator=(list&& l); // Перегрузка оператора присваивания для движущегося объекта
+
+
+public:
+  const_reference front();
+  const_reference back();
+
+// const noexcept
+  bool empty();
+  size_type size();
+  size_type max_size();
 };
 };
