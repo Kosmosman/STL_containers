@@ -33,7 +33,9 @@ int main() {
   // std::cout << ar.at(3) << std::endl;
   // std::cout << s21_const_front << std::endl;
   // s21::Array<int, 5> ar_1{1, 2, 3};
-  // s21::Array<int, 3> ar_2;
+  s21::Array<int, 3> ar_2;
+  ar_2.at(-1) = 2;
+  std::cout << ar_2.at(-1) << std::endl;
   // ar_2.swap(ar_1);
 
   return 0;
