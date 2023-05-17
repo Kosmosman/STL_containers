@@ -23,10 +23,12 @@ class Example {
 };
 
 int main() {
-  std::array<int, 5> ar1{1, 2};
-  std::array<int, 5> ar2(std::move(ar1));
-  std::cout << ar1.at(0) << std::endl;
-
+  // std::array<int, 5> ar1{1, 2};
+  // std::array<int, 5> ar2(std::move(ar1));
+  // std::cout << ar1.at(0) << std::endl;
+  std::array<int, 5> ar_for_copy{1, 2, 3, 4, 5};
+  std::array<int, 5> ar(std::move(ar_for_copy));
+  std::cout << ar.at(0) << std::endl;
   // std::cout << s21_const_front << std::endl;
 
   return 0;

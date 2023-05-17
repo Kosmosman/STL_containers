@@ -2,6 +2,55 @@
 
 #include "test.h"
 
+class s21ArrayTest : public testing::Test {
+ protected:
+  s21::Array<int, 0> s21_array_empty;
+  s21::Array<char, 4> s21_array_init{'a', 'b', 'c', 'd'};
+  s21::Array<int, 5> s21_array_for_copy{1, 2, 3, 4, 5};
+
+  std::array<int, 0> std_array_empty;
+  std::array<char, 4> std_array_init{'a', 'b', 'c', 'd'};
+  std::array<int, 5> std_array_for_copy{1, 2, 3, 4, 5};
+};
+
+TEST_F(s21ArrayTest, DefaultConstructor) {
+  EXPECT_EQ(s21_array_empty.size(), std_array_empty.size());
+  EXPECT_EQ(s21_array_empty.empty(), std_array_empty.empty());
+}
+
+TEST_F(s21ArrayTest, InitializerListConstructor) {
+  EXPECT_EQ(s21_array_init.size(), std_array_init.size());
+  EXPECT_EQ(s21_array_init.front(), std_array_init.front());
+  EXPECT_EQ(s21_array_init.back(), std_array_init.back());
+  for (size_t i = 0; i < s21_array_init.size(); i++) {
+    EXPECT_EQ(s21_array_init[i], std_array_init[i]);
+  }
+}
+
+TEST_F(s21ArrayTest, CopyConstructor) {
+  s21::Array<int, 5> s21_array(s21_array_for_copy);
+  std::array<int, 5> std_array(std_array_for_copy);
+
+  EXPECT_EQ(s21_array.size(), std_array.size());
+  EXPECT_EQ(s21_array.front(), std_array.front());
+  EXPECT_EQ(s21_array.back(), std_array.back());
+  for (size_t i = 0; i < s21_array.size(); i++) {
+    EXPECT_EQ(s21_array[i], std_array[i]);
+  }
+}
+
+TEST_F(s21ArrayTest, MoveConstructor) {
+  s21::Array<int, 5> s21_array(std::move(s21_array_for_copy));
+  std::array<int, 5> std_array(std::move(std_array_for_copy));
+
+  EXPECT_EQ(s21_array.size(), std_array.size());
+  EXPECT_EQ(s21_array.front(), std_array.front());
+  EXPECT_EQ(s21_array.back(), std_array.back());
+  for (size_t i = 0; i < s21_array.size(); i++) {
+    EXPECT_EQ(s21_array[i], std_array[i]);
+  }
+}
+
 class TestArray {
  public:
   s21::Array<int, 0> s21_array_empty;
@@ -17,21 +66,6 @@ class TestArray {
   std::array<double, 5> orig_array2{-5.3, 1.18, -4.3, 255.34, 1.23};
 };
 
-TEST(Array, constructor_default) {
-  TestArray tester;
-  EXPECT_EQ(tester.s21_array_empty.size(), tester.std_array_empty.size());
-  EXPECT_EQ(tester.s21_array_empty.empty(), tester.std_array_empty.empty());
-}
-
-TEST(Array, constructor_initializer) {
-  TestArray tester;
-  EXPECT_EQ(tester.copy_array1[1], tester.orig_array1[1]);
-  EXPECT_EQ(tester.copy_array1.front(), tester.orig_array1.front());
-  EXPECT_EQ(tester.copy_array1.back(), tester.orig_array1.back());
-  EXPECT_EQ(tester.copy_array1.size(), tester.orig_array1.size());
-  EXPECT_EQ(tester.copy_array1.empty(), tester.orig_array1.empty());
-}
-
 TEST(Array, constructor_copy_empty) {
   TestArray tester;
   s21::Array<int, 0> s21_array_copy(tester.s21_array_empty);
@@ -39,6 +73,56 @@ TEST(Array, constructor_copy_empty) {
   EXPECT_EQ(s21_array_copy.size(), std_array_copy.size());
   EXPECT_EQ(s21_array_copy.empty(), std_array_copy.empty());
 }
+
+// TEST(ArrayTest, InitializerListConstructor) {
+//   s21::Array<int, 4> array_1 = {1, 2, 3, 4};
+//   EXPECT_EQ(array_1[0], 1);
+//   EXPECT_EQ(array_1[1], 2);
+//   EXPECT_EQ(array_1[2], 3);
+//   EXPECT_EQ(array_1[3], 4);
+
+//   s21::Array<int, 3> array_2 = {1, 2};
+//   EXPECT_EQ(array_2[0], 1);
+//   EXPECT_EQ(array_2[1], 2);
+//   EXPECT_EQ(array_2[2], 0);
+// }
+
+// TEST(ArrayTest, CopyConstructor) {
+//   s21::Array<int, 4> array_1 = {1, 2, 3, 4};
+//   s21::Array<int, 4> array_2(array_1);
+
+//   EXPECT_EQ(array_2.size(), 4);
+//   EXPECT_EQ(array_2[0], 1);
+//   EXPECT_EQ(array_2[1], 2);
+//   EXPECT_EQ(array_2[2], 3);
+//   EXPECT_EQ(array_2[3], 4);
+// }
+
+// TEST(ArrayTest, MoveConstructor) {
+//   s21::Array<int, 4> array_1 = {1, 2, 3, 4};
+//   s21::Array<int, 4> array_2(std::move(array_1));
+
+//   EXPECT_EQ(array_2.size(), 4);
+//   EXPECT_EQ(array_2[0], 1);
+//   EXPECT_EQ(array_2[1], 2);
+//   EXPECT_EQ(array_2[2], 3);
+//   EXPECT_EQ(array_2[3], 4);
+
+//   EXPECT_EQ(array_1.size(), 0);
+// }
+
+// TEST(ArrayTest, AssignmentOperatorMoving) {
+//   s21::Array<int, 4> array_1 = {1, 2, 3, 4};
+//   s21::Array<int, 4> array_2 = std::move(array_1);
+
+//   EXPECT_EQ(array_2.size(), 4);
+//   EXPECT_EQ(array_2[0], 1);
+//   EXPECT_EQ(array_2[1], 2);
+//   EXPECT_EQ(array_2[2], 3);
+//   EXPECT_EQ(array_2[3], 4);
+
+//   EXPECT_EQ(array_1.size(), 0);
+// }
 
 TEST(Array, simple_test) {
   TestArray logger;
@@ -150,61 +234,6 @@ TEST(Array, fill_test) {
   ASSERT_EQ(orig_array.size(), my_arr.size());
   ;
 }
-
-// TEST(ArrayTest, DefaultConstructor) {
-//   s21::Array<int, 5> array;
-//   EXPECT_EQ(array.size(), 5);
-// }
-
-// TEST(ArrayTest, InitializerListConstructor) {
-//   s21::Array<int, 4> array_1 = {1, 2, 3, 4};
-//   EXPECT_EQ(array_1[0], 1);
-//   EXPECT_EQ(array_1[1], 2);
-//   EXPECT_EQ(array_1[2], 3);
-//   EXPECT_EQ(array_1[3], 4);
-
-//   s21::Array<int, 3> array_2 = {1, 2};
-//   EXPECT_EQ(array_2[0], 1);
-//   EXPECT_EQ(array_2[1], 2);
-//   EXPECT_EQ(array_2[2], 0);
-// }
-
-// TEST(ArrayTest, CopyConstructor) {
-//   s21::Array<int, 4> array_1 = {1, 2, 3, 4};
-//   s21::Array<int, 4> array_2(array_1);
-
-//   EXPECT_EQ(array_2.size(), 4);
-//   EXPECT_EQ(array_2[0], 1);
-//   EXPECT_EQ(array_2[1], 2);
-//   EXPECT_EQ(array_2[2], 3);
-//   EXPECT_EQ(array_2[3], 4);
-// }
-
-// TEST(ArrayTest, MoveConstructor) {
-//   s21::Array<int, 4> array_1 = {1, 2, 3, 4};
-//   s21::Array<int, 4> array_2(std::move(array_1));
-
-//   EXPECT_EQ(array_2.size(), 4);
-//   EXPECT_EQ(array_2[0], 1);
-//   EXPECT_EQ(array_2[1], 2);
-//   EXPECT_EQ(array_2[2], 3);
-//   EXPECT_EQ(array_2[3], 4);
-
-//   EXPECT_EQ(array_1.size(), 0);
-// }
-
-// TEST(ArrayTest, AssignmentOperatorMoving) {
-//   s21::Array<int, 4> array_1 = {1, 2, 3, 4};
-//   s21::Array<int, 4> array_2 = std::move(array_1);
-
-//   EXPECT_EQ(array_2.size(), 4);
-//   EXPECT_EQ(array_2[0], 1);
-//   EXPECT_EQ(array_2[1], 2);
-//   EXPECT_EQ(array_2[2], 3);
-//   EXPECT_EQ(array_2[3], 4);
-
-//   EXPECT_EQ(array_1.size(), 0);
-// }
 
 // TEST(ArrayTest, At) {
 //   s21::Array<int, 4> array = {1, 2, 3, 4};
