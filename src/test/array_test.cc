@@ -5,13 +5,13 @@
 class s21ArrayTest : public testing::Test {
  protected:
   s21::Array<int, 0> s21_array_empty;
-  s21::Array<char, 4> s21_array_init{'a', 'b', 'c', 'd'};
+  s21::Array<char, 5> s21_array_init{'a', 'b', 'c', 'd'};
   s21::Array<int, 5> s21_array_for_copy{1, 2, 3, 4, 5};
   s21::Array<int, 5> s21_array_for_swap_1{12, 23, 23, 435, -51};
   s21::Array<int, 5> s21_array_for_swap_2{423423, 234, 623, 12, 1};
 
   std::array<int, 0> std_array_empty;
-  std::array<char, 4> std_array_init{'a', 'b', 'c', 'd'};
+  std::array<char, 5> std_array_init{'a', 'b', 'c', 'd'};
   std::array<int, 5> std_array_for_copy{1, 2, 3, 4, 5};
   std::array<int, 5> std_array_for_swap_1{12, 23, 23, 435, -51};
   std::array<int, 5> std_array_for_swap_2{423423, 234, 623, 12, 1};
@@ -29,6 +29,9 @@ TEST_F(s21ArrayTest, InitializerListConstructor) {
   for (size_t i = 0; i < s21_array_init.size(); i++) {
     EXPECT_EQ(s21_array_init[i], std_array_init[i]);
   }
+  s21::Array<int, 4> s21_array_init_throw;
+  std::initializer_list<int> init_list_for_throw = {1, 1, 2, 3, 5, 8, 13};
+  EXPECT_THROW(s21_array_init_throw = init_list_for_throw, std::out_of_range);
 }
 
 TEST_F(s21ArrayTest, CopyConstructor) {
@@ -38,6 +41,7 @@ TEST_F(s21ArrayTest, CopyConstructor) {
   EXPECT_EQ(s21_array.size(), std_array.size());
   EXPECT_EQ(s21_array.front(), std_array.front());
   EXPECT_EQ(s21_array.back(), std_array.back());
+  EXPECT_EQ(s21_array.max_size(), std_array.max_size());
   for (size_t i = 0; i < s21_array.size(); i++) {
     EXPECT_EQ(s21_array[i], std_array[i]);
   }

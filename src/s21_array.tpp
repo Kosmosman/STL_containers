@@ -26,9 +26,9 @@ Array<T, N>::Array(std::initializer_list<value_type> const &items)
 template <typename T, size_t N>
 // Array<T, N>::Array(const Array<T, N> &a) {
 Array<T, N>::Array(const Array &a) {
-  if (a.size_ != N) {
-    throw std::out_of_range("Size should be equals");
-  }
+  // if (a.size_ != N) {
+  //   throw std::out_of_range("Size should be equals");
+  // }
 
   // static_assert(std::is_same<T, decltype(a)>::value, "Type mismatch");
   // if (std::is_same<T, decltype(a)>::value, "Type mismatch") {
