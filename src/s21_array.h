@@ -19,20 +19,19 @@ class Array {
   Array<T, N> &operator=(Array &&a);
   ~Array() = default;
 
-  reference at(size_type pos);  // может нужна перегрузка constexpr
-  reference operator[](size_type pos);
-  const_reference front() const;
-  reference front();
-  const_reference back() const;
-  reference back();
-  iterator data();
-  iterator begin();
-  const_iterator begin() const;
-  iterator end();
-  const_iterator end() const;
-  bool empty();
-  size_type size();
-  size_type max_size();
+  constexpr reference at(size_type pos);
+  constexpr reference operator[](size_type pos);
+  constexpr reference front();
+  constexpr reference back();
+  constexpr iterator data() noexcept;
+  constexpr iterator begin() noexcept;
+  constexpr const_iterator begin() const noexcept;
+  constexpr iterator end() noexcept;
+  constexpr const_iterator end() const noexcept;
+
+  constexpr bool empty() const noexcept;
+  constexpr size_type size() const noexcept;
+  constexpr size_type max_size() const noexcept;
   void swap(Array &other);
   void fill(const_reference value);
 

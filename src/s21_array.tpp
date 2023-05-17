@@ -66,39 +66,42 @@ void Array<T, N>::fill(const_reference value) {
 /* ---------------------------- ITERATORS ------------------------------ */
 
 template <typename T, size_t N>
-typename Array<T, N>::iterator Array<T, N>::begin() {
+constexpr typename Array<T, N>::iterator Array<T, N>::begin() noexcept {
   return begin_;
 }
 
 template <typename T, size_t N>
-typename Array<T, N>::const_iterator Array<T, N>::begin() const {
+constexpr typename Array<T, N>::const_iterator Array<T, N>::begin()
+    const noexcept {
   return begin_;
 }
 
 template <typename T, size_t N>
-typename Array<T, N>::iterator Array<T, N>::end() {
+constexpr typename Array<T, N>::iterator Array<T, N>::end() noexcept {
   return end_;
 }
 
 template <typename T, size_t N>
-typename Array<T, N>::const_iterator Array<T, N>::end() const {
+constexpr typename Array<T, N>::const_iterator Array<T, N>::end()
+    const noexcept {
   return end_;
 }
 
 template <typename T, size_t N>
-typename Array<T, N>::iterator Array<T, N>::data() {
+constexpr typename Array<T, N>::iterator Array<T, N>::data() noexcept {
   return begin_;
 }
 
 /* ---------------------------- ACCESS ------------------------------ */
 
 template <typename T, size_t N>
-typename Array<T, N>::reference Array<T, N>::operator[](size_type pos) {
+constexpr typename Array<T, N>::reference Array<T, N>::operator[](
+    size_type pos) {
   return arr_[pos];
 }
 
 template <typename T, size_t N>
-typename Array<T, N>::reference Array<T, N>::at(size_type pos) {
+constexpr typename Array<T, N>::reference Array<T, N>::at(size_type pos) {
   if (pos >= size_) {
     throw std::out_of_range("Index out of range");
   }
@@ -107,40 +110,31 @@ typename Array<T, N>::reference Array<T, N>::at(size_type pos) {
 }
 
 template <typename T, size_t N>
-typename Array<T, N>::const_reference Array<T, N>::front() const {
+constexpr typename Array<T, N>::reference Array<T, N>::front() {
   return *begin_;
 }
 
 template <typename T, size_t N>
-typename Array<T, N>::reference Array<T, N>::front() {
-  return *begin_;
-}
-
-template <typename T, size_t N>
-typename Array<T, N>::const_reference Array<T, N>::back() const {
-  return *(end() - 1);
-}
-
-template <typename T, size_t N>
-typename Array<T, N>::reference Array<T, N>::back() {
+constexpr typename Array<T, N>::reference Array<T, N>::back() {
   return *(end() - 1);
 }
 
 /* ---------------------------- CHECK ------------------------------ */
 
 template <typename T, size_t N>
-bool Array<T, N>::empty() {
+constexpr bool Array<T, N>::empty() const noexcept {
   return size() == 0;
 }
 
 template <typename T, size_t N>
-typename Array<T, N>::size_type Array<T, N>::size() {
+constexpr typename Array<T, N>::size_type Array<T, N>::size() const noexcept {
   return size_;
 }
 
 template <typename T, size_t N>
-typename Array<T, N>::size_type Array<T, N>::max_size() {
-  return size_;
+constexpr typename Array<T, N>::size_type Array<T, N>::max_size()
+    const noexcept {
+  return size();
 }
 
 };  // namespace s21
