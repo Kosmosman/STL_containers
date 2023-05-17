@@ -14,7 +14,6 @@ class Array {
   Array();
   Array(std::initializer_list<value_type> const &items);
   Array(const Array &a);
-  // Array(const Array<T, N> &a);
   Array(Array &&a);
   Array<T, N> &operator=(const Array &a);
   Array<T, N> &operator=(Array &&a);
@@ -26,9 +25,11 @@ class Array {
   reference front();
   const_reference back() const;
   reference back();
-  iterator data();  // или написать свой итератор?
+  iterator data();
   iterator begin();
+  const_iterator begin() const;
   iterator end();
+  const_iterator end() const;
   bool empty();
   size_type size();
   size_type max_size();
