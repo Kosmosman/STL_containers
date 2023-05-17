@@ -16,6 +16,7 @@ class Array {
   Array(const Array &a);
   // Array(const Array<T, N> &a);
   Array(Array &&a);
+  Array<T, N> &operator=(const Array &a);
   Array<T, N> &operator=(Array &&a);
   ~Array();
 

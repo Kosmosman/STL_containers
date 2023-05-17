@@ -58,6 +58,20 @@ Array<T, N>::Array(Array &&a) {
 }
 
 template <typename T, size_t N>
+Array<T, N> &Array<T, N>::operator=(const Array &a) {
+  this->~Array();  // нужен ли здесь дестурктор?
+  // сделать общую функцию копирования?
+  for (size_type i = 0; i < N; i++) {
+    arr_[i] = a.arr_[i];
+  }
+  begin_ = arr_;
+  end_ = arr_ + N;
+  size_ = a.size_;
+
+  return *this;
+}
+
+template <typename T, size_t N>
 Array<T, N> &Array<T, N>::operator=(Array &&a) {
   this->~Array();  // нужен ли здесь дестурктор?
   // сделать общую функцию копирования?
