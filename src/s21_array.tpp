@@ -162,6 +162,7 @@ typename Array<T, N>::reference Array<T, N>::back() {
 
 template <typename T, size_t N>
 void Array<T, N>::swap(Array &other) {
+  // возможно можно заменить на фунцию swap
   value_type temp[N];
   for (size_type i = 0; i < N; i++) {
     temp[i] = arr_[i];

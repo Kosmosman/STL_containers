@@ -7,10 +7,14 @@ class s21ArrayTest : public testing::Test {
   s21::Array<int, 0> s21_array_empty;
   s21::Array<char, 4> s21_array_init{'a', 'b', 'c', 'd'};
   s21::Array<int, 5> s21_array_for_copy{1, 2, 3, 4, 5};
+  s21::Array<int, 5> s21_array_for_swap_1{12, 23, 23, 435, -51};
+  s21::Array<int, 5> s21_array_for_swap_2{423423, 234, 623, 12, 1};
 
   std::array<int, 0> std_array_empty;
   std::array<char, 4> std_array_init{'a', 'b', 'c', 'd'};
   std::array<int, 5> std_array_for_copy{1, 2, 3, 4, 5};
+  std::array<int, 5> std_array_for_swap_1{12, 23, 23, 435, -51};
+  std::array<int, 5> std_array_for_swap_2{423423, 234, 623, 12, 1};
 };
 
 TEST_F(s21ArrayTest, DefaultConstructor) {
@@ -79,6 +83,25 @@ TEST_F(s21ArrayTest, AssignmentOperatorMoving) {
   }
 }
 
+TEST_F(s21ArrayTest, Swap) {
+  s21_array_for_swap_1.swap(s21_array_for_swap_2);
+  std_array_for_swap_1.swap(std_array_for_swap_2);
+
+  EXPECT_EQ(s21_array_for_swap_1.size(), std_array_for_swap_1.size());
+  EXPECT_EQ(s21_array_for_swap_1.front(), std_array_for_swap_1.front());
+  EXPECT_EQ(s21_array_for_swap_1.back(), std_array_for_swap_1.back());
+  for (size_t i = 0; i < s21_array_for_swap_1.size(); i++) {
+    EXPECT_EQ(s21_array_for_swap_1[i], std_array_for_swap_1[i]);
+  }
+
+  EXPECT_EQ(s21_array_for_swap_2.size(), std_array_for_swap_2.size());
+  EXPECT_EQ(s21_array_for_swap_2.front(), std_array_for_swap_2.front());
+  EXPECT_EQ(s21_array_for_swap_2.back(), std_array_for_swap_2.back());
+  for (size_t i = 0; i < s21_array_for_swap_2.size(); i++) {
+    EXPECT_EQ(s21_array_for_swap_2[i], std_array_for_swap_2[i]);
+  }
+}
+
 class TestArray {
  public:
   s21::Array<int, 0> s21_array_empty;
@@ -93,8 +116,6 @@ class TestArray {
   std::array<double, 5> orig_array1{2.5, 3.4, 255.3, 1.2, 0.5};
   std::array<double, 5> orig_array2{-5.3, 1.18, -4.3, 255.34, 1.23};
 };
-
-
 
 TEST(Array, simple_test) {
   TestArray logger;
@@ -119,8 +140,6 @@ TEST(Array, swap_test) {
   ASSERT_EQ(logger.orig_array1.back(), logger.copy_array1.back());
   ASSERT_EQ(logger.orig_array2.back(), logger.copy_array2.back());
 }
-
-
 
 TEST(Array, move_operator_test) {
   std::array<int, 5> orig_array1{234, 21, 11, 34, 999};
