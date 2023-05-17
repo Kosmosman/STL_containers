@@ -31,9 +31,6 @@ Array<T, N>::Array(Array &&other)
   std::move(other.begin(), other.end(), begin_);
 }
 
-template <typename T, size_t N>
-Array<T, N>::~Array() {}
-
 /* ------------------------ OPERATORS --------------------------- */
 
 template <typename T, size_t N>

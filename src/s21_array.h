@@ -17,7 +17,7 @@ class Array {
   Array(Array &&a);
   Array<T, N> &operator=(const Array &a);
   Array<T, N> &operator=(Array &&a);
-  ~Array();
+  ~Array() = default;
 
   reference at(size_type pos);  // может нужна перегрузка constexpr
   reference operator[](size_type pos);
