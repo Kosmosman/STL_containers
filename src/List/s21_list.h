@@ -63,5 +63,12 @@ class list {
     void reverse();
     void unique();
     void sort();
+
+     template <typename value_type>
+     class ListIterator {
+       public:
+       ListIterator();
+       ListIterator(Node* ptr) : ptr_(ptr);
+     }
 };
 };
