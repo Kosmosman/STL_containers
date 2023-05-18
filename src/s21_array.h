@@ -37,9 +37,6 @@ class Array {
 
  private:
   value_type arr_[N];
-  iterator begin_;
-  iterator end_;
-  size_type size_;
 };
 };  // namespace s21
 
