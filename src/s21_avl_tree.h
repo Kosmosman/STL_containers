@@ -12,8 +12,11 @@ template <typename K, typename V>
 struct Node {
   Node() : key(0), value(0), height(0){};
   Node(K o_key, V o_value, int o_height)
-      : key(o_key), value(o_value), height(o_height){};
-  std::pair<K, V> key_value;
+      : key{o_key}, value{o_value}, height{o_height} {};
+
+  Node<K, V>* NextNode();
+  Node<K, V>* PreviousNode();
+
   K key;
   V value;
   int height;

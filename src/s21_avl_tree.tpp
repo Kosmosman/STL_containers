@@ -286,4 +286,39 @@ void AvlTree<K, V>::CreateEnd() {
   head_->parent = tmp;
 }
 
+/* ------------------------ NODE ------------------------------ */
+
+template <typename K, typename V>
+Node<K, V>* Node<K, V>::NextNode() {
+  Node<K, V>* node = this;
+  if (node->right) {
+    node = node->right;
+    while (node->left) node = node->left;
+  } else {
+    while (node->parent->parent != node && node->parent->key < node->key) {
+      node = node->parent;
+    }
+    node = node->parent;
+  }
+  return node;
+}
+
+template <typename K, typename V>
+Node<K, V>* Node<K, V>::PreviousNode() {
+  Node<K, V>* node = this;
+  if (node->parent->parent == node && node->height == -1) {
+    node = node->parent;
+    while (node->right) node = node->right;
+  } else if (node->left) {
+    node = node->left;
+    while (node->right) node = node->right;
+  } else {
+    while (node->parent->key > node->key) {
+      node = node->parent;
+    }
+    node = node->parent;
+  }
+  return node;
+}
+
 };  // namespace s21

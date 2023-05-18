@@ -35,12 +35,12 @@ void Set<value_type>::Swap(Set<value_type> &other) {
 
 template <typename value_type>
 void Set<value_type>::Merge(Set<value_type> &other) {
-  for (iterator it = other.begin(); it != other.end(); it++) {
+  for (auto it : other) {
     Insert(it.iterator_node_);
   }
 };
 
-/* ---------------------------- ITERATORS ------------------------------ */
+/* ---------------------------- ITERATOR ------------------------------ */
 
 template <typename value_type>
 typename Set<value_type>::iterator &Set<value_type>::iterator::operator=(
@@ -63,6 +63,22 @@ typename Set<value_type>::iterator Set<value_type>::iterator::operator++(int) {
 };
 
 template <typename value_type>
+typename Set<value_type>::reference Set<value_type>::iterator::operator*() {
+  if (iterator_node_) return iterator_node_->key;
+  static value_type empty_value = value_type{};
+  return empty_value;
+};
+
+template <typename value_type>
+typename Set<value_type>::const_reference
+Set<value_type>::const_iterator::operator*() {
+  if (SetConstIterator::iterator_node_)
+    return SetConstIterator::iterator_node_->key;
+  static value_type empty_value = value_type{};
+  return empty_value;
+};
+
+template <typename value_type>
 typename Set<value_type>::iterator Set<value_type>::iterator::operator--(int) {
   iterator tmp = *this;
   operator--();
@@ -71,39 +87,16 @@ typename Set<value_type>::iterator Set<value_type>::iterator::operator--(int) {
 
 template <typename value_type>
 typename Set<value_type>::iterator &Set<value_type>::iterator::operator++() {
-  if (iterator_node_) {
-    if (iterator_node_->right) {
-      iterator_node_ = iterator_node_->right;
-      while (iterator_node_->left) iterator_node_ = iterator_node_->left;
-    } else {
-      while (iterator_node_->parent->parent != iterator_node_ &&
-             iterator_node_->parent->key < iterator_node_->key) {
-        iterator_node_ = iterator_node_->parent;
-      }
-      iterator_node_ = iterator_node_->parent;
-    }
-  }
+  if (iterator_node_) iterator_node_ = iterator_node_->NextNode();
   return *this;
 };
 
 template <typename value_type>
 typename Set<value_type>::iterator &Set<value_type>::iterator::operator--() {
-  if (iterator_node_) {
-    if (iterator_node_->parent->parent == iterator_node_ &&
-        iterator_node_->height == -1) {
-      iterator_node_ = iterator_node_->parent;
-      while (iterator_node_->right) iterator_node_ = iterator_node_->right;
-    } else if (iterator_node_->left) {
-      iterator_node_ = iterator_node_->left;
-      while (iterator_node_->right) iterator_node_ = iterator_node_->right;
-    } else {
-      while (iterator_node_->parent->key > iterator_node_->key) {
-        iterator_node_ = iterator_node_->parent;
-      }
-      iterator_node_ = iterator_node_->parent;
-    }
-  }
+  if (iterator_node_) iterator_node_ = iterator_node_->PreviousNode();
   return *this;
 };
+
+/* ------------------------- CONST ITERATOR ---------------------------- */
 
 }  // namespace s21

@@ -1,10 +1,24 @@
 #include <gtest/gtest.h>
 
+#include <array>
 #include <set>
 #include <string>
 
 #include "s21_avl_tree.h"
 #include "s21_set.h"
+
+class SetTest {
+ public:
+  s21::Set<int> empty_set;
+  s21::Set<int> set_int{3, 5, 7, 2, 1, 1, 4, 6};
+  s21::Set<std::string> set_string{"baka", "obon", "kokoro"};
+  s21::Set<double> set_double{1.2, 2.0, 3.345, -1.233};
+
+  std::set<int> empty_set_orig;
+  std::set<int> set_int_orig{3, 5, 7, 2, 1, 1, 4, 6};
+  std::set<std::string> set_string_orig{"baka", "obon", "kokoro"};
+  std::set<double> set_double_orig{1.2, 2.0, 3.345, -1.233};
+};
 
 TEST(Tree, CreateTreeInt) {
   s21::AvlTree<int, int> one;
@@ -65,49 +79,75 @@ TEST(Tree, ClearTest) {
 }
 
 TEST(Set, Constructor) {
-  s21::Set<int> one;
-  EXPECT_EQ(*(one.begin()) == 0, true);
+  SetTest tmp;
+  EXPECT_EQ(*(tmp.empty_set.begin()) == 0, true);
 }
 
 TEST(Set, ConstructorList) {
-  s21::Set<int> one{5, 19, 2, 5, 29, 33};
-  int eq[5]{2, 5, 19, 29, 33};
+  SetTest tmp;
+  int eq[7]{1, 2, 3, 4, 5, 6, 7};
   int* pos = eq;
-  for (auto it : one) {
+  for (auto it : tmp.set_int) {
     EXPECT_EQ(it == *(pos++), true);
   }
 }
 
 TEST(Set, ConstructorCopy) {
-  s21::Set<int> one{10, 20, 40, 30, 2};
-  s21::Set<int> two{one};
-  int eq[5]{2, 10, 20, 30, 40};
-  int* pos = eq;
+  SetTest tmp;
+  s21::Set<double> two{tmp.set_double};
+  double eq[4]{-1.233, 1.2, 2.0, 3.345};
+  double* pos = eq;
   for (auto it : two) {
     EXPECT_EQ(it == *(pos++), true);
   }
-  one.Clear();
-  EXPECT_TRUE(one.Empty());
+  tmp.set_double.Clear();
+  EXPECT_TRUE(tmp.set_double.Empty());
   EXPECT_TRUE(!two.Empty());
 }
 
 TEST(Set, ConstructorMove) {
-  s21::Set<int> one{10, 20, 40, 30, 2};
-  s21::Set<int> two{std::move(one)};
-  int eq[5]{2, 10, 20, 30, 40};
-  int* pos = eq;
+  SetTest tmp;
+  s21::Set<double> two{std::move(tmp.set_double)};
+  double eq[4]{-1.233, 1.2, 2.0, 3.345};
+  double* pos = eq;
   for (auto it : two) {
     EXPECT_EQ(it == *(pos++), true);
   }
-  EXPECT_TRUE(one.Empty());
+  EXPECT_TRUE(tmp.set_double.Empty());
   EXPECT_TRUE(!two.Empty());
 }
 
-TEST(Set, OperatorsTest) {
-  s21::Set<int> one{10, 20, 40, 30, 2};
-  s21::Set<int>::iterator it(one.begin());
-  EXPECT_TRUE(*(it++) == 2);
-  EXPECT_TRUE(*(++it) == 20);
+TEST(Set, OperatorsPlusTest) {
+  SetTest tmp;
+  s21::Set<int>::iterator it(tmp.set_int.begin());
+  EXPECT_TRUE(*(it++) == 1);
+  EXPECT_TRUE(*(it) == 2);
+  EXPECT_TRUE(*(++it) == 3);
+}
+
+TEST(Set, OperatorsMinusTest) {
+  SetTest tmp;
+  s21::Set<int>::iterator it(tmp.set_int.Find(7));
+  EXPECT_TRUE(*(it--) == 7);
+  EXPECT_TRUE(*(it) == 6);
+  EXPECT_TRUE(*(--it) == 5);
+}
+
+TEST(Set, ContainsTest) {
+  SetTest tmp;
+  s21::Set<int>::iterator it(tmp.set_int.Find(7));
+  *(it) = 8;
+  EXPECT_TRUE(tmp.set_int.Contains(8));
+}
+
+TEST(Set, FindTest) {
+  SetTest tmp;
+  EXPECT_TRUE(tmp.set_int.Find(1) == tmp.set_int.begin());
+}
+
+TEST(Set, SizeTest) {
+  SetTest tmp;
+  EXPECT_TRUE(tmp.set_int.Find(1) == tmp.set_int.begin());
 }
 
 int main(int argc, char** argv) {
