@@ -21,15 +21,37 @@ class Set {
   using const_iterator = SetConstIterator;
   using size_type = size_t;
 
+  Set();
+  Set(std::initializer_list<value_type> const &items);
+  Set(const Set &s);
+  Set(Set &&s);
+  ~Set(){};
+
+  Set &operator=(const Set &s);
+  Set &operator=(Set &&s);
+
+  iterator begin();
+  iterator end();
+
+  bool Empty();
+  size_type Size();
+  size_type Max_size();
+
+  void Clear();
+  std::pair<iterator, bool> Insert(const value_type &value);
+  void Erase(iterator pos);
+  void Swap(Set &other);
+  void Merge(Set &other);
+
+  iterator Find(const key_type &key);
+  bool Contains(const key_type &key);
+
   class SetIterator {
    public:
-    SetIterator() : iterator_node_{nullptr} {};
-    explicit SetIterator(node_type *node) : iterator_node_{node} {};
-    SetIterator(const iterator &other)
-        : iterator_node_{other.iterator_node_} {};
-    SetIterator(iterator &&other) : iterator_node_{other.iterator_node_} {
-      other.iterator_node_ = nullptr;
-    };
+    SetIterator();
+    explicit SetIterator(node_type *node);
+    SetIterator(const iterator &other);
+    SetIterator(iterator &&other);
 
     iterator &operator++();
     iterator operator++(int);
@@ -37,12 +59,8 @@ class Set {
     iterator operator--(int);
     iterator &operator=(const iterator &s);
     iterator &operator=(iterator &&s);
-    bool operator!=(const iterator &it) {
-      return iterator_node_ != it.iterator_node_;
-    };
-    bool operator==(const iterator &it) {
-      return iterator_node_ == it.iterator_node_;
-    };
+    bool operator!=(const iterator &it);
+    bool operator==(const iterator &it);
     reference operator*();
 
    protected:
@@ -59,32 +77,6 @@ class Set {
 
     const_reference operator*();
   };
-
-  Set() : tree{} {};
-  Set(std::initializer_list<value_type> const &items) : tree{items} {};
-  Set(const Set &s) : tree{s.tree} {};
-  Set(Set &&s) : tree{std::move(s.tree)} {};
-  Set &operator=(const Set &s);
-  Set &operator=(Set &&s);
-  ~Set(){};
-
-  iterator begin() { return iterator(tree.Begin()); };
-  iterator end() { return iterator(tree.End()); };
-
-  bool Empty() { return tree.Empty(); };
-  size_type Size() { return tree.GetSize(); };
-  size_type Max_size() {
-    return std::numeric_limits<size_type>::max() / sizeof(value_type) / 10;
-  };
-
-  void Clear() { tree.Clear(); };
-  std::pair<iterator, bool> Insert(const value_type &value);
-  void Erase(iterator pos);
-  void Swap(Set &other);
-  void Merge(Set &other);
-
-  iterator Find(const key_type &key) { return iterator(tree.Find(key)); };
-  bool Contains(const key_type &key) { return tree.Find(key); };
 
  private:
   AvlTree<key_type, value_type> tree;

@@ -10,6 +10,9 @@ namespace s21 {
 template <typename K, typename V>
 class Map {
  public:
+  class MapIterator;
+  class MapConstIterator;
+
   using key_type = K;
   using mapped_type = V;
   using value_type = std::pair<const key_type, mapped_type>;
@@ -19,11 +22,14 @@ class Map {
   using const_iterator = MapConstIterator<K, V>;
   using size_type = size_t;
 
-  Map(/* args */);
-  ~Map();
+  Map();
+  Map(std::initializer_list<value_type> const &items);
+  Map(const Map &m);
+  Map(Map &&m);
+  ~Map(){};
 
  private:
-  /* data */
+  AvlTree<key_type, mapped_type> tree;
 };
 };  // namespace s21
 

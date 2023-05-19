@@ -1,6 +1,6 @@
 namespace s21 {
 
-/* ---------------- CONSTRUCTORS ------------------ */
+/* -------- CONSTRUCTORS / DESTRUCTORS ---------- */
 
 template <typename K, typename V>
 AvlTree<K, V>::AvlTree() noexcept : size_{0}, head_(nullptr){};
@@ -27,9 +27,25 @@ AvlTree<K, V>::AvlTree(AvlTree<K, V>&& other) noexcept
   other.size_ = 0;
 }
 
+template <typename K, typename V>
+AvlTree<K, V>::~AvlTree() {
+  Clear();
+};
+
+/* ------------------- OPERATORS --------------------- */
+
+template <typename K, typename V>
+AvlTree<K, V>& AvlTree<K, V>::operator=(const AvlTree<K, V>& other) {
+  CopyTree(head_, other.head_);
+};
+
+template <typename K, typename V>
+AvlTree<K, V>& AvlTree<K, V>::operator=(AvlTree<K, V>&& other) {
+  SwapTree(other);
+};
+
 /* ------------------- INSERT --------------------- */
 
-/// @brief Добавление элемента в множество
 template <typename K, typename V>
 Node<K, V>* AvlTree<K, V>::InnerInsert(Node<K, V>* node, const K& key,
                                        const V& value) {
@@ -52,7 +68,6 @@ Node<K, V>* AvlTree<K, V>::InnerInsert(Node<K, V>* node, const K& key,
   return tmp;
 }
 
-/// @brief Добавление первого элемента в множество
 template <typename K, typename V>
 Node<K, V>* AvlTree<K, V>::Insert(const K& key, const V& value) {
   Node<K, V>* result = nullptr;
@@ -75,7 +90,7 @@ void AvlTree<K, V>::Clear() {
     head_ = nullptr;
   };
 }
-/// @brief Обход дерева с выбором режима взаимодействия
+
 template <typename K, typename V>
 void AvlTree<K, V>::DeleteNodes(Node<K, V>* node) {
   if (node->left) DeleteNodes(node->left);
@@ -85,7 +100,6 @@ void AvlTree<K, V>::DeleteNodes(Node<K, V>* node) {
 
 /* --------------- BALANCE ------------------- */
 
-/// @brief Проверка на необходимость балансировки дерева
 template <typename K, typename V>
 void AvlTree<K, V>::Balance(Node<K, V>* node, int diff) {
   if (diff == 2) {
@@ -97,7 +111,6 @@ void AvlTree<K, V>::Balance(Node<K, V>* node, int diff) {
   }
 }
 
-/// @brief Правый поворот
 template <typename K, typename V>
 void AvlTree<K, V>::RightRotate(Node<K, V>* node) {
   SwapNode(node, node->left);
@@ -113,7 +126,6 @@ void AvlTree<K, V>::RightRotate(Node<K, V>* node) {
   UpdateHeight(node);
 }
 
-/// @brief Левый поворот
 template <typename K, typename V>
 void AvlTree<K, V>::LeftRotate(Node<K, V>* node) {
   SwapNode(node, node->right);
@@ -146,7 +158,6 @@ int AvlTree<K, V>::GetBalance(const Node<K, V>* node) const {
 
 /* ------------------ ERACE ---------------------- */
 
-/// @brief Поиск ключа и удаление листа
 template <typename K, typename V>
 void AvlTree<K, V>::Erase(Node<K, V>* node) {
   Node<K, V>* tmp = node;
@@ -255,7 +266,6 @@ AvlTree<K, V>& AvlTree<K, V>::SwapTree(AvlTree<K, V>&& other_tree) {
   return *this;
 }
 
-/// @brief Обмен ключ-значение между двумя узлами
 template <typename K, typename V>
 void AvlTree<K, V>::SwapNode(Node<K, V>* one, Node<K, V>* two) {
   K buffer_key = one->key;
@@ -265,6 +275,23 @@ void AvlTree<K, V>::SwapNode(Node<K, V>* one, Node<K, V>* two) {
   two->key = buffer_key;
   two->value = buffer_value;
 }
+
+/* ---------------------- CAPACITY --------------------------- */
+
+template <typename K, typename V>
+bool AvlTree<K, V>::Empty() const {
+  return !head_;
+};
+
+template <typename K, typename V>
+size_t AvlTree<K, V>::GetSize() const {
+  return size_;
+};
+
+template <typename K, typename V>
+size_t AvlTree<K, V>::MaxSize() const {
+  return (std::numeric_limits<size_t>::max() / 2) / sizeof(V) / 10;
+};
 
 /* -------------------- BEGIN AND END ------------------------- */
 
@@ -280,6 +307,11 @@ Node<K, V>* AvlTree<K, V>::Begin() {
 };
 
 template <typename K, typename V>
+Node<K, V>* AvlTree<K, V>::End() {
+  return head_->parent;
+};
+
+template <typename K, typename V>
 void AvlTree<K, V>::CreateEnd() {
   Node<K, V>* tmp = new Node<K, V>{head_->key, head_->value, -1};
   tmp->parent = head_;
@@ -287,6 +319,13 @@ void AvlTree<K, V>::CreateEnd() {
 }
 
 /* ------------------------ NODE ------------------------------ */
+
+template <typename K, typename V>
+Node<K, V>::Node() : key(0), value(0), height(0){};
+
+template <typename K, typename V>
+Node<K, V>::Node(K o_key, V o_value, int o_height)
+    : key{o_key}, value{o_value}, height{o_height} {};
 
 template <typename K, typename V>
 Node<K, V>* Node<K, V>::NextNode() {

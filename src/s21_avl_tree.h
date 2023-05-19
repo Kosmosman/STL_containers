@@ -10,9 +10,8 @@ namespace s21 {
 
 template <typename K, typename V>
 struct Node {
-  Node() : key(0), value(0), height(0){};
-  Node(K o_key, V o_value, int o_height)
-      : key{o_key}, value{o_value}, height{o_height} {};
+  Node();
+  Node(K o_key, V o_value, int o_height);
 
   Node<K, V>* NextNode();
   Node<K, V>* PreviousNode();
@@ -30,20 +29,22 @@ class AvlTree {
   explicit AvlTree(std::initializer_list<K> const& init);
   explicit AvlTree(const AvlTree& other);
   AvlTree(AvlTree&& other) noexcept;
-  ~AvlTree() { Clear(); };
+  ~AvlTree();
 
   Node<K, V>* Insert(const K& key, const V& value);
   void Erase(Node<K, V>*);
   Node<K, V>* Find(const K& key);
-  size_t GetSize() const { return size_; };
-  bool Empty() const { return !head_; };
   void Clear();
 
-  AvlTree& operator=(const AvlTree& other) { CopyTree(head_, other.head_); };
-  AvlTree& operator=(AvlTree&& other) { SwapTree(other); };
+  bool Empty() const;
+  size_t GetSize() const;
+  size_t MaxSize() const;
+
+  AvlTree& operator=(const AvlTree& other);
+  AvlTree& operator=(AvlTree&& other);
 
   Node<K, V>* Begin();
-  Node<K, V>* End() { return head_->parent; };
+  Node<K, V>* End();
 
   void PrintTree();
 

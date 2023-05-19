@@ -142,12 +142,17 @@ TEST(Set, ContainsTest) {
 
 TEST(Set, FindTest) {
   SetTest tmp;
-  EXPECT_TRUE(tmp.set_int.Find(1) == tmp.set_int.begin());
+  EXPECT_TRUE(*tmp.set_int.Find(1) == 1);
 }
 
 TEST(Set, SizeTest) {
   SetTest tmp;
-  EXPECT_TRUE(tmp.set_int.Find(1) == tmp.set_int.begin());
+  EXPECT_TRUE(tmp.set_int.Size() == 7);
+}
+
+TEST(Set, MaxSizeTest) {
+  SetTest tmp;
+  EXPECT_TRUE(tmp.set_int.Max_size() == tmp.set_int_orig.max_size());
 }
 
 int main(int argc, char** argv) {
