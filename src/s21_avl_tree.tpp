@@ -36,12 +36,16 @@ AvlTree<K, V>::~AvlTree() {
 
 template <typename K, typename V>
 AvlTree<K, V>& AvlTree<K, V>::operator=(const AvlTree<K, V>& other) {
-  CopyTree(head_, other.head_);
+  if (head_ == other.head_) return *this;
+  Clear();
+  size_ = other.size_;
+  if (other.size_) head_ = new node_type;
+  return CopyTree(head_, other.head_);
 };
 
 template <typename K, typename V>
 AvlTree<K, V>& AvlTree<K, V>::operator=(AvlTree<K, V>&& other) {
-  SwapTree(other);
+  return SwapTree(std::move(other));
 };
 
 /* ------------------- INSERT --------------------- */
@@ -50,8 +54,9 @@ template <typename K, typename V>
 Node<K, V>* AvlTree<K, V>::InnerInsert(Node<K, V>* node, const K& key,
                                        const V& value) {
   Node<K, V>* tmp = nullptr;
-  if (key > node->key && node->right) InnerInsert(node->right, key, value);
-  if (key < node->key && node->left) InnerInsert(node->left, key, value);
+  if (key > node->key && node->right)
+    tmp = InnerInsert(node->right, key, value);
+  if (key < node->key && node->left) tmp = InnerInsert(node->left, key, value);
   if (!node->right && key > node->key) {
     node->right = new Node<K, V>{key, value, 0};
     node->right->parent = node;
@@ -194,13 +199,16 @@ void AvlTree<K, V>::Erase(Node<K, V>* node) {
 template <typename K, typename V>
 Node<K, V>* AvlTree<K, V>::Find(const K& key) {
   Node<K, V>* tmp{head_};
-  while (tmp) {
-    if (key == tmp->key)
-      break;
-    else if (key < tmp->key)
-      tmp = tmp->left;
-    else
-      tmp = tmp->right;
+  if (head_) {
+    while (tmp) {
+      if (key == tmp->key)
+        break;
+      else if (key < tmp->key)
+        tmp = tmp->left;
+      else
+        tmp = tmp->right;
+    }
+    if (!tmp) tmp = head_->parent;
   }
   return tmp;
 }
@@ -237,16 +245,18 @@ void AvlTree<K, V>::PrintTree() {
 template <typename K, typename V>
 AvlTree<K, V>& AvlTree<K, V>::CopyTree(Node<K, V>* node,
                                        const Node<K, V>* other_node) {
-  CopyNode(node, other_node);
-  if (other_node->left) {
-    node->left = new Node<K, V>();
-    node->left->parent = node;
-    CopyTree(node->left, other_node->left);
-  }
-  if (other_node->right) {
-    node->right = new Node<K, V>();
-    node->right->parent = node;
-    CopyTree(node->right, other_node->right);
+  if (other_node) {
+    CopyNode(node, other_node);
+    if (other_node->left) {
+      node->left = new Node<K, V>();
+      node->left->parent = node;
+      CopyTree(node->left, other_node->left);
+    }
+    if (other_node->right) {
+      node->right = new Node<K, V>();
+      node->right->parent = node;
+      CopyTree(node->right, other_node->right);
+    }
   }
   return *this;
 }
@@ -308,7 +318,7 @@ Node<K, V>* AvlTree<K, V>::Begin() {
 
 template <typename K, typename V>
 Node<K, V>* AvlTree<K, V>::End() {
-  return head_->parent;
+  return head_ ? head_->parent : nullptr;
 };
 
 template <typename K, typename V>
@@ -359,5 +369,90 @@ Node<K, V>* Node<K, V>::PreviousNode() {
   }
   return node;
 }
+
+/* ---------------------------- ITERATOR ------------------------------ */
+
+template <typename K, typename V>
+AvlTree<K, V>::Iterator::Iterator() : iterator_node_{nullptr} {};
+
+template <typename K, typename V>
+AvlTree<K, V>::Iterator::Iterator(node_type* node) : iterator_node_{node} {};
+
+template <typename K, typename V>
+AvlTree<K, V>::Iterator::Iterator(const iterator& other)
+    : iterator_node_{other.iterator_node_} {};
+
+template <typename K, typename V>
+AvlTree<K, V>::Iterator::Iterator(iterator&& other)
+    : iterator_node_{other.iterator_node_} {
+  other.iterator_node_ = nullptr;
+};
+
+template <typename K, typename V>
+typename AvlTree<K, V>::iterator& AvlTree<K, V>::iterator::operator=(
+    const iterator& it) {
+  iterator_node_ = it.iterator_node_;
+  return *this;
+};
+
+template <typename K, typename V>
+typename AvlTree<K, V>::iterator& AvlTree<K, V>::iterator::operator=(
+    iterator&& it) {
+  iterator_node_ = it.iterator_node_;
+  it.iterator_node_ = nullptr;
+  return *this;
+};
+
+template <typename K, typename V>
+typename AvlTree<K, V>::iterator AvlTree<K, V>::iterator::operator++(int) {
+  iterator tmp = *this;
+  operator++();
+  return tmp;
+};
+
+template <typename K, typename V>
+bool AvlTree<K, V>::iterator::operator!=(const iterator& it) {
+  return iterator_node_ != it.iterator_node_;
+};
+
+template <typename K, typename V>
+bool AvlTree<K, V>::iterator::operator==(const iterator& it) {
+  return iterator_node_ == it.iterator_node_;
+};
+
+template <typename K, typename V>
+typename AvlTree<K, V>::reference AvlTree<K, V>::iterator::operator*() {
+  if (iterator_node_) return iterator_node_->key;
+  static K empty_value = K{};
+  return empty_value;
+};
+
+template <typename K, typename V>
+typename AvlTree<K, V>::const_reference
+AvlTree<K, V>::const_iterator::operator*() {
+  if (const_iterator::iterator_node_)
+    return const_iterator::iterator_node_->key;
+  static K empty_value = K{};
+  return empty_value;
+};
+
+template <typename K, typename V>
+typename AvlTree<K, V>::iterator AvlTree<K, V>::iterator::operator--(int) {
+  iterator tmp = *this;
+  operator--();
+  return tmp;
+};
+
+template <typename K, typename V>
+typename AvlTree<K, V>::iterator& AvlTree<K, V>::iterator::operator++() {
+  if (iterator_node_) iterator_node_ = iterator_node_->NextNode();
+  return *this;
+};
+
+template <typename K, typename V>
+typename AvlTree<K, V>::iterator& AvlTree<K, V>::iterator::operator--() {
+  if (iterator_node_) iterator_node_ = iterator_node_->PreviousNode();
+  return *this;
+};
 
 };  // namespace s21

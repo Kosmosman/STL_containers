@@ -25,6 +25,15 @@ struct Node {
 template <typename K, typename V>
 class AvlTree {
  public:
+  class Iterator;
+  class ConstIterator;
+
+  using node_type = Node<K, V>;
+  using reference = V&;
+  using const_reference = const V&;
+  using iterator = Iterator;
+  using const_iterator = ConstIterator;
+
   AvlTree() noexcept;
   explicit AvlTree(std::initializer_list<K> const& init);
   explicit AvlTree(const AvlTree& other);
@@ -47,6 +56,38 @@ class AvlTree {
   Node<K, V>* End();
 
   void PrintTree();
+
+  class Iterator {
+   public:
+    Iterator();
+    explicit Iterator(node_type* node);
+    Iterator(const iterator& other);
+    Iterator(iterator&& other);
+
+    iterator& operator++();
+    iterator operator++(int);
+    iterator& operator--();
+    iterator operator--(int);
+    iterator& operator=(const iterator& s);
+    iterator& operator=(iterator&& s);
+    bool operator!=(const iterator& it);
+    bool operator==(const iterator& it);
+    reference operator*();
+
+   protected:
+    node_type* iterator_node_;
+  };
+
+  class ConstIterator : public Iterator {
+   public:
+    ConstIterator() : Iterator{} {};
+    explicit ConstIterator(node_type* node) : Iterator{node} {};
+    ConstIterator(const const_iterator& other) : Iterator{other} {};
+    ConstIterator(const iterator& other) : Iterator{other} {};
+    ConstIterator(const_iterator&& other) : Iterator{std::move(other)} {};
+
+    const_reference operator*();
+  };
 
  private:
   size_t size_;

@@ -7,79 +7,44 @@
 
 namespace s21 {
 template <typename Key>
-class Set {
+class set {
  public:
-  class SetIterator;
-  class SetConstIterator;
-
   using key_type = Key;
   using value_type = Key;
   using node_type = Node<key_type, value_type>;
   using reference = value_type &;
   using const_reference = const value_type &;
-  using iterator = SetIterator;
-  using const_iterator = SetConstIterator;
+  using iterator = typename AvlTree<key_type, value_type>::Iterator;
+  using const_iterator = typename AvlTree<key_type, value_type>::ConstIterator;
   using size_type = size_t;
 
-  Set();
-  Set(std::initializer_list<value_type> const &items);
-  Set(const Set &s);
-  Set(Set &&s);
-  ~Set(){};
+  set();
+  set(std::initializer_list<value_type> const &items);
+  set(const set &s);
+  set(set &&s);
+  ~set(){};
 
-  Set &operator=(const Set &s);
-  Set &operator=(Set &&s);
+  set &operator=(const set &s);
+  set &operator=(set &&s);
 
   iterator begin();
   iterator end();
 
-  bool Empty();
-  size_type Size();
-  size_type Max_size();
+  bool empty();
+  size_type size();
+  size_type max_size();
 
-  void Clear();
-  std::pair<iterator, bool> Insert(const value_type &value);
-  void Erase(iterator pos);
-  void Swap(Set &other);
-  void Merge(Set &other);
+  void clear();
+  std::pair<iterator, bool> insert(const value_type &value);
+  void erase(iterator pos);
+  void swap(set &other);
+  void merge(set &other);
 
-  iterator Find(const key_type &key);
-  bool Contains(const key_type &key);
-
-  class SetIterator {
-   public:
-    SetIterator();
-    explicit SetIterator(node_type *node);
-    SetIterator(const iterator &other);
-    SetIterator(iterator &&other);
-
-    iterator &operator++();
-    iterator operator++(int);
-    iterator &operator--();
-    iterator operator--(int);
-    iterator &operator=(const iterator &s);
-    iterator &operator=(iterator &&s);
-    bool operator!=(const iterator &it);
-    bool operator==(const iterator &it);
-    reference operator*();
-
-   protected:
-    node_type *iterator_node_;
-  };
-
-  class SetConstIterator : public SetIterator {
-   public:
-    SetConstIterator() : SetIterator{} {};
-    explicit SetConstIterator(node_type *node) : SetIterator{node} {};
-    SetConstIterator(const const_iterator &other) : SetIterator{other} {};
-    SetConstIterator(const iterator &other) : SetIterator{other} {};
-    SetConstIterator(const_iterator &&other) : SetIterator{std::move(other)} {};
-
-    const_reference operator*();
-  };
+  iterator find(const key_type &key);
+  bool contains(const key_type &key);
 
  private:
-  AvlTree<key_type, value_type> tree;
+  AvlTree<key_type, value_type> tree_;
 };
 };  // namespace s21
 
