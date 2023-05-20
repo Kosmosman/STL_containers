@@ -13,8 +13,23 @@ template <class T>
 struct Node {
 private:
     template<class Iter>
-    struct NodeIterator{
-        
+    class NodeIterator{
+        friend class Node;
+    public:
+        typedef Iter iterator_type;
+        typedef std::input_iterator_tag iterator_category;
+        typedef iterator_type value_type;
+        typedef ptrdiff_t difference_type;
+        typedef iterator_type& reference;
+        typedef iterator_type&* pointer;
+
+        iterator_type* value; // все что хронит у нас итератор это указатель на точто он указывает
+
+    private:
+        NodeIterator(Iter* p) : value(p) {} // иницилизирует значение которое в нутри находится
+    public:
+        NodeIterator(const  NodeIterator& it) : value(it.value) {}
+
     };
 public:
     T value;
@@ -31,8 +46,8 @@ public:
     iterator begin();
     iterator end();
 
-    const_iterator begin();
-    const_iterator end();
+    const_iterator begin() const;
+    const_iterator end() const;
 };
 int main() {
     std::string str{"Hello world\n"};

@@ -52,6 +52,7 @@ class list {
     size_type size();
     size_type max_size();
 
+    // push_front(begin(), value);
 
     void clear();
     void push_back(const_reference value);
@@ -69,6 +70,34 @@ class list {
        public:
        ListIterator();
        ListIterator(Node* ptr) : ptr_(ptr);
+//         reference operator*() {
+//             if (_ptr == nullptr) {
+//                 throw std::out_of_range(
+//                         "operator *: iterator is pointing to null element");
+//             }
+//             return _ptr->_value;
+//         }
+//         reference operator*() {
+//             if (!this->ptr_) {
+//                 throw std::invalid_argument("Value is nullptr");
+//             }
+//             return this->ptr_->value_;
+//         }
+//         reference			operator*() const {
+//             return *node->data;
+//         };
+
+         reference operator*() {
+             return *ptr->_value
+         }
      }
+
+     ListIterator operator++(int) {
+//         ptr_ = ptr_->next;
+//         iterator ret = *this;
+        ptr_ = ptr_->next_;
+        return *this;
+     }
+
 };
 };
