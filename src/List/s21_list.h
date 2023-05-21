@@ -104,6 +104,12 @@ class list {
          friend class list<T>;
      }
 
+     class ConstListIterator: ListIterator<T> {
+     public:
+             ConstListIterator(ListIterator<T> other) : ListIterator<T>(other);
+         const T& operator*() {return ListIterator<T>::operator*()}
+         };
+
     template <typename value_type>
     class ListConstIterator : public ListIterator<T> {
     public:
