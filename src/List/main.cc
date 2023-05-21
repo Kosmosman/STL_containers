@@ -21,7 +21,7 @@ private:
         typedef iterator_type value_type;
         typedef ptrdiff_t difference_type;
         typedef iterator_type& reference;
-        typedef iterator_type&* pointer;
+//        typedef iterator_type& pointer;
 
         iterator_type* value; // все что хронит у нас итератор это указатель на точто он указывает
 

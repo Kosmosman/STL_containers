@@ -7,7 +7,11 @@ class list {
     typedef T& reference;
     typedef const T& const_reference;
     typedef std::size_t size_type;
-
+    using iterator = ListIterator<T>;
+    using const_iterator = ListConstIterator<T>;
+    // или ,без инициализации
+//    typedef ListIterator iterator;
+//    typedef const ListIterator const_iterator;
     private:
     typedef struct Node
     {
@@ -70,34 +74,41 @@ class list {
        public:
        ListIterator();
        ListIterator(Node* ptr) : ptr_(ptr);
-//         reference operator*() {
-//             if (_ptr == nullptr) {
-//                 throw std::out_of_range(
-//                         "operator *: iterator is pointing to null element");
-//             }
-//             return _ptr->_value;
-//         }
-//         reference operator*() {
-//             if (!this->ptr_) {
-//                 throw std::invalid_argument("Value is nullptr");
-//             }
-//             return this->ptr_->value_;
-//         }
-//         reference			operator*() const {
-//             return *node->data;
-//         };
 
          reference operator*() {
              return *ptr->_value
          }
+         ListIterator operator--(int) {
+             ptr_ = ptr_->prev_;
+             return *this;
+         }
+         ListIterator operator++(int) {
+             ptr_ = ptr_->next_;
+             return *this;
+         }
+
+         ListIterator& operator--(int) {
+             ptr_ = ptr_->prev_;
+             return *this;
+         }
+         ListIterator& operator++(int) {
+             ptr_ = ptr_->next_;
+             return *this;
+         }
+
+         bool operator==(ListIterator other) { return this->ptr_ == other.ptr_; }
+         bool operator!=(ListIterator other) { return this->ptr_ != other.ptr_; }
+
+     private:
+         Node* ptr_ = nullptr;
+         friend class list<T>;
      }
 
-     ListIterator operator++(int) {
-//         ptr_ = ptr_->next;
-//         iterator ret = *this;
-        ptr_ = ptr_->next_;
-        return *this;
-     }
-
-};
+    template <typename value_type>
+    class ListConstIterator : public ListIterator<T> {
+    public:
+        ListConstIterator(ListIterator<T> other) : ListIterator<T>(other) {}
+        const T& operator*() { return ListIterator<T>::operator*(); }
+    };
+    };
 };
