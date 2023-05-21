@@ -92,12 +92,13 @@ namespace s21 {
 
         ListIterator begin();
         ListIterator end();
-        ListConstIterator begin() const;
-        ListConstIterator end() const;
+//        ListConstIterator begin() const;
+//        ListConstIterator end() const;
 
         ListIterator insert(ListIterator pos, ListConstIterator value);
         void erase(ListIterator pos);
         void splice(ListConstIterator pos, list& other);
     };
 }
+#include "s21_list.tpp"
 #endif  // S21_LIST_H
