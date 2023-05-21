@@ -75,8 +75,10 @@ namespace s21 {
             ListIterator& operator++();
 
             ListIterator& operator--();
+
             bool operator==(ListIterator other);
             bool operator!=(ListIterator other);
+
         private:
             Node* ptr_ = nullptr;
             friend class list<T>;
