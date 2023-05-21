@@ -75,7 +75,7 @@ std::pair<typename set<value_type>::iterator, bool> set<value_type>::insert(
 
 template <typename value_type>
 void set<value_type>::erase(iterator pos) {
-  tree_.Erase(tree_.Find(*pos));
+  tree_.Erase(tree_.Find((*pos).first));
 };
 
 template <typename value_type>

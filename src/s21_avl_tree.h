@@ -11,13 +11,12 @@ namespace s21 {
 template <typename K, typename V>
 struct Node {
   Node();
-  Node(K o_key, V o_value, int o_height);
+  Node(std::pair<K, V> o_value, int o_height);
 
   Node<K, V>* NextNode();
   Node<K, V>* PreviousNode();
 
-  K key;
-  V value;
+  std::pair<K, V> value;
   int height;
   Node *parent = nullptr, *left = nullptr, *right = nullptr;
 };
@@ -36,6 +35,7 @@ class AvlTree {
 
   AvlTree() noexcept;
   explicit AvlTree(std::initializer_list<K> const& init);
+  explicit AvlTree(std::initializer_list<std::pair<K, V> > const& init);
   explicit AvlTree(const AvlTree& other);
   AvlTree(AvlTree&& other) noexcept;
   ~AvlTree();
@@ -73,6 +73,7 @@ class AvlTree {
     iterator& operator=(iterator&& s);
     bool operator!=(const iterator& it);
     bool operator==(const iterator& it);
+    const std::pair<K, V>& operator*();
     const_reference operator*();
 
    protected:

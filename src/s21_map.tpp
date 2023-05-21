@@ -31,9 +31,9 @@ map<key_type, mapped_type> &map<key_type, mapped_type>::operator=(map &&m) {
 
 template <typename key_type, typename mapped_type>
 mapped_type &map<key_type, mapped_type>::at(const key_type &key) {
-  node_type tmp = tree_.Find(key);
+  node_type *tmp = tree_.Find(key);
   if (!tmp) throw std::out_of_range("Map dosen't contain this elem!");
-  return tmp.value;
+  return tmp->value.second;
 };
 
 template <typename key_type, typename mapped_type>
@@ -41,9 +41,9 @@ mapped_type &map<key_type, mapped_type>::operator[](const key_type &key) {
   node_type *tmp = tree_.Find(key);
   if (!tmp) {
     auto returned = tree_.Insert(key, mapped_type{});
-    return returned->value;
+    return returned->value.second;
   };
-  return tmp->value;
+  return tmp->value.second;
 }
 
 template <typename key_type, typename mapped_type>
@@ -83,39 +83,39 @@ void map<key_type, mapped_type>::clear() {
 template <typename key_type, typename mapped_type>
 std::pair<typename map<key_type, mapped_type>::iterator, bool>
 map<key_type, mapped_type>::insert(const value_type &value) {
-  node_type tmp = tree_.Insert(value->first, value->second);
+  node_type *tmp = tree_.Insert(value.first, value.second);
   iterator it(tmp);
-  return std::pair(it, tmp);
+  return std::pair<iterator, bool>(it, tmp);
 };
 
 template <typename key_type, typename mapped_type>
 std::pair<typename map<key_type, mapped_type>::iterator, bool>
 map<key_type, mapped_type>::insert(const key_type &key,
                                    const mapped_type &obj) {
-  node_type tmp = tree_.Insert(key, obj);
+  node_type *tmp = tree_.Insert(key, obj);
   iterator it(tmp);
-  return std::pair(it, tmp);
+  return std::pair<iterator, bool>(it, tmp);
 };
 
 template <typename key_type, typename mapped_type>
 std::pair<typename map<key_type, mapped_type>::iterator, bool>
 map<key_type, mapped_type>::insert_or_assign(const key_type &key,
                                              const mapped_type &obj) {
-  node_type tmp = tree_.Find(key);
+  node_type *tmp = tree_.Find(key);
   bool inserted{};
   if (tmp) {
-    tmp->value = obj;
+    tmp->value.second = obj;
   } else {
     tmp = tree_.Insert(key, obj);
     inserted = true;
   }
   iterator it(tmp);
-  return std::pair(it, inserted);
+  return std::pair<iterator, bool>(it, inserted);
 }
 
 template <typename key_type, typename mapped_type>
 void map<key_type, mapped_type>::erase(iterator pos) {
-  tree_.Erase(pos.iterator_node_);
+  tree_.Erase(tree_.Find((*pos).first));
 };
 
 template <typename key_type, typename mapped_type>
