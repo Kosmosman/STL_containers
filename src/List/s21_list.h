@@ -115,6 +115,15 @@ class list {
     public:
         ListConstIterator(ListIterator<T> other) : ListIterator<T>(other) {}
         const T& operator*() { return ListIterator<T>::operator*(); }
-    };
+    }
+    iterator begin();
+    iterator end();
+    const_iterator begin() const;
+    const_iterator end() const;
+
+
+    iterator insert(iterator pos, const_reference value);
+    void erase(iterator pos);
+    void splice(const_iterator pos, list& other);
     };
 };
