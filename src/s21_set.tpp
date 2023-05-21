@@ -85,15 +85,9 @@ void set<value_type>::swap(set<value_type> &other) {
 
 template <typename value_type>
 void set<value_type>::merge(set<value_type> &other) {
-  for (auto it = other.begin(); it != other.end(); ++it) {
-    if (tree_.Insert(*it, *it)) {
-      std::cout << "Inserted " << *it << std::endl;
-      other.erase(it);
-    } else {
-      std::cout << "Not Inserted " << *it << std::endl;
-    }
-  };
+  tree_.Merge(other.tree_);
 }
+
 /* ----------------------------- LOOKUP ------------------------------- */
 
 template <typename value_type>

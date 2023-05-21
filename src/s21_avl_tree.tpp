@@ -93,6 +93,7 @@ void AvlTree<K, V>::Clear() {
     delete head_->parent;
     DeleteNodes(head_);
     head_ = nullptr;
+    size_ = 0;
   };
 }
 
@@ -161,36 +162,51 @@ int AvlTree<K, V>::GetBalance(const Node<K, V>* node) const {
   return GetHeight(node->left) - GetHeight(node->right);
 }
 
+/* ------------------- MERGE --------------------- */
+
+template <typename K, typename V>
+void AvlTree<K, V>::Merge(AvlTree<K, V>& other) {
+  Node<K, V>* inserted_node{};
+  for (auto it = other.Begin(); it != other.End();) {
+    inserted_node = Insert(it->key, it->value);
+    if (inserted_node) {
+      inserted_node = it;
+      if (!inserted_node->left && !inserted_node->right) it = it->NextNode();
+      if (other.size_ == 1) it = nullptr;
+      other.Erase(inserted_node);
+    } else {
+      it = it->NextNode();
+    }
+  };
+}
+
 /* ------------------ ERACE ---------------------- */
 
 template <typename K, typename V>
 void AvlTree<K, V>::Erase(Node<K, V>* node) {
   Node<K, V>* tmp = node;
-  if (size_ == 1) delete head_->parent;
   if (!node->left && !node->right) {
     tmp = node->parent;
-    node->key == tmp->left->key ? tmp->left = nullptr : tmp->right = nullptr;
+    if (size_ > 1)
+      node->key == tmp->left->key ? tmp->left = nullptr : tmp->right = nullptr;
+    BalanceAfterErace(tmp);
     delete node;
   } else if (!node->right) {
     SwapNode(node, node->left);
     node->height = 0;
     delete node->left;
     node->left = nullptr;
+    if (head_->parent) BalanceAfterErace(tmp);
   } else if (!node->left) {
     SwapNode(node, node->right);
     node->height = 0;
     delete node->right;
     node->right = nullptr;
+    if (head_->parent) BalanceAfterErace(tmp);
   } else {
     tmp = FindExtremum(tmp, GetBalance(tmp));
     SwapNode(node, tmp);
     Erase(tmp);
-  }
-  --size_;
-  while (tmp->parent != head_) {
-    UpdateHeight(tmp);
-    Balance(tmp, GetBalance(tmp));
-    tmp = tmp->parent;
   }
 }
 
@@ -227,15 +243,37 @@ Node<K, V>* AvlTree<K, V>::FindExtremum(Node<K, V>* node, int balance) {
 }
 
 template <typename K, typename V>
+void AvlTree<K, V>::BalanceAfterErace(Node<K, V>* node) {
+  while (node->parent->parent != head_) {
+    UpdateHeight(node);
+    Balance(node, GetBalance(node));
+    node = node->parent;
+  }
+  if (size_ == 1) {
+    delete head_->parent;
+    head_ = nullptr;
+  }
+  --size_;
+}
+
+template <typename K, typename V>
 void AvlTree<K, V>::PrintTree() {
   std::queue<Node<K, V>*> q;
+  int next = 1, count = 0;
   if (head_) {
     q.push(head_);
     while (!q.empty()) {
       if (q.front()->left) q.push(q.front()->left);
       if (q.front()->right) q.push(q.front()->right);
-      std::cout << q.front()->value << std::endl;
+      for (int i = 0; i < next / 2; ++i) std::cout << " ";
+      std::cout << q.front()->value;
       q.pop();
+      count++;
+      if (count == next) {
+        std::cout << std::endl;
+        next *= 2;
+        count = 0;
+      }
     }
   }
 }
@@ -421,17 +459,8 @@ bool AvlTree<K, V>::iterator::operator==(const iterator& it) {
 };
 
 template <typename K, typename V>
-typename AvlTree<K, V>::reference AvlTree<K, V>::iterator::operator*() {
-  if (iterator_node_) return iterator_node_->key;
-  static K empty_value = K{};
-  return empty_value;
-};
-
-template <typename K, typename V>
-typename AvlTree<K, V>::const_reference
-AvlTree<K, V>::const_iterator::operator*() {
-  if (const_iterator::iterator_node_)
-    return const_iterator::iterator_node_->key;
+typename AvlTree<K, V>::const_reference AvlTree<K, V>::iterator::operator*() {
+  if (iterator_node_) return iterator_node_->value;
   static K empty_value = K{};
   return empty_value;
 };

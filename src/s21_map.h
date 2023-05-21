@@ -13,11 +13,11 @@ class map {
   using key_type = Key;
   using mapped_type = T;
   using value_type = std::pair<const key_type, mapped_type>;
-  using node_type = Node<key_type, value_type>;
+  using node_type = Node<key_type, mapped_type>;
   using referensce = value_type &;
   using const_reference = const value_type &;
-  using iterator = typename AvlTree<key_type, value_type>::Iterator;
-  using const_iterator = typename AvlTree<key_type, value_type>::ConstIterator;
+  using iterator = typename AvlTree<key_type, mapped_type>::Iterator;
+  using const_iterator = typename AvlTree<key_type, mapped_type>::ConstIterator;
   using size_type = size_t;
 
   map();

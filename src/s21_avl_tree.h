@@ -41,6 +41,7 @@ class AvlTree {
   ~AvlTree();
 
   Node<K, V>* Insert(const K& key, const V& value);
+  void Merge(AvlTree& other);
   void Erase(Node<K, V>*);
   Node<K, V>* Find(const K& key);
   void Clear();
@@ -72,7 +73,7 @@ class AvlTree {
     iterator& operator=(iterator&& s);
     bool operator!=(const iterator& it);
     bool operator==(const iterator& it);
-    reference operator*();
+    const_reference operator*();
 
    protected:
     node_type* iterator_node_;
@@ -85,8 +86,6 @@ class AvlTree {
     ConstIterator(const const_iterator& other) : Iterator{other} {};
     ConstIterator(const iterator& other) : Iterator{other} {};
     ConstIterator(const_iterator&& other) : Iterator{std::move(other)} {};
-
-    const_reference operator*();
   };
 
  private:
@@ -106,6 +105,7 @@ class AvlTree {
   int GetBalance(const Node<K, V>* node) const;
   void CopyNode(Node<K, V>* node, const Node<K, V>* other_node);
   AvlTree& CopyTree(Node<K, V>* node, const Node<K, V>* other_node);
+  void BalanceAfterErace(Node<K, V>* node);
   void CreateEnd();
 };
 };  // namespace s21

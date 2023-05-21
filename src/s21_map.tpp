@@ -6,7 +6,7 @@ template <typename key_type, typename mapped_type>
 map<key_type, mapped_type>::map(
     std::initializer_list<value_type> const &items) {
   for (auto it : items) {
-    tree_.Insert(it->first, it->second);
+    tree_.Insert(it.first, it.second);
   }
 };
 
@@ -38,10 +38,10 @@ mapped_type &map<key_type, mapped_type>::at(const key_type &key) {
 
 template <typename key_type, typename mapped_type>
 mapped_type &map<key_type, mapped_type>::operator[](const key_type &key) {
-  node_type tmp = tree_.Find(key);
+  node_type *tmp = tree_.Find(key);
   if (!tmp) {
-    tree_.Insert(key, mapped_type{});
-    return mapped_type{};
+    auto returned = tree_.Insert(key, mapped_type{});
+    return returned->value;
   };
   return tmp->value;
 }
@@ -125,9 +125,7 @@ void map<key_type, mapped_type>::swap(map &other) {
 
 template <typename key_type, typename mapped_type>
 void map<key_type, mapped_type>::merge(map &other) {
-  for (auto it : other) {
-    tree_.Insert(it->first, it->second);
-  }
+  tree_.Merge(other.tree_);
 };
 
 template <typename key_type, typename mapped_type>
