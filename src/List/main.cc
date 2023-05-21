@@ -1,6 +1,11 @@
 #include <iostream>
 #include <memory>
+#include "s21_list.h"
 
+
+int _main() {
+    return 0;
+}
 template <class T>
 void print(const T& t) {
     for (typename T::const_iterator it = t.begin(); it != t.end(); ++it)

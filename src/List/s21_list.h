@@ -1,129 +1,101 @@
-namespace ft {
+#ifndef S21_LIST_H
+#define S21_LIST_H
 
-template<typename T>
-class list {
+#include <initializer_list>
+#include <iostream>
+#include <limits>
+
+namespace s21 {
+
+    template <typename T>
+    class list {
     public:
-    typedef T value_type;
-    typedef T& reference;
-    typedef const T& const_reference;
-    typedef std::size_t size_type;
-    using iterator = ListIterator<T>;
-    using const_iterator = ListConstIterator<T>;
-    // или ,без инициализации
-//    typedef ListIterator iterator;
-//    typedef const ListIterator const_iterator;
+        class ListIterator;
+        class ListConstIterator;
+        using value_type = T;
+        using reference = T&;
+        using const_reference = const T&;
+        using size_type = std::size_t;
+        using iterator = ListIterator;
+        using const_iterator = ListConstIterator;
+
     private:
-    typedef struct Node
-    {
-        value_type value;
-        Node* prev = nullptr;
-        Node* next = nullptr;
-    };
+        struct Node {
+            value_type value_;
+            Node* prev_;
+            Node* next_;
 
-    // Node() : value(), prev(nullptr), next(nullptr) {}
-    //   void init() {
-    //     m_size = 0;
-    //     m_head = nullptr;
-    //     m_tail = nullptr;
-    //     m_end = new Node();
-    //     m_end->prev = nullptr;
-    //     m_end->next = nullptr;
-    // }
+            Node(const value_type& value)
+                    : value_(value), prev_(nullptr), next_(nullptr) {}
+        };
 
-    size_type size = 0;
-    Node* headNode = nullptr;
-    Node* teilNode = nullptr;
-    Node* endNode = nullptr;
+        Node* head_;
+        Node* tail_;
+        Node* end_;
+        size_type size_;
 
-    //В этой таблице перечислены основные 
-    //публичные методы для взаимодействия с классом:
     public:
-    list(); // конструктор по умолчанию, создает пустой список
-    list(size_type n); // параметризованный конструктор, создает список размера n
-    list(std::initializer_list<value_type> const& items); // конструктор списка инициализаторов, создает список, инициализированный с помощью std::initializer_list
-    list(const list& l); // конструктор копирования
-    list(list&& l); // конструктор перемещения
-    ~list(); // деструктор
-    list& operator=(list&& l); // Перегрузка оператора присваивания для движущегося объекта
+        list();
+        list(size_type n);
+        list(std::initializer_list<value_type> const& items);
+        list(const list& l);
+        list(list&& l);
+        ~list();
+        list& operator=(list&& l);
 
+        const_reference front();
+        const_reference back();
 
-  public:
-    const_reference front();
-    const_reference back();
+        bool empty();
+        size_type size();
+        size_type max_size();
 
-  // const noexcept
-    bool empty();
-    size_type size();
-    size_type max_size();
+        void clear();
+        void push_back(const_reference value);
+        void pop_back();
+        void push_front(const_reference value);
+        void pop_front();
+        void swap(list& other);
+        void merge(list& other);
+        void reverse();
+        void unique();
+        void sort();
 
-    // push_front(begin(), value);
+        class ListIterator {
+        public:
+            ListIterator() { ptr_ = nullptr; }
+            ListIterator(Node* ptr) : ptr_(ptr){};
 
-    void clear();
-    void push_back(const_reference value);
-    void pop_back();
-    void push_front(const_reference value);
-    void pop_front();
-    void swap(list& other);
-    void merge(list& other);
-    void reverse();
-    void unique();
-    void sort();
+            reference operator*();
 
-     template <typename value_type>
-     class ListIterator {
-       public:
-       ListIterator();
-       ListIterator(Node* ptr) : ptr_(ptr);
+            ListIterator operator++(int);
 
-         reference operator*() {
-             return *ptr->_value
-         }
-         ListIterator operator--(int) {
-             ptr_ = ptr_->prev_;
-             return *this;
-         }
-         ListIterator operator++(int) {
-             ptr_ = ptr_->next_;
-             return *this;
-         }
+            ListIterator operator--(int);
 
-         ListIterator& operator--(int) {
-             ptr_ = ptr_->prev_;
-             return *this;
-         }
-         ListIterator& operator++(int) {
-             ptr_ = ptr_->next_;
-             return *this;
-         }
+            ListIterator& operator++();
 
-         bool operator==(ListIterator other) { return this->ptr_ == other.ptr_; }
-         bool operator!=(ListIterator other) { return this->ptr_ != other.ptr_; }
+            ListIterator& operator--();
+            bool operator==(ListIterator other);
+            bool operator!=(ListIterator other);
+        private:
+            Node* ptr_ = nullptr;
+            friend class list<T>;
+        };
 
-     private:
-         Node* ptr_ = nullptr;
-         friend class list<T>;
-     }
+        class ListConstIterator : public ListIterator {
+        public:
+            ListConstIterator(ListIterator other) : ListIterator(other) {}
+            const T& operator*();
+        };
 
-     class ConstListIterator: ListIterator<T> {
-     public:
-             ConstListIterator(ListIterator<T> other) : ListIterator<T>(other);
-         const T& operator*() {return ListIterator<T>::operator*()}
-         };
+        ListIterator begin();
+        ListIterator end();
+        ListConstIterator begin() const;
+        ListConstIterator end() const;
 
-    template <typename value_type>
-    class ListConstIterator : public ListIterator<T> {
-    public:
-        ListConstIterator(ListIterator<T> other) : ListIterator<T>(other) {}
-        const T& operator*() { return ListIterator<T>::operator*(); }
-    }
-    iterator begin();
-    iterator end();
-    const_iterator begin() const;
-    const_iterator end() const;
-
-
-    iterator insert(iterator pos, const_reference value);
-    void erase(iterator pos);
-    void splice(const_iterator pos, list& other);
+        ListIterator insert(ListIterator pos, ListConstIterator value);
+        void erase(ListIterator pos);
+        void splice(ListConstIterator pos, list& other);
     };
-};
+}
+#endif  // S21_LIST_H
