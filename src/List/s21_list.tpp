@@ -1,11 +1,19 @@
 namespace s21 {
 
-
+//// Constructs
     template <typename value_type>
     list<value_type>::list() {}
 
+//    template <typename value_type>
+//    list<value_type>::list(size_type n) {}
+    //// insert & erase
+
     template <typename value_type>
-    list<value_type>::list(size_type n) {}
+    typename list<value_type>::iterator list<value_type>::insert(iterator pos,
+                                                                 const_iterator value) {
+
+    }
+
 //// empty size max_size
     template <typename value_type>
     bool list<value_type>::empty() {

@@ -36,7 +36,7 @@ namespace s21 {
 
     public:
         list();
-        list(size_type n);
+//        list(size_type n);
 //        list(std::initializer_list<value_type> const& items);
 //        list(const list& l);
 //        list(list&& l);
@@ -95,7 +95,7 @@ namespace s21 {
 //        ListConstIterator begin() const;
 //        ListConstIterator end() const;
 
-//        ListIterator insert(ListIterator pos, ListConstIterator value);
+        ListIterator insert(ListIterator pos, ListConstIterator value);
 //        void erase(ListIterator pos);
 //        void splice(ListConstIterator pos, list& other);
     };
