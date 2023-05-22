@@ -11,12 +11,12 @@ namespace s21 {
 template <typename K, typename V>
 struct Node {
   Node();
-  Node(std::pair<K, V> o_value, int o_height);
+  Node(K o_value, int o_height);
 
   Node<K, V>* NextNode();
   Node<K, V>* PreviousNode();
 
-  std::pair<K, V> value;
+  K value;
   int height;
   Node *parent = nullptr, *left = nullptr, *right = nullptr;
 };
@@ -35,12 +35,11 @@ class AvlTree {
 
   AvlTree() noexcept;
   explicit AvlTree(std::initializer_list<K> const& init);
-  explicit AvlTree(std::initializer_list<std::pair<K, V> > const& init);
   explicit AvlTree(const AvlTree& other);
   AvlTree(AvlTree&& other) noexcept;
   ~AvlTree();
 
-  Node<K, V>* Insert(const K& key, const V& value);
+  Node<K, V>* Insert(const K& key);
   void Merge(AvlTree& other);
   void Erase(Node<K, V>*);
   Node<K, V>* Find(const K& key);
@@ -73,8 +72,7 @@ class AvlTree {
     iterator& operator=(iterator&& s);
     bool operator!=(const iterator& it);
     bool operator==(const iterator& it);
-    const std::pair<K, V>& operator*();
-    const_reference operator*();
+    K& operator*();
 
    protected:
     node_type* iterator_node_;
@@ -94,7 +92,7 @@ class AvlTree {
   Node<K, V>* head_;
 
   void DeleteNodes(Node<K, V>* node);
-  Node<K, V>* InnerInsert(Node<K, V>* node, const K& key, const V& value);
+  Node<K, V>* InnerInsert(Node<K, V>* node, const K& key);
   void Balance(Node<K, V>* node, int diff);
   void SwapNode(Node<K, V>* one, Node<K, V>* two);
   AvlTree& SwapTree(AvlTree<K, V>&& other_tree);

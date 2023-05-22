@@ -68,14 +68,14 @@ void set<value_type>::clear() {
 template <typename value_type>
 std::pair<typename set<value_type>::iterator, bool> set<value_type>::insert(
     const value_type &value) {
-  node_type *tmp = tree_.Insert(value, value);
+  node_type *tmp = tree_.Insert(value);
   iterator it(tmp);
   return std::pair(it, tmp);
 };
 
 template <typename value_type>
 void set<value_type>::erase(iterator pos) {
-  tree_.Erase(tree_.Find((*pos).first));
+  tree_.Erase(tree_.Find(*pos));
 };
 
 template <typename value_type>
