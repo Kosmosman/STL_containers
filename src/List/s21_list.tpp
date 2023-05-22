@@ -17,6 +17,7 @@ namespace s21 {
 
 
         size_++;
+        //// method in zero pool node
         return iterator(add);
 
     }
