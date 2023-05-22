@@ -6,16 +6,22 @@ namespace s21 {
 
 //    template <typename value_type>
 //    list<value_type>::list(size_type n) {}
+
+
+//// push`s
+    template <typename value_type> //// TODO проверить method на тестах
+    void list<value_type>::push_back(const_reference value) {
+        insert(end(), value);
+    }
+
     //// insert & erase
 
-    template <typename value_type>
+    template <typename value_type> //// TODO проверить method на тестах
     typename list<value_type>::iterator list<value_type>::insert(iterator pos,
                                                                  const_iterator value) {
         Node* active = pos.ptr_;
         Node* add = new Node(value);
         setNewValueForList(active, add);
-
-
         size_++;
         //// method in zero pool node
         return iterator(add);

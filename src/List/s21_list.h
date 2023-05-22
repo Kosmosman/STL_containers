@@ -51,7 +51,7 @@ namespace s21 {
 //        size_type max_size();
 //
 //        void clear();
-//        void push_back(const_reference value);
+        void push_back(const_reference value);
 //        void pop_back();
 //        void push_front(const_reference value);
 //        void pop_front();
