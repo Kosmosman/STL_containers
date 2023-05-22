@@ -6,8 +6,15 @@ namespace s21 {
 
     template <typename value_type>
     list<value_type>::list(size_type n) {}
-
-
+//// empty size max_size
+    template <typename value_type>
+    bool list<value_type>::empty() {
+        return size_ == 0;
+    }
+    template <typename value_type>
+    typename list<value_type>::size_type list<value_type>::size() {
+        return size_;
+    }
 
     //// iterator /////////////////////////////////////////////////////
 template <typename value_type>
