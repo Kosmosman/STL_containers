@@ -160,8 +160,8 @@ typename list<value_type>::iterator list<value_type>::begin() {
 //    } else {
 //        return iterator(end_);
 //    }
-//     return iterator(end_->next_);
-    return !head_ ? iterator(end_) : iterator(head_);
+     return iterator(end_->next_);
+//    return !head_ ? iterator(end_) : iterator(head_);
 //    return iterator(head_);
 }
     template <typename value_type>
