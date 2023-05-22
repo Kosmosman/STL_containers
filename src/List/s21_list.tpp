@@ -2,10 +2,53 @@ namespace s21 {
 
 //// Constructs
     template <typename value_type>
-    list<value_type>::list() {}
+    list<value_type>::list() : head_(nullptr), tail_(nullptr), end_(nullptr), size_(0) {
+        end_ = new Node(size_);
+        change_end();
+    }
 
 //    template <typename value_type>
 //    list<value_type>::list(size_type n) {}
+
+    template <typename value_type>
+    void list<value_type>::change_end() {
+        if (end_) {
+            end_->next_ = head_;
+            end_->prev_ = tail_;
+            end_->value_ = size();
+            head_ ? head_->prev_ = end_ : head_; // void();
+//            if (head_) {
+//                head_->prev_ = end_;
+//            }
+            tail_ ? tail_->next_ = end_ : head_; // void();
+            //            if (tail_) {
+//                tail_->next_ = end_;
+//            }
+        }
+    }
+//    template <typename value_type>
+//    void list<value_type>::change_end() {
+//        if (end_) {
+//            end_->next_ = head_;
+//            end_->prev_ = tail_;
+//            head_ ? head_->prev_ = end_ : void();  // Using ternary operator
+//            tail_ ? tail_->next_ = end_ : void();  // Using ternary operator
+//            end_->value_ = size();
+//        }
+//    }
+
+    template <typename value_type>
+    list<value_type>::list(size_type n)
+            : head_(nullptr), tail_(nullptr), end_(nullptr), size_(0) {
+//        if (n >= max_size()) {
+//            throw std::out_of_range("Limit of the container is exceeded");
+//        }
+        end_ = new Node(size_);
+        for (size_type i = 0; i < n; ++i) {
+            push_back(value_type());
+        }
+        change_end();
+    }
 
 
 //// push`s
@@ -24,6 +67,7 @@ namespace s21 {
         setNewValueForList(active, add);
         size_++;
         //// method in zero pool node
+        change_end();
         return iterator(add);
 
     }
@@ -111,17 +155,17 @@ typename list<value_type>::const_reference list<value_type>::const_iterator::ope
 
 template <typename value_type>
 typename list<value_type>::iterator list<value_type>::begin() {
-    if (head_) {
-        return iterator(head_);
-    } else {
+//    if (head_) {
+//        return iterator(head_);
+//    } else {
+//        return iterator(end_);
+//    }
+//     return iterator(end_->next_);
+    return !head_ ? iterator(end_) : iterator(head_);
+//    return iterator(head_);
+}
+    template <typename value_type>
+    typename list<value_type>::iterator list<value_type>::end() {
         return iterator(end_);
     }
-//     return iterator(end_->next_);
-//    return !head_ ? iterator(end_) : iterator(head_);
-}
-
-template <typename value_type>
-typename list<value_type>::iterator list<value_type>::end() {
-    return iterator(end_);
-}
 };

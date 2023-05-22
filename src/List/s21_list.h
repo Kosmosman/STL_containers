@@ -36,7 +36,7 @@ namespace s21 {
 
     public:
         list();
-//        list(size_type n);
+        list(size_type n);
 //        list(std::initializer_list<value_type> const& items);
 //        list(const list& l);
 //        list(list&& l);
@@ -102,6 +102,7 @@ namespace s21 {
      void setNewValueForList(Node* active, Node* add);
      void installationInBlankList(Node* add);
      void installationNotInBlankList(Node* active, Node* add);
+     void change_end();
     };
 }
 #include "s21_list.tpp"
