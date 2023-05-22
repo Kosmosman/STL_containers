@@ -98,6 +98,10 @@ namespace s21 {
         ListIterator insert(ListIterator pos, ListConstIterator value);
 //        void erase(ListIterator pos);
 //        void splice(ListConstIterator pos, list& other);
+//// доп method
+     void setNewValueForList(Node* active, Node* add);
+     void installationInBlankList(Node* add);
+     void installationNotInBlankList(Node* active, Node* add);
     };
 }
 #include "s21_list.tpp"

@@ -11,7 +11,39 @@ namespace s21 {
     template <typename value_type>
     typename list<value_type>::iterator list<value_type>::insert(iterator pos,
                                                                  const_iterator value) {
+        Node* active = pos.ptr_;
+        Node* add = new Node(value);
+        setNewValueForList(active, add);
 
+
+        size_++;
+        return iterator(add);
+
+    }
+    //// доп func
+    template <typename value_type>
+   void list<value_type>::setNewValueForList(Node* active, Node* add) {
+       empty() ? installationInBlankList(add) : installationNotInBlankList(active,add);
+    }
+
+    template <typename value_type>
+    void list<value_type>::installationInBlankList(Node* add) {
+        add->next_ = end_;
+        add->prev_ = end_;
+        head_ = add;
+        tail_ = add;
+    }
+    template <typename value_type>
+    void list<value_type>::installationNotInBlankList(Node* active, Node* add) {
+        if (active == head_) {
+            head_ = add;
+        } else if (active == end_) {
+            tail_ = add;
+        }
+        add->next_ = active;
+        add->prev_ = active->prev_;
+        active->prev_->next_ = add;
+        active->prev_ = add;
     }
 
 //// empty size max_size
