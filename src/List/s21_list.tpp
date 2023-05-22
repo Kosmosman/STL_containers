@@ -1,5 +1,15 @@
 namespace s21 {
 
+
+    template <typename value_type>
+    list<value_type>::list() {}
+
+    template <typename value_type>
+    list<value_type>::list(size_type n) {}
+
+
+
+    //// iterator /////////////////////////////////////////////////////
 template <typename value_type>
 typename list<value_type>::reference list<value_type>::iterator::operator*() {
     if (!this->ptr_) {
@@ -29,10 +39,14 @@ typename list<value_type>::iterator& list<value_type>::iterator::operator--() {
 }
 
 template <typename value_type>
-bool list<value_type>::iterator::operator==(ListIterator other) { return this->ptr_ == other.ptr_; }
+bool list<value_type>::iterator::operator==(ListIterator other) {
+    return this->ptr_ == other.ptr_;
+}
 
 template <typename value_type>
-bool list<value_type>::iterator::operator!=(ListIterator other) { return this->ptr_ != other.ptr_; }
+bool list<value_type>::iterator::operator!=(ListIterator other) {
+    return this->ptr_ != other.ptr_;
+}
 
 template <typename value_type>
 typename list<value_type>::const_reference list<value_type>::const_iterator::operator*() const {
