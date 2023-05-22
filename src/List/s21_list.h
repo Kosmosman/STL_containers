@@ -35,31 +35,31 @@ namespace s21 {
         size_type size_;
 
     public:
-        list();
-        list(size_type n);
-        list(std::initializer_list<value_type> const& items);
-        list(const list& l);
-        list(list&& l);
-        ~list();
-        list& operator=(list&& l);
+//        list();
+//        list(size_type n);
+//        list(std::initializer_list<value_type> const& items);
+//        list(const list& l);
+//        list(list&& l);
+//        ~list();
+//        list& operator=(list&& l);
 
-        const_reference front();
-        const_reference back();
-
-        bool empty();
-        size_type size();
-        size_type max_size();
-
-        void clear();
-        void push_back(const_reference value);
-        void pop_back();
-        void push_front(const_reference value);
-        void pop_front();
-        void swap(list& other);
-        void merge(list& other);
-        void reverse();
-        void unique();
-        void sort();
+//        const_reference front();
+//        const_reference back();
+//
+//        bool empty();
+//        size_type size();
+//        size_type max_size();
+//
+//        void clear();
+//        void push_back(const_reference value);
+//        void pop_back();
+//        void push_front(const_reference value);
+//        void pop_front();
+//        void swap(list& other);
+//        void merge(list& other);
+//        void reverse();
+//        void unique();
+//        void sort();
 
         class ListIterator {
         public:
@@ -87,7 +87,7 @@ namespace s21 {
         class ListConstIterator : public ListIterator {
         public:
             ListConstIterator(ListIterator other) : ListIterator(other) {}
-            const T& operator*();
+            const_reference operator*() const;
         };
 
         ListIterator begin();
@@ -95,9 +95,9 @@ namespace s21 {
 //        ListConstIterator begin() const;
 //        ListConstIterator end() const;
 
-        ListIterator insert(ListIterator pos, ListConstIterator value);
-        void erase(ListIterator pos);
-        void splice(ListConstIterator pos, list& other);
+//        ListIterator insert(ListIterator pos, ListConstIterator value);
+//        void erase(ListIterator pos);
+//        void splice(ListConstIterator pos, list& other);
     };
 }
 #include "s21_list.tpp"

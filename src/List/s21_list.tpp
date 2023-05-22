@@ -17,16 +17,17 @@ typename list<value_type>::iterator list<value_type>::iterator::operator--(int) 
     ptr_ = ptr_->prev_;
     return *this;
 }
-//template <typename value_type>
-//ListIterator& operator++() {
-//    ptr_ = ptr_->next_;
-//    return *this;
-//}
-//template <typename value_type>
-//ListIterator&   operator--() {
-//    ptr_ = ptr_->prev_;
-//    return *this;
+template <typename value_type>
+typename list<value_type>::iterator& list<value_type>::iterator::operator++() {
+    ptr_ = ptr_->next_;
+    return *this;
 }
+template <typename value_type>
+typename list<value_type>::iterator& list<value_type>::iterator::operator--() {
+    ptr_ = ptr_->prev_;
+    return *this;
+}
+
 template <typename value_type>
 bool list<value_type>::iterator::operator==(ListIterator other) { return this->ptr_ == other.ptr_; }
 
@@ -34,16 +35,20 @@ template <typename value_type>
 bool list<value_type>::iterator::operator!=(ListIterator other) { return this->ptr_ != other.ptr_; }
 
 template <typename value_type>
-const typename list<value_type>::iterator::operator*() { return ListIterator::operator*(); }
+typename list<value_type>::const_reference list<value_type>::const_iterator::operator*() const {
+    return ListIterator::operator*();
+}
+
+//    list<value_type>::reference list<value_type>::iterator::
 
 template <typename value_type>
 typename list<value_type>::iterator list<value_type>::begin() {
-//    if (head_) {
-//        return iterator(head_);
-//    } else {
-//        return iterator(end_);
-//    }
-     return iterator(end_node->next)
+    if (head_) {
+        return iterator(head_);
+    } else {
+        return iterator(end_);
+    }
+//     return iterator(end_->next_);
 //    return !head_ ? iterator(end_) : iterator(head_);
 }
 
@@ -51,4 +56,4 @@ template <typename value_type>
 typename list<value_type>::iterator list<value_type>::end() {
     return iterator(end_);
 }
-}
+};
