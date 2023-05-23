@@ -31,15 +31,16 @@ map<key_type, mapped_type> &map<key_type, mapped_type>::operator=(map &&m) {
 
 template <typename key_type, typename mapped_type>
 mapped_type &map<key_type, mapped_type>::at(const key_type &key) {
-  node_type *tmp = tree_.Find(value_type{key, mapped_type{}});
-  if (!tmp) throw std::out_of_range("Map dosen't contain this elem!");
+  node_type *tmp = tree_.LowerBound(value_type{key, mapped_type{}});
+  if (!tmp || (tmp->value).first != key)
+    throw std::out_of_range("Map dosen't contain this elem!");
   return tmp->value.second;
 };
 
 template <typename key_type, typename mapped_type>
 mapped_type &map<key_type, mapped_type>::operator[](const key_type &key) {
-  node_type *tmp = tree_.Find(value_type{key, mapped_type{}});
-  if (!tmp) {
+  node_type *tmp = tree_.LowerBound(value_type{key, mapped_type{}});
+  if (!tmp || (tmp->value).first != key) {
     auto returned = tree_.Insert(value_type{key, mapped_type{}});
     return returned->value.second;
   };
@@ -83,39 +84,49 @@ void map<key_type, mapped_type>::clear() {
 template <typename key_type, typename mapped_type>
 std::pair<typename map<key_type, mapped_type>::iterator, bool>
 map<key_type, mapped_type>::insert(const value_type &value) {
-  node_type *tmp = tree_.Insert(value);
+  bool inserted{};
+  node_type *tmp = tree_.LowerBound(value_type{value.first, mapped_type{}});
+  if (!tmp || tmp->value.first != value.first) {
+    inserted = true;
+    tmp = tree_.Insert(value);
+  }
   iterator it(tmp);
-  return std::pair<iterator, bool>(it, tmp);
+  return std::pair<iterator, bool>{it, inserted};
 };
 
 template <typename key_type, typename mapped_type>
 std::pair<typename map<key_type, mapped_type>::iterator, bool>
 map<key_type, mapped_type>::insert(const key_type &key,
                                    const mapped_type &obj) {
-  node_type *tmp = tree_.Insert(value_type{key, obj});
+  bool inserted{};
+  node_type *tmp = tree_.LowerBound(value_type{key, mapped_type{}});
+  if (!tmp || tmp->value.first != key) {
+    inserted = true;
+    tmp = tree_.Insert(value_type{key, obj});
+  }
   iterator it(tmp);
-  return std::pair<iterator, bool>(it, tmp);
+  return std::pair<iterator, bool>{it, inserted};
 };
 
 template <typename key_type, typename mapped_type>
 std::pair<typename map<key_type, mapped_type>::iterator, bool>
 map<key_type, mapped_type>::insert_or_assign(const key_type &key,
                                              const mapped_type &obj) {
-  node_type *tmp = tree_.Find(value_type{key, mapped_type{}});
+  node_type *tmp = tree_.LowerBound(value_type{key, mapped_type{}});
   bool inserted{};
-  if (tmp) {
+  if (tmp && (tmp->value).first == key) {
     tmp->value.second = obj;
   } else {
     tmp = tree_.Insert(value_type{key, obj});
     inserted = true;
   }
   iterator it(tmp);
-  return std::pair<iterator, bool>(it, inserted);
+  return std::pair<iterator, bool>{it, inserted};
 }
 
 template <typename key_type, typename mapped_type>
 void map<key_type, mapped_type>::erase(iterator pos) {
-  tree_.Erase(tree_.Find(*pos));
+  tree_.Erase(tree_.LowerBound(*pos));
 };
 
 template <typename key_type, typename mapped_type>
@@ -125,12 +136,26 @@ void map<key_type, mapped_type>::swap(map &other) {
 
 template <typename key_type, typename mapped_type>
 void map<key_type, mapped_type>::merge(map &other) {
-  tree_.Merge(other.tree_);
+  node_type *inserted_node{};
+  for (auto it = other.begin(); it != other.end();) {
+    inserted_node = tree_.LowerBound(value_type{(*it).first, mapped_type{}});
+    if (!inserted_node || inserted_node->value.first != (*it).first) {
+      insert(*it);
+      inserted_node =
+          other.tree_.LowerBound(value_type{(*it).first, mapped_type{}});
+      if (!inserted_node->left && !inserted_node->right) ++it;
+      if (other.size() == 1) it = iterator{nullptr};
+      other.erase(iterator{inserted_node});
+    } else {
+      ++it;
+    }
+  }
 };
 
 template <typename key_type, typename mapped_type>
 bool map<key_type, mapped_type>::contains(const key_type &key) {
-  return tree_.Find(value_type{key, mapped_type{}});
+  auto res = tree_.LowerBound(value_type{key, mapped_type{}});
+  return res && (res->value).first == key;
 };
 
 }  // namespace s21

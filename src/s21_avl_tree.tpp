@@ -229,6 +229,26 @@ Node<K, V>* AvlTree<K, V>::Find(const K& key) {
 }
 
 template <typename K, typename V>
+Node<K, V>* AvlTree<K, V>::LowerBound(const K& key) {
+  Node<K, V>* tmp{head_};
+  Node<K, V>* res{};
+  if (head_) {
+    while (tmp) {
+      if (key < tmp->value) {
+        res = tmp;
+        tmp = tmp->left;
+      } else if (key > tmp->value) {
+        tmp = tmp->right;
+      } else {
+        res = tmp;
+        break;
+      }
+    }
+  }
+  return res;
+};
+
+template <typename K, typename V>
 Node<K, V>* AvlTree<K, V>::FindExtremum(Node<K, V>* node, int balance) {
   Node<K, V>* tmp{};
   if (balance < 0) {
@@ -283,27 +303,21 @@ template <typename K, typename V>
 AvlTree<K, V>& AvlTree<K, V>::CopyTree(Node<K, V>* node,
                                        const Node<K, V>* other_node) {
   if (other_node) {
-    CopyNode(node, other_node);
+    if (other_node->parent->parent == other_node) Insert(other_node->value);
     if (other_node->left) {
-      node->left = new Node<K, V>{};
+      node->left =
+          new Node<K, V>{other_node->left->value, other_node->left->height};
       node->left->parent = node;
       CopyTree(node->left, other_node->left);
     }
     if (other_node->right) {
-      node->right = new Node<K, V>{};
+      node->right =
+          new Node<K, V>{other_node->right->value, other_node->right->height};
       node->right->parent = node;
       CopyTree(node->right, other_node->right);
     }
   }
   return *this;
-}
-
-template <typename K, typename V>
-void AvlTree<K, V>::CopyNode(Node<K, V>* node, const Node<K, V>* other_node) {
-  node->height = other_node->height;
-  // K* tmp = const_cast<K*>(&node->value);
-  // *tmp = other_node->value;
-  node->value = other_node->value;
 }
 
 template <typename K, typename V>
@@ -316,14 +330,20 @@ AvlTree<K, V>& AvlTree<K, V>::SwapTree(AvlTree<K, V>&& other_tree) {
 
 template <typename K, typename V>
 void AvlTree<K, V>::SwapNode(Node<K, V>* one, Node<K, V>* two) {
-  K buffer_key = one->value;
-  one->value = two->value;
-  two->value = buffer_key;
-  // std::swap(one->parent, two->parent);
-  // std::swap(one->left, two->left);
-  // std::swap(one->right, two->right);
-}
+  Node<K, V>* buffer_node{one};
+  if (two->left) two->left->parent = one;
+  if (two->right) two->right->parent = one;
+  if (two->left) two->left->parent = one;
+  if (two->right) two->right->parent = one;
 
+  std::swap(one->parent, two->parent);
+  std::swap(one->left, two->left);
+  std::swap(one->right, two->right);
+
+  // K buffer_key = one->value;
+  // one->value = two->value;
+  // two->value = buffer_key;
+}
 /* ---------------------- CAPACITY --------------------------- */
 
 template <typename K, typename V>

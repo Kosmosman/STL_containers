@@ -186,7 +186,6 @@ TEST(Set, constructor_copy) {
   TestSet tester;
   s21::set<int> s21_empty(tester.s21_set_ten);
   std::set<int> std_empty(tester.std_set_ten);
-  std::cout << "Hello<><><><><><" << std::endl;
   EXPECT_EQ(s21_empty.find(1) != s21_empty.end(),
             std_empty.find(1) != std_empty.end());
   EXPECT_EQ(s21_empty.find(2) != s21_empty.end(),
@@ -197,7 +196,6 @@ TEST(Set, constructor_copy) {
             std_empty.find(4) != std_empty.end());
   EXPECT_EQ(s21_empty.size(), std_empty.size());
   EXPECT_EQ(s21_empty.empty(), std_empty.empty());
-  std::cout << "sdfsdfs" << std::endl;
 }
 
 TEST(Set, construct_move) {

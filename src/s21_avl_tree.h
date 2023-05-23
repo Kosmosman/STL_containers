@@ -43,6 +43,7 @@ class AvlTree {
   void Merge(AvlTree& other);
   void Erase(Node<K, V>*);
   Node<K, V>* Find(const K& key);
+  Node<K, V>* LowerBound(const K& key);
   void Clear();
 
   bool Empty() const;
@@ -102,7 +103,6 @@ class AvlTree {
   Node<K, V>* FindExtremum(Node<K, V>* node, int balance);
   int GetHeight(const Node<K, V>* node) const;
   int GetBalance(const Node<K, V>* node) const;
-  void CopyNode(Node<K, V>* node, const Node<K, V>* other_node);
   AvlTree& CopyTree(Node<K, V>* node, const Node<K, V>* other_node);
   void BalanceAfterErace(Node<K, V>* node);
   void CreateEnd();
