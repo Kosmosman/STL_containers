@@ -9,9 +9,10 @@ int main() {
 //    s21::list<int> test {1, 2}; /// TODO error
 
     s21::list<int> my_list{1, 2, 3};
-    s21::list<int> my_list_copy(my_list);
 //    std::list<int> std_list{1, 2, 3};
 //    std::list<int> std_list_copy(std_list);
+    s21::list<int>::ListIterator itt = my_list.begin();
+    my_list.insert(itt, 10);
 
 //    for (const auto &item:std_list) {
 //
