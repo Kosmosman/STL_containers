@@ -29,12 +29,24 @@ namespace s21 {
         }
     }
 
-//    template <typename value_type>
-//    list<value_type>::list(const list& l)
-//            : head_(nullptr), tail_(nullptr), end_(nullptr), size_(0) {
-//        end_ = new Node(size_);
-//        this->copy(l);
+    template <typename value_type>
+    list<value_type>::list(const list& l)
+            : head_(nullptr), tail_(nullptr), end_(nullptr), size_(0) {
+        std::cout<<"test list copy construct  ";
+        end_ = new Node(size_);
+        *this = l;
+//        std::copy(l.begin(), l.end(), begin());
+    }
+
+//    template <typename T, size_t N>
+//    Array<T, N> &Array<T, N>::operator=(const Array &a) {
+//        if (this != &a) {
+//            std::copy(a.begin(), a.end(), begin());
+//        }
+//
+//        return *this;
 //    }
+
 
 
     template <typename value_type>
