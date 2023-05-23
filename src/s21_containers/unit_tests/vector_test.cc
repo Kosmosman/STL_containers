@@ -1,22 +1,24 @@
+// Those are mine tests
+
 #include "../vector/s21_vector.h"
 
 #include <gtest/gtest.h>
 
 #include <vector>
 
-TEST(test_vectorector, constructor_default) {
+TEST(VectorTest, constructor_default) {
   s21::Vector<char> test_vector;
   std::vector<char> std_test_vector;
   EXPECT_EQ(std_test_vector.size(), test_vector.size());
 }
 
-TEST(test_vectorector, constructor_parametrized) {
+TEST(VectorTest, constructor_parametrized) {
   s21::Vector<int> test_vector(5);
   std::vector<int> std_test_vector(5);
   EXPECT_EQ(std_test_vector.size(), test_vector.size());
 }
 
-TEST(test_vectorector, constructor_initializer_list) {
+TEST(VectorTest, constructor_initializer_list) {
   std::initializer_list<int> il1{1, 2, 3, 4, 5};
   s21::Vector<int> test_vector(il1);
   std::vector<int> std_test_vector(il1);
@@ -27,7 +29,7 @@ TEST(test_vectorector, constructor_initializer_list) {
   EXPECT_EQ(test_vector.at(4), std_test_vector.at(4));
 }
 
-TEST(test_vectorector, constructor_copy) {
+TEST(VectorTest, constructor_copy) {
   std::initializer_list<int> il1{1, 2, 3, 4, 5};
   s21::Vector<int> test_vector(il1);
   s21::Vector<int> copy_vector(test_vector);
@@ -40,7 +42,7 @@ TEST(test_vectorector, constructor_copy) {
   EXPECT_EQ(copy_vector.at(4), std_copy_vector.at(4));
 }
 
-TEST(test_vectorector, constructor_move) {
+TEST(VectorTest, constructor_move) {
   std::initializer_list<int> il1{1, 2, 3, 4, 5};
   s21::Vector<int> test_vector(il1);
   s21::Vector<int> copy_vector(std::move(test_vector));
@@ -53,7 +55,7 @@ TEST(test_vectorector, constructor_move) {
   EXPECT_EQ(copy_vector.at(4), std_copy_vector.at(4));
 }
 
-TEST(test_vectorector, constructor_operator) {
+TEST(VectorTest, constructor_operator) {
   s21::Vector<int> test_vector_1 = {1, 2, 3, 4, 5};
   s21::Vector<int> test_vector_2;
   test_vector_2 = std::move(test_vector_1);
@@ -110,7 +112,7 @@ TEST(VectorTest, data_func) {
   EXPECT_EQ(*test_vector.data(), *std_test_vector.data());
 }
 
-TEST(test_vectorector, empty) {
+TEST(VectorTest, empty) {
   s21::Vector<int> test_vector;
   std::vector<int> std_test_vector;
   EXPECT_EQ(test_vector.empty(), std_test_vector.empty());

@@ -74,9 +74,9 @@ class Vector {
   }
 
   reference_type operator[](size_type pos) {
-    if (pos < (size_type)0 || pos > size_) {
-      throw std::out_of_range("Index is out ot range");
-    }
+    // if (pos < (size_type)0 || pos > size_) {
+    //   throw std::out_of_range("Index is out ot range");
+    // }
     return data_[pos];
   }
 

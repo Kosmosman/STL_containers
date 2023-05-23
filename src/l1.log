@@ -1,0 +1,135 @@
+gcc  -g ./s21_containers/unit_tests/s21_test.cc -lstdc++ -std=c++17 -o unit_test -lgtest -lrt -lpthread -lm
+./unit_test
+[==========] Running 37 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 37 tests from Vector
+[ RUN      ] Vector.constructor_default
+[       OK ] Vector.constructor_default (0 ms)
+[ RUN      ] Vector.constructor_init
+[       OK ] Vector.constructor_init (0 ms)
+[ RUN      ] Vector.constructor_initializer_lit
+[       OK ] Vector.constructor_initializer_lit (0 ms)
+[ RUN      ] Vector.constructor_copy_empty
+[       OK ] Vector.constructor_copy_empty (0 ms)
+[ RUN      ] Vector.constructor_copy_not_empty
+[       OK ] Vector.constructor_copy_not_empty (0 ms)
+[ RUN      ] Vector.constructor_move_not_empty
+[       OK ] Vector.constructor_move_not_empty (0 ms)
+[ RUN      ] Vector.constructor_move_empty
+[       OK ] Vector.constructor_move_empty (0 ms)
+[ RUN      ] Vector.operator_move_not_empty
+[       OK ] Vector.operator_move_not_empty (0 ms)
+[ RUN      ] Vector.operator_move_empty
+[       OK ] Vector.operator_move_empty (0 ms)
+[ RUN      ] Vector.move_assigment
+[       OK ] Vector.move_assigment (0 ms)
+[ RUN      ] Vector.function_at
+[       OK ] Vector.function_at (0 ms)
+[ RUN      ] Vector.operator_square
+[       OK ] Vector.operator_square (0 ms)
+[ RUN      ] Vector.function_front
+[       OK ] Vector.function_front (0 ms)
+[ RUN      ] Vector.function_back
+[       OK ] Vector.function_back (0 ms)
+[ RUN      ] Vector.iterator_element_access
+[       OK ] Vector.iterator_element_access (0 ms)
+[ RUN      ] Vector.function_data
+[       OK ] Vector.function_data (0 ms)
+[ RUN      ] Vector.function_data_e
+[       OK ] Vector.function_data_e (0 ms)
+[ RUN      ] Vector.function_insert_begin
+./s21_containers/unit_tests/s21_test.cc:305: Failure
+Expected equality of these values:
+  s21_vector.capacity()
+    Which is: 10
+  std_vector.capacity()
+    Which is: 12
+[  FAILED  ] Vector.function_insert_begin (0 ms)
+[ RUN      ] Vector.function_insert_mid
+./s21_containers/unit_tests/s21_test.cc:331: Failure
+Expected equality of these values:
+  s21_vector.capacity()
+    Which is: 10
+  std_vector.capacity()
+    Which is: 12
+[  FAILED  ] Vector.function_insert_mid (0 ms)
+[ RUN      ] Vector.function_insert_end
+./s21_containers/unit_tests/s21_test.cc:351: Failure
+Expected equality of these values:
+  s21_vector.capacity()
+    Which is: 10
+  std_vector.capacity()
+    Which is: 12
+[  FAILED  ] Vector.function_insert_end (0 ms)
+[ RUN      ] Vector.function_insert_multi
+./s21_containers/unit_tests/s21_test.cc:380: Failure
+Expected equality of these values:
+  s21_vector.capacity()
+    Which is: 10
+  std_vector.capacity()
+    Which is: 12
+[  FAILED  ] Vector.function_insert_multi (0 ms)
+[ RUN      ] Vector.function_erase_begin
+[       OK ] Vector.function_erase_begin (0 ms)
+[ RUN      ] Vector.function_erase_mid
+[       OK ] Vector.function_erase_mid (0 ms)
+[ RUN      ] Vector.function_erase_end
+[       OK ] Vector.function_erase_end (0 ms)
+[ RUN      ] Vector.function_erase_multi
+[       OK ] Vector.function_erase_multi (0 ms)
+[ RUN      ] Vector.empty_testing
+[       OK ] Vector.empty_testing (0 ms)
+[ RUN      ] Vector.size_testing
+[       OK ] Vector.size_testing (0 ms)
+[ RUN      ] Vector.max_size_testing
+[       OK ] Vector.max_size_testing (0 ms)
+[ RUN      ] Vector.reserve_testing
+[       OK ] Vector.reserve_testing (0 ms)
+[ RUN      ] Vector.capacity_testing
+./s21_containers/unit_tests/s21_test.cc:510: Failure
+Expected equality of these values:
+  logger.five_Vector.capacity()
+    Which is: 8
+  logger.origin_five_vector.capacity()
+    Which is: 10
+./s21_containers/unit_tests/s21_test.cc:514: Failure
+Expected equality of these values:
+  logger.five_Vector.capacity()
+    Which is: 8
+  logger.origin_five_vector.capacity()
+    Which is: 10
+[  FAILED  ] Vector.capacity_testing (0 ms)
+[ RUN      ] Vector.shrink_to_fit_testing
+[       OK ] Vector.shrink_to_fit_testing (0 ms)
+[ RUN      ] Vector.clear_testing
+[       OK ] Vector.clear_testing (0 ms)
+[ RUN      ] Vector.function_swap
+[       OK ] Vector.function_swap (0 ms)
+[ RUN      ] Vector.function_push_back
+./s21_containers/unit_tests/s21_test.cc:592: Failure
+Expected equality of these values:
+  s21_vector.capacity()
+    Which is: 5
+  std_vector.capacity()
+    Which is: 6
+[  FAILED  ] Vector.function_push_back (0 ms)
+[ RUN      ] Vector.function_pop_back
+[       OK ] Vector.function_pop_back (0 ms)
+[ RUN      ] Vector.function_reserve
+[       OK ] Vector.function_reserve (0 ms)
+[ RUN      ] Vector.function_shrink_to_fit
+[       OK ] Vector.function_shrink_to_fit (0 ms)
+[----------] 37 tests from Vector (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 37 tests from 1 test suite ran. (1 ms total)
+[  PASSED  ] 31 tests.
+[  FAILED  ] 6 tests, listed below:
+[  FAILED  ] Vector.function_insert_begin
+[  FAILED  ] Vector.function_insert_mid
+[  FAILED  ] Vector.function_insert_end
+[  FAILED  ] Vector.function_insert_multi
+[  FAILED  ] Vector.capacity_testing
+[  FAILED  ] Vector.function_push_back
+
+ 6 FAILED TESTS

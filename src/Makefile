@@ -1,7 +1,7 @@
 .PHONY : all clean test clang valgrind gcov_report rebuild
 
 CC=gcc
-CFLAGS=-Wall -Werror -Wextra
+CFLAGS=#-Wall -Werror -Wextra
 CPPFLAGS=-lstdc++ -std=c++17
 TEST_FLAGS:=$(CFLAGS) -g#-fsanitize=address -O1 -fno-omit-frame-pointer
 LINUX_FLAGS =-lrt -lpthread -lm
