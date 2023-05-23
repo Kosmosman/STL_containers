@@ -1,9 +1,9 @@
 #ifndef S21_LIST_H
 #define S21_LIST_H
 
-#include <initializer_list>
 #include <iostream>
 #include <limits>
+#include <initializer_list>
 
 namespace s21 {
 
@@ -38,7 +38,7 @@ namespace s21 {
         list();
         list(size_type n);
         list(std::initializer_list<value_type> const& items);
-//        list(const list& l);
+        list(const list& l);
 //        list(list&& l);
 //        ~list();
 //        list& operator=(list&& l);
@@ -92,10 +92,10 @@ namespace s21 {
 
         ListIterator begin();
         ListIterator end();
-//        ListConstIterator begin() const;
-//        ListConstIterator end() const;
+        ListConstIterator begin() const;
+        ListConstIterator end() const;
 
-        ListIterator insert(ListIterator pos, ListConstIterator value);
+        ListIterator insert(ListIterator pos, const_reference value);
 //        void erase(ListIterator pos);
 //        void splice(ListConstIterator pos, list& other);
 //// доп method

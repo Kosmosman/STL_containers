@@ -3,6 +3,7 @@ namespace s21 {
 //// Constructs
     template <typename value_type>
     list<value_type>::list() : head_(nullptr), tail_(nullptr), end_(nullptr), size_(0) {
+        std::cout<<"test";
         end_ = new Node(size_);
         change_end();
     }
@@ -10,20 +11,29 @@ namespace s21 {
     template <typename value_type>
     list<value_type>::list(size_type n)
             : head_(nullptr), tail_(nullptr), end_(nullptr), size_(0) {
+        std::cout<<"test2";
         end_ = new Node(size_);
         for (size_type i = 0; i < n; ++i) {
             push_back(value_type());
         }
         change_end();
     }
+    template <typename value_type>
+    list<value_type>::list(std::initializer_list<value_type> const& items)
+            : head_(nullptr), tail_(nullptr), end_(nullptr), size_(0) {
+        std::cout<<"test initializer_list  ";
+        end_ = new Node(size_);
+        for (const auto& item : items) {
+            push_back(item);
+            change_end();
+        }
+    }
+
 //    template <typename value_type>
-//    list<value_type>::list(std::initializer_list<value_type> const& items)
+//    list<value_type>::list(const list& l)
 //            : head_(nullptr), tail_(nullptr), end_(nullptr), size_(0) {
 //        end_ = new Node(size_);
-//        for (const auto& item : items) {
-//            push_back(item);
-//            change_end();
-//        }
+//        this->copy(l);
 //    }
 
 
@@ -33,14 +43,14 @@ namespace s21 {
             end_->next_ = head_;
             end_->prev_ = tail_;
             end_->value_ = size();
-            head_ ? head_->prev_ = end_ : head_; // void();
-//            if (head_) {
-//                head_->prev_ = end_;
-//            }
-            tail_ ? tail_->next_ = end_ : head_; // void();
-            //            if (tail_) {
-//                tail_->next_ = end_;
-//            }
+//            head_ ? head_->prev_ = end_ : head_; // void();
+            if (head_) {
+                head_->prev_ = end_;
+            }
+//            tail_ ? tail_->next_ = end_ : head_; // void();
+                        if (tail_) {
+                tail_->next_ = end_;
+            }
         }
     }
 //    template <typename value_type>
@@ -65,7 +75,7 @@ namespace s21 {
 
     template <typename value_type> //// TODO проверить method на тестах
     typename list<value_type>::iterator list<value_type>::insert(iterator pos,
-                                                                 const_iterator value) {
+                                                                 const_reference value) {
         Node* active = pos.ptr_;
         Node* add = new Node(value);
         setNewValueForList(active, add);
@@ -164,12 +174,22 @@ typename list<value_type>::iterator list<value_type>::begin() {
 //    } else {
 //        return iterator(end_);
 //    }
-     return iterator(end_->next_);
-//    return !head_ ? iterator(end_) : iterator(head_);
+//     return iterator(end_->next_);
+    return !head_ ? iterator(end_) : iterator(head_);
 //    return iterator(head_);
 }
     template <typename value_type>
     typename list<value_type>::iterator list<value_type>::end() {
         return iterator(end_);
+    }
+
+    template <typename value_type>
+    typename list<value_type>::const_iterator list<value_type>::begin() const {
+        return !head_ ? const_iterator(end_) : const_iterator(head_);
+    }
+
+    template <typename value_type>
+    typename list<value_type>::const_iterator list<value_type>::end() const {
+        return const_iterator(end_);
     }
 };
