@@ -11,7 +11,7 @@ int main() {
         std::cout << item << " ";
     }
 //
-//    auto begin = ыtest.begin();
+//    auto begin = test.begin();
 //    auto end = test.end();
 
 //    s21::list<int>::ListIterator it;
