@@ -9,7 +9,7 @@ namespace s21 {
 template <typename T>
 class VectorIterator;
 
-template <class T>
+template <typename T>
 class VectorConstIterator;
 
 template <typename T>
@@ -20,14 +20,21 @@ class Vector {
   using reference_type = T&;
   using const_reference = const T&;
   using iterator = VectorIterator<T>;
-  using const_iterator = const T*;
+  using const_iterator = VectorConstIterator<T>;
   using size_type = std::size_t;
 
   //  Vector Member functions
   Vector() : size_(0), capacity_(0), data_(nullptr){};
 
-  explicit Vector(size_type n)
-      : size_(n), capacity_(size_), data_(new value_type[capacity_]()){};
+  explicit Vector(size_type n) {
+    if (n > this->max_size()) {
+      throw std::length_error(
+          "Can't create s21::Vector larger than max_size()");
+    }
+    this->size_ = n;
+    this->capacity_ = n;
+    this->data_ = new value_type[capacity_];
+  };
 
   Vector(std::initializer_list<value_type> const& items)
       : size_{items.size()},
@@ -40,21 +47,23 @@ class Vector {
     if (this != &v) {
       this->size_ = v.size_;
       this->capacity_ = size_;
-      this->data_ = new value_type[capacity_];
-      for (size_type i = 0; i < v.size_; i++) {
-        data_[i] = v.data_[i];
+      this->data_ = new value_type[this->size_];
+      for (size_type i = 0; i < this->size_; i++) {
+        this->data_[i] = v.data_[i];
       }
     }
   }
 
-  Vector(Vector&& v) noexcept
-      : size_(v.size_), capacity_(v.capacity_), data_(v.data_) {
+  Vector(Vector&& v) {
+    this->size_ = v.size_;
+    this->capacity_ = v.capacity_;
+    this->data_ = v.data_;
     v.bring_to_zero();
   }
 
   ~Vector() { this->remove(); }
 
-  Vector& operator=(Vector&& v) noexcept {
+  Vector& operator=(Vector&& v) {
     if (this != &v) {
       this->remove();
       this->size_ = v.size_;
@@ -73,12 +82,7 @@ class Vector {
     return data_[pos];
   }
 
-  reference_type operator[](size_type pos) {
-    // if (pos < (size_type)0 || pos > size_) {
-    //   throw std::out_of_range("Index is out ot range");
-    // }
-    return data_[pos];
-  }
+  reference_type operator[](size_type pos) { return data_[pos]; }
 
   const_reference front() { return *data_; }
 
@@ -129,10 +133,10 @@ class Vector {
     size_type position = &(*pos) - data_;
     size_type zero = 0;
     if (position < zero || position > size_) {
-      throw std::out_of_range("Index is out ot range");
+      throw std::out_of_range("Index is out ot range");  // CHECK
     }
     if (size_ + 1 >= capacity_) {
-      this->allocate(size_ + size_ / 2 + 1);
+      this->allocate(size_ * 2);
     }
     value_type replace = data_[position];
     size_++;
@@ -149,7 +153,7 @@ class Vector {
     size_type position = &(*pos) - data_;
     size_type zero = 0;
     if (position < zero || position > size_) {
-      throw std::out_of_range("Index is out ot range");
+      throw std::out_of_range("Index is out ot range");  // CHECK
     }
     for (size_type i = position + 1; i < size_; i++) {
       data_[i - 1] = data_[i];
@@ -159,7 +163,7 @@ class Vector {
 
   void push_back(const_reference value) {
     if (size_ >= capacity_) {
-      allocate(size_ + size_ / 2 + 1);
+      allocate(size_ * 2);
     }
     data_[size_++] = value;
   }
@@ -211,6 +215,7 @@ class Vector {
 template <typename T>
 class VectorIterator {
   friend class Vector<T>;
+  friend class VectorConstIterator<T>;
 
  public:
   using value_type = T;
@@ -250,10 +255,14 @@ class VectorIterator {
     return ptr_ == other.ptr_;
   }
   bool operator!=(const VectorIterator& other) const {
-    return !(*this == other);
+    return ptr_ != other.ptr_;
   }
   reference_type operator*() const { return (*ptr_); }
   pointer_type operator->() { return ptr_; }
+
+  operator VectorConstIterator<T>() const {
+    return VectorConstIterator<T>(ptr_);
+  }
 
  private:
   pointer_type ptr_;
@@ -262,6 +271,7 @@ class VectorIterator {
 template <typename T>
 class VectorConstIterator {
   friend class Vector<T>;
+  friend class VectorIterator<T>;
 
  public:
   using value_type = T;
@@ -276,7 +286,7 @@ class VectorConstIterator {
     return *this;
   }
   VectorConstIterator operator++(int) {
-    VectorIterator tmp = *this;
+    VectorConstIterator tmp = *this;
     ++(*this);
     return tmp;
   }
@@ -289,14 +299,16 @@ class VectorConstIterator {
     --(*this);
     return tmp;
   }
-  bool operator==(const VectorConstIterator& other) const {
+  bool operator==(const VectorConstIterator& other) {
     return ptr_ == other.ptr_;
   }
-  bool operator!=(const VectorConstIterator& other) const {
-    return !(*this == other);
+  bool operator!=(const VectorConstIterator& other) {
+    return ptr_ != other.ptr_;
   }
   reference_type operator*() const { return (*ptr_); }
   pointer_type operator->() { return ptr_; }
+
+  operator VectorIterator<T>() const { return VectorIterator<T>(ptr_); }
 
  private:
   pointer_type ptr_;
