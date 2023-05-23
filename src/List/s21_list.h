@@ -37,7 +37,7 @@ namespace s21 {
     public:
         list();
         list(size_type n);
-//        list(std::initializer_list<value_type> const& items);
+        list(std::initializer_list<value_type> const& items);
 //        list(const list& l);
 //        list(list&& l);
 //        ~list();

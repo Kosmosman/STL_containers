@@ -10,16 +10,21 @@ namespace s21 {
     template <typename value_type>
     list<value_type>::list(size_type n)
             : head_(nullptr), tail_(nullptr), end_(nullptr), size_(0) {
-//        if (n >= max_size()) {
-//            throw std::out_of_range("Limit of the container is exceeded");
-//        }
         end_ = new Node(size_);
         for (size_type i = 0; i < n; ++i) {
             push_back(value_type());
         }
         change_end();
     }
-
+//    template <typename value_type>
+//    list<value_type>::list(std::initializer_list<value_type> const& items)
+//            : head_(nullptr), tail_(nullptr), end_(nullptr), size_(0) {
+//        end_ = new Node(size_);
+//        for (const auto& item : items) {
+//            push_back(item);
+//            change_end();
+//        }
+//    }
 
 
     template <typename value_type>
