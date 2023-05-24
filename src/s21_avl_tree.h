@@ -3,9 +3,6 @@
 
 #include <algorithm>
 #include <initializer_list>
-#include <iostream>
-#include <list>
-#include <queue>
 namespace s21 {
 
 template <typename K, typename V>
@@ -13,8 +10,8 @@ struct Node {
   Node();
   Node(K o_value, int o_height);
 
-  Node<K, V>* NextNode();
-  Node<K, V>* PreviousNode();
+  Node* NextNode();
+  Node* PreviousNode();
 
   K value;
   int height;
@@ -39,11 +36,11 @@ class AvlTree {
   AvlTree(AvlTree&& other) noexcept;
   ~AvlTree();
 
-  Node<K, V>* Insert(const K& key);
+  node_type* Insert(const K& key);
   void Merge(AvlTree& other);
-  void Erase(Node<K, V>*);
-  Node<K, V>* Find(const K& key);
-  Node<K, V>* LowerBound(const K& key);
+  void Erase(node_type*);
+  node_type* Find(const K& key);
+  node_type* LowerBound(const K& key);
   void Clear();
 
   bool Empty() const;
@@ -53,10 +50,8 @@ class AvlTree {
   AvlTree& operator=(const AvlTree& other);
   AvlTree& operator=(AvlTree&& other);
 
-  Node<K, V>* Begin();
-  Node<K, V>* End();
-
-  void PrintTree();
+  node_type* Begin();
+  node_type* End();
 
   class Iterator {
    public:
@@ -86,25 +81,33 @@ class AvlTree {
     ConstIterator(const const_iterator& other) : Iterator{other} {};
     ConstIterator(const iterator& other) : Iterator{other} {};
     ConstIterator(const_iterator&& other) : Iterator{std::move(other)} {};
+    const K& operator*();
   };
 
  private:
   size_t size_;
-  Node<K, V>* head_;
+  node_type* head_;
 
-  void DeleteNodes(Node<K, V>* node);
-  Node<K, V>* InnerInsert(Node<K, V>* node, const K& key);
-  void Balance(Node<K, V>* node, int diff);
-  void SwapNode(Node<K, V>* one, Node<K, V>* two);
+  void DeleteNodes(node_type* node);
+  void SwapNode(node_type* one, node_type* two);
+
+  AvlTree& CopyTree(node_type* node, const node_type* other_node);
   AvlTree& SwapTree(AvlTree<K, V>&& other_tree);
-  void LeftRotate(Node<K, V>* node);
-  void RightRotate(Node<K, V>* node);
-  void UpdateHeight(Node<K, V>* node);
-  Node<K, V>* FindExtremum(Node<K, V>* node, int balance);
-  int GetHeight(const Node<K, V>* node) const;
-  int GetBalance(const Node<K, V>* node) const;
-  AvlTree& CopyTree(Node<K, V>* node, const Node<K, V>* other_node);
-  void BalanceAfterErace(Node<K, V>* node);
+
+  node_type* InnerInsert(node_type* node, const K& key);
+
+  void Balance(node_type* node, int diff);
+  int GetBalance(const node_type* node) const;
+  void BalanceAfterErace(node_type* node);
+
+  int GetHeight(const node_type* node) const;
+  void UpdateHeight(node_type* node);
+
+  void LeftRotate(node_type* node);
+  void RightRotate(node_type* node);
+
+  node_type* FindExtremum(node_type* node, int balance);
+
   void CreateEnd();
 };
 };  // namespace s21

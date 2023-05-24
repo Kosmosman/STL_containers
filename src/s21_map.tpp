@@ -90,7 +90,7 @@ map<key_type, mapped_type>::insert(const value_type &value) {
     inserted = true;
     tmp = tree_.Insert(value);
   }
-  iterator it(tmp);
+  iterator it{tmp};
   return std::pair<iterator, bool>{it, inserted};
 };
 
@@ -104,7 +104,7 @@ map<key_type, mapped_type>::insert(const key_type &key,
     inserted = true;
     tmp = tree_.Insert(value_type{key, obj});
   }
-  iterator it(tmp);
+  iterator it{tmp};
   return std::pair<iterator, bool>{it, inserted};
 };
 
@@ -120,7 +120,7 @@ map<key_type, mapped_type>::insert_or_assign(const key_type &key,
     tmp = tree_.Insert(value_type{key, obj});
     inserted = true;
   }
-  iterator it(tmp);
+  iterator it{tmp};
   return std::pair<iterator, bool>{it, inserted};
 }
 
@@ -143,7 +143,7 @@ void map<key_type, mapped_type>::merge(map &other) {
       insert(*it);
       inserted_node =
           other.tree_.LowerBound(value_type{(*it).first, mapped_type{}});
-      if (!inserted_node->left && !inserted_node->right) ++it;
+      ++it;
       if (other.size() == 1) it = iterator{nullptr};
       other.erase(iterator{inserted_node});
     } else {

@@ -1,8 +1,6 @@
 #ifndef CPP_CONTAINERS_S21_SET_H_
 #define CPP_CONTAINERS_S21_SET_H_
 
-#include <memory>
-
 #include "s21_avl_tree.h"
 
 namespace s21 {

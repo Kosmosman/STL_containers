@@ -69,7 +69,7 @@ template <typename value_type>
 std::pair<typename set<value_type>::iterator, bool> set<value_type>::insert(
     const value_type &value) {
   node_type *tmp = tree_.Insert(value);
-  iterator it(tmp);
+  iterator it{tmp};
   return std::pair(it, tmp);
 };
 
@@ -92,12 +92,12 @@ void set<value_type>::merge(set<value_type> &other) {
 
 template <typename value_type>
 typename set<value_type>::iterator set<value_type>::find(const key_type &key) {
-  return iterator(tree_.Find(key));
+  return iterator{tree_.Find(key)};
 };
 
 template <typename value_type>
 bool set<value_type>::contains(const key_type &key) {
-  return tree_.Find(key);
+  return tree_.Find(key) != tree_.End();
 };
 
 }  // namespace s21
