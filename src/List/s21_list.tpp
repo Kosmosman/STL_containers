@@ -53,10 +53,23 @@ namespace s21 {
 
     template <typename value_type>
     typename list<value_type>::list& list<value_type>::operator=(list&& l) {
+        if (this != &l) {
+            if (size_) { clear(); }
+            while (l.begin() != l.end()) { insert(end(), *l.begin()++); }
+        }
+        return *this;
+    }
 
-
+    template <typename value_type>
+    void list<value_type>::clear() {
 
     }
+
+//    if (this != &l) {
+//    clear();
+//    swap(l);
+//}
+//return *this;
 
 
 
