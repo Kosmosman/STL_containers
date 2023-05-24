@@ -30,7 +30,7 @@ rebuild:
 	make clean
 	make all
 
-test: 
+test: clean
 ifeq ($(OS), Darwin)
 	$(CC) $(TEST_FLAGS) $(LIBS) $(CPPFLAGS) $(TEST_SRC) -o unit_test
 else

@@ -6,10 +6,24 @@
 
 #include <vector>
 
-TEST(VectorTest, constructor_default) {
+TEST(VectorTest, constructor_default_size) {
   s21::Vector<char> test_vector;
   std::vector<char> std_test_vector;
   EXPECT_EQ(std_test_vector.size(), test_vector.size());
+}
+
+TEST(VectorTest, constructor_default_capacity) {
+  s21::Vector<char> test_vector;
+  std::vector<char> std_test_vector;
+  EXPECT_EQ(std_test_vector.capacity(), test_vector.capacity());
+}
+
+TEST(VectorTest, constructor_default_capacity_1) {
+  s21::Vector<char> test_vector;
+  std::vector<char> std_test_vector;
+  test_vector.push_back(1);
+  std_test_vector.push_back(1);
+  EXPECT_EQ(std_test_vector.capacity(), test_vector.capacity());
 }
 
 TEST(VectorTest, constructor_parametrized) {

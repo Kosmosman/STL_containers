@@ -27,48 +27,56 @@ class Vector {
   Vector() : size_(0), capacity_(0), data_(nullptr){};
 
   explicit Vector(size_type n) {
-    if (n > this->max_size()) {
+    if (n > max_size()) {
       throw std::length_error(
           "Can't create s21::Vector larger than max_size()");
     }
-    this->size_ = n;
-    this->capacity_ = n;
-    this->data_ = new value_type[capacity_];
+    size_ = n;
+    capacity_ = n;
+    data_ = new value_type[capacity_];
   };
 
   Vector(std::initializer_list<value_type> const& items)
-      : size_{items.size()},
+      : size_(items.size()),
         capacity_(items.size()),
-        data_{new value_type[capacity_]} {
+        data_(new value_type[capacity_]) {
     std::copy(items.begin(), items.end(), data_);
   }
 
-  Vector(const Vector& v) {
-    if (this != &v) {
-      this->size_ = v.size_;
-      this->capacity_ = size_;
-      this->data_ = new value_type[this->size_];
-      for (size_type i = 0; i < this->size_; i++) {
-        this->data_[i] = v.data_[i];
-      }
+  Vector(const Vector& v)
+      : size_(v.size_),
+        capacity_(v.capacity_),
+        data_(new value_type[capacity_]) {
+    for (size_type i = 0; i < size_; i++) {
+      data_[i] = v.data_[i];
     }
   }
 
-  Vector(Vector&& v) {
-    this->size_ = v.size_;
-    this->capacity_ = v.capacity_;
-    this->data_ = v.data_;
+  Vector(Vector&& v) : size_(v.size_), capacity_(v.capacity_), data_(v.data_) {
     v.bring_to_zero();
   }
 
-  ~Vector() { this->remove(); }
+  ~Vector() { remove(); }
+
+  Vector& operator=(const Vector& v) {
+    if (this != &v) {
+      remove();
+      size_ = v.size_;
+      capacity_ = v.capacity_;
+      data_ = new value_type[capacity_];
+      for (size_type i = 0; i < size_; i++) {
+        data_[i] = v.data_[i];
+      }
+    }
+    return *this;
+  }
 
   Vector& operator=(Vector&& v) {
     if (this != &v) {
-      this->remove();
-      this->size_ = v.size_;
-      this->capacity_ = v.capacity_;
-      this->data_ = v.data_;
+      remove();
+      size_ = v.size_;
+      capacity_ = v.capacity_;
+      data_ = v.data_;
       v.bring_to_zero();
     }
     return *this;
@@ -76,7 +84,7 @@ class Vector {
 
   // Vector Element access
   reference_type at(size_type pos) {
-    if (pos >= this->size()) {
+    if (pos >= size()) {
       throw std::out_of_range("Index is out of range");
     }
     return data_[pos];
@@ -106,15 +114,14 @@ class Vector {
       bits = 31;
     }
     return static_cast<size_type>(pow(2, bits)) / sizeof(value_type) - 1;
-    ;
   }
 
   void reserve(size_type size) {
     if (size > max_size()) {
       throw std::length_error("Size is too large");
     }
-    if (size > this->size_) {
-      this->allocate(size);
+    if (size > size_) {
+      allocate(size);
     }
   }
 
@@ -133,10 +140,10 @@ class Vector {
     size_type position = &(*pos) - data_;
     size_type zero = 0;
     if (position < zero || position > size_) {
-      throw std::out_of_range("Index is out ot range");  // CHECK
+      throw std::out_of_range("Index is out ot range");
     }
     if (size_ + 1 >= capacity_) {
-      this->allocate(size_ * 2);
+      allocate(size_ * 2);
     }
     value_type replace = data_[position];
     size_++;
@@ -153,7 +160,7 @@ class Vector {
     size_type position = &(*pos) - data_;
     size_type zero = 0;
     if (position < zero || position > size_) {
-      throw std::out_of_range("Index is out ot range");  // CHECK
+      throw std::out_of_range("Index is out ot range");
     }
     for (size_type i = position + 1; i < size_; i++) {
       data_[i - 1] = data_[i];
@@ -163,7 +170,11 @@ class Vector {
 
   void push_back(const_reference value) {
     if (size_ >= capacity_) {
-      allocate(size_ * 2);
+      if (!size_) {
+        allocate(1);
+      } else {
+        allocate(size_ * 2);
+      }
     }
     data_[size_++] = value;
   }
@@ -176,9 +187,9 @@ class Vector {
 
   void swap(Vector& other) {
     using std::swap;
-    swap(this->size_, other.size_);
-    swap(this->capacity_, other.capacity_);
-    swap(this->data_, other.data_);
+    swap(size_, other.size_);
+    swap(capacity_, other.capacity_);
+    swap(data_, other.data_);
   }
 
  private:
@@ -197,18 +208,14 @@ class Vector {
   }
 
   void bring_to_zero() {
-    this->size_ = 0;
-    this->capacity_ = 0;
-    this->data_ = nullptr;
+    size_ = 0;
+    capacity_ = 0;
+    data_ = nullptr;
   }
 
   void remove() {
-    if (this->data_ != nullptr) {
-      delete[] this->data_;
-    }
-    this->size_ = 0;
-    this->capacity_ = 0;
-    this->data_ = nullptr;
+    delete[] this->data_;
+    bring_to_zero();
   }
 };
 
@@ -222,7 +229,7 @@ class VectorIterator {
   using pointer_type = T*;
   using reference_type = T&;
 
-  VectorIterator() { ptr_ = nullptr; }
+  VectorIterator() : ptr_(){};
   VectorIterator(pointer_type ptr) : ptr_(ptr) {}
 
   VectorIterator& operator++() {
@@ -278,7 +285,7 @@ class VectorConstIterator {
   using pointer_type = T*;
   using reference_type = T&;
 
-  VectorConstIterator() { ptr_ = nullptr; }
+  VectorConstIterator() : ptr_(){};
   VectorConstIterator(pointer_type ptr) : ptr_(ptr) {}
 
   VectorConstIterator& operator++() {
