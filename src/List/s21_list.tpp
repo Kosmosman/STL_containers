@@ -54,6 +54,8 @@ namespace s21 {
     template <typename value_type>
     typename list<value_type>::list& list<value_type>::operator=(list&& l) {
 
+
+
     }
 
 
