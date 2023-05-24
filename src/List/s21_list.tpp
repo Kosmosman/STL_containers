@@ -33,9 +33,14 @@ namespace s21 {
     list<value_type>::list(const list& l)
             : head_(nullptr), tail_(nullptr), end_(nullptr), size_(0) {
         std::cout<<"test list copy construct  ";
-        end_ = new Node(size_);
-        *this = l;
-//        std::copy(l.begin(), l.end(), begin());
+        end_ = new Node(size_); ///// TODO требует рефакторинга
+        Node* current = l.head_;
+        for (size_type i = 0; i != l.size_; i++) {
+            push_back(current->value_);
+            current = current->next_;
+        }
+//        *this = l;
+/*        std::copy(l.begin(), l.end(), begin());*/
     }
 
 //    template <typename T, size_t N>
