@@ -1,18 +1,18 @@
-#ifndef S21_VECTOR_H_
-#define S21_VECTOR_H_
+#ifndef SRC_S21_CONTAINERS_VECTOR_S21_VECTOR_H_
+#define SRC_S21_CONTAINERS_VECTOR_S21_VECTOR_H_
 
 #include <cmath>
 #include <initializer_list>
 #include <iostream>
 
 namespace s21 {
-template <class T>
+template <typename T>
 class VectorIterator;
 
-template <class T>
+template <typename T>
 class VectorConstIterator;
 
-template <class T>
+template <typename T>
 class Vector {
  public:
   // Vector Member type
@@ -72,7 +72,7 @@ class Vector {
   void remove();
 };
 
-template <class T>
+template <typename T>
 class VectorIterator {
   friend class Vector<T>;
   friend class VectorConstIterator<T>;
@@ -128,7 +128,7 @@ class VectorIterator {
   pointer_type ptr_;
 };
 
-template <class T>
+template <typename T>
 class VectorConstIterator {
   friend class Vector<T>;
   friend class VectorIterator<T>;
@@ -175,4 +175,6 @@ class VectorConstIterator {
 };
 }  // namespace s21
 
-#endif  // S21_VECTOR_H_
+#include "s21_vector.tpp"
+
+#endif  // SRC_S21_CONTAINERS_VECTOR_S21_VECTOR_H_
