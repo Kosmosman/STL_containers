@@ -8,7 +8,7 @@
 int main() {
 //    s21::list<int> test {1, 2}; /// TODO error
 
-    s21::list<int> my_list{1, 2, 3};
+//    s21::list<int> my_list{1, 2, 3};
 ////    std::list<int> std_list;
 ////    std::list<int> std_list_copy(std_list);
 //    s21::list<int>::ListIterator itt = my_list.begin();
@@ -16,8 +16,15 @@ int main() {
 
 //    std::list<int> std_list{1, 2, 4};
 //    std::list<int> std_list2{23232323};
-    s21::list<int> std_list_copy(my_list);
-    for (const auto &item: std_list_copy) {
+//    s21::list<int> std_list_copy(my_list);
+
+//    s21::list<int> test(200);
+
+        s21::list<int> my_list{1, 2, 3};
+        s21::list<int> my_list_copy(my_list);
+        s21::list<int> my_list_move(std::move(my_list));
+//    std::cout << test.size() << " ";
+    for (const auto &item: my_list_move) {
         std::cout << item << " ";
     }
 //

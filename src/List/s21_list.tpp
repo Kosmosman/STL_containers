@@ -11,12 +11,16 @@ namespace s21 {
     template <typename value_type>
     list<value_type>::list(size_type n)
             : head_(nullptr), tail_(nullptr), end_(nullptr), size_(0) {
-        std::cout<<"test2";
+        std::cout<<"test2 = size list: ";
         end_ = new Node(size_);
+//        for (size_type i = 0; i < n; ++i) { //// TODO можно так
+//            push_back(value_type());
+//        }
+        const_reference val = value_type();
         for (size_type i = 0; i < n; ++i) {
-            push_back(value_type());
+            insert(end(), val);//// TODO или так
         }
-        change_end();
+//        change_end();
     }
     template <typename value_type>
     list<value_type>::list(std::initializer_list<value_type> const& items)
@@ -33,7 +37,7 @@ namespace s21 {
     list<value_type>::list(const list& l)
             : head_(nullptr), tail_(nullptr), end_(nullptr), size_(0) {
         std::cout<<"test list copy construct  ";
-        end_ = new Node(size_); ///// TODO требует рефакторинга
+        end_ = new Node(size_); ///// TODO требует рефакторинга раскидать на методы
         Node* current = l.head_;
         for (size_type i = 0; i != l.size_; i++) {
             push_back(current->value_);
@@ -42,6 +46,19 @@ namespace s21 {
 //        *this = l;
 /*        std::copy(l.begin(), l.end(), begin());*/
     }
+    template <typename value_type>
+    list<value_type>::list(list&& l) {
+        *this = std::move(l);
+    }
+
+    template <typename value_type>
+    typename list<value_type>::list& list<value_type>::operator=(list&& l) {
+
+    }
+
+
+
+
 
 //    template <typename T, size_t N>
 //    Array<T, N> &Array<T, N>::operator=(const Array &a) {

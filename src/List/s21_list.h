@@ -39,9 +39,9 @@ namespace s21 {
         list(size_type n);
         list(std::initializer_list<value_type> const& items);
         list(const list& l);
-//        list(list&& l);x§
+        list(list&& l);
 //        ~list();
-//        list& operator=(list&& l);
+        list& operator=(list&& l);
 
 //        const_reference front();
 //        const_reference back();
