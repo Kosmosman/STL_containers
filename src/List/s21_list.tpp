@@ -62,7 +62,15 @@ namespace s21 {
 
     template <typename value_type>
     void list<value_type>::clear() {
+        while (empty() == false) pop_front();
+    }
 
+    template <typename value_type>
+    void list<value_type>::pop_front(){erase(begin());
+    }
+    template <typename value_type>
+    void list<value_type>::erase(ListIterator pos) {
+        //// TODO нужна реализация
     }
 
 //    if (this != &l) {

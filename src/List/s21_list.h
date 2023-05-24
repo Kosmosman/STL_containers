@@ -54,7 +54,7 @@ namespace s21 {
         void push_back(const_reference value);
 //        void pop_back();
 //        void push_front(const_reference value);
-//        void pop_front();
+        void pop_front();
 //        void swap(list& other);
 //        void merge(list& other);
 //        void reverse();
@@ -97,7 +97,7 @@ namespace s21 {
         ListConstIterator end() const;
 
         ListIterator insert(ListIterator pos, const_reference value);
-//        void erase(ListIterator pos);
+        void erase(ListIterator pos);
 //        void splice(ListConstIterator pos, list& other);
 //// доп method
      void setNewValueForList(Node* active, Node* add);
