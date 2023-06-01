@@ -108,10 +108,10 @@ namespace s21 {
 
 
     template <typename value_type>
-    list<value_type>::const_reference	list<value_type>::front() { return *begin(); }
+    typename list<value_type>::const_reference	list<value_type>::front() { return *begin(); }
 
     template <typename value_type>
-    list<value_type>::const_reference	list<value_type>::back()  { return *(--end()); }
+    typename list<value_type>::const_reference	list<value_type>::back()  { return *(--end()); }
 
 
     template <typename value_type>

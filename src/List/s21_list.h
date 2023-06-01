@@ -61,7 +61,6 @@ namespace s21 {
 //        void reverse();
 //        void unique();
 //        void sort();
-//        list::<T, N> &operator=(const Array &a);
 
         class ListIterator {
         public:
