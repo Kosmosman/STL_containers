@@ -136,17 +136,17 @@ namespace s21 {
         EXPECT_TRUE(compare_lists(my_list_move, std_list_move));
     }
 //
-//    TEST(ListTest, Front) {
-//        s21::list<int> my_list{99, 2, 3, 4, 5};
-//        std::list<int> std_list{99, 2, 3, 4, 5};
-//        EXPECT_EQ(my_list.front(), std_list.front());
-//    }
-//
-//    TEST(ListTest, Back) {
-//        s21::list<int> my_list{1, 2, 3, 4, 99};
-//        std::list<int> std_list{1, 2, 3, 4, 99};
-//        EXPECT_EQ(my_list.back(), std_list.back());
-//    }
+    TEST(ListTest, Front) {
+        s21::list<int> my_list{99, 2, 3, 4, 5};
+        std::list<int> std_list{99, 2, 3, 4, 5};
+        EXPECT_EQ(my_list.front(), std_list.front());
+    }
+
+    TEST(ListTest, Back) {
+        s21::list<int> my_list{1, 2, 3, 4, 99};
+        std::list<int> std_list{1, 2, 3, 4, 99};
+        EXPECT_EQ(my_list.back(), std_list.back());
+    }
 //
     TEST(ListTest, Empty) {
         s21::list<int> my_list;
@@ -405,49 +405,49 @@ namespace s21 {
 //        EXPECT_TRUE(compare_lists(my_list, std_list));
 //    }
 //
-//    TEST(ListTest, Splice_1) {
-//        s21::list<int> my_list1{1, 9999, 20000};
-//        s21::list<int> my_list2{500, 15000, 30000};
-//        my_list1.splice(my_list1.begin(), my_list2);
+    TEST(ListTest, Splice_1) {
+        s21::list<int> my_list1{1, 9999, 20000};
+        s21::list<int> my_list2{500, 15000, 30000};
+        my_list1.splice(my_list1.begin(), my_list2);
+
+        std::list<int> std_list1{1, 9999, 20000};
+        std::list<int> std_list2{500, 15000, 30000};
+        std_list1.splice(std_list1.begin(), std_list2);
+        EXPECT_TRUE(compare_lists(my_list1, std_list1));
+    }
 //
-//        std::list<int> std_list1{1, 9999, 20000};
-//        std::list<int> std_list2{500, 15000, 30000};
-//        std_list1.splice(std_list1.begin(), std_list2);
-//        EXPECT_TRUE(compare_lists(my_list1, std_list1));
-//    }
-//
-//    TEST(ListTest, Splice_2) {
-//        s21::list<int> my_list1;
-//        s21::list<int> my_list2{500, 15000, 30000};
-//        my_list1.splice(my_list1.begin(), my_list2);
-//
-//        std::list<int> std_list1;
-//        std::list<int> std_list2{500, 15000, 30000};
-//        std_list1.splice(std_list1.begin(), std_list2);
-//        EXPECT_TRUE(compare_lists(my_list1, std_list1));
-//    }
-//
-//    TEST(ListTest, Splice_3) {
-//        s21::list<int> my_list1{1, 9999, 20000};
-//        s21::list<int> my_list2;
-//        my_list1.splice(my_list1.begin(), my_list2);
-//
-//        std::list<int> std_list1{1, 9999, 20000};
-//        std::list<int> std_list2;
-//        std_list1.splice(std_list1.begin(), std_list2);
-//        EXPECT_TRUE(compare_lists(my_list1, std_list1));
-//    }
-//
-//    TEST(ListTest, Splice_4) {
-//        s21::list<int> my_list1;
-//        s21::list<int> my_list2;
-//        my_list1.splice(my_list1.begin(), my_list2);
-//
-//        std::list<int> std_list1;
-//        std::list<int> std_list2;
-//        std_list1.splice(std_list1.begin(), std_list2);
-//        EXPECT_TRUE(compare_lists(my_list1, std_list1));
-//    }
+    TEST(ListTest, Splice_2) {
+        s21::list<int> my_list1;
+        s21::list<int> my_list2{500, 15000, 30000};
+        my_list1.splice(my_list1.begin(), my_list2);
+
+        std::list<int> std_list1;
+        std::list<int> std_list2{500, 15000, 30000};
+        std_list1.splice(std_list1.begin(), std_list2);
+        EXPECT_TRUE(compare_lists(my_list1, std_list1));
+    }
+
+    TEST(ListTest, Splice_3) {
+        s21::list<int> my_list1{1, 9999, 20000};
+        s21::list<int> my_list2;
+        my_list1.splice(my_list1.begin(), my_list2);
+
+        std::list<int> std_list1{1, 9999, 20000};
+        std::list<int> std_list2;
+        std_list1.splice(std_list1.begin(), std_list2);
+        EXPECT_TRUE(compare_lists(my_list1, std_list1));
+    }
+
+    TEST(ListTest, Splice_4) {
+        s21::list<int> my_list1;
+        s21::list<int> my_list2;
+        my_list1.splice(my_list1.begin(), my_list2);
+
+        std::list<int> std_list1;
+        std::list<int> std_list2;
+        std_list1.splice(std_list1.begin(), std_list2);
+        EXPECT_TRUE(compare_lists(my_list1, std_list1));
+    }
 //
     TEST(ListTest, Insert_1) {
         s21::list<int> my_list1{1, 9999, 20000};

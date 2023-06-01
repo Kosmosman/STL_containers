@@ -10,17 +10,15 @@ namespace s21 {
     template <typename value_type>
     list<value_type>::list(size_type n)
             : list() {
-//        end_ = new Node(size_);
         const_reference val = value_type();
         for (size_type i = 0; i < n; ++i) {
             insert(end(), val);
         }
-//        change_end();
+        change_end();
     }
     template <typename value_type>
     list<value_type>::list(std::initializer_list<value_type> const& items)
             : list() {
-//        end_ = new Node(size_);
         for (const auto& item : items) {
             push_back(item);
             change_end();
@@ -36,9 +34,9 @@ namespace s21 {
     template <typename value_type>
     list<value_type>& list<value_type>::operator=(const list& l) {
         if (this == &l) {
-            return *this;  // Handle self-assignment
+            throw std::out_of_range("Coping the same list is forbidden!");
         }
-        clear();  // Clear the current list
+        clear();
         Node* current = l.head_;
         for (size_type i = 0; i < l.size_; i++) {
             push_back(current->value_);
@@ -46,6 +44,7 @@ namespace s21 {
         }
         return *this;
     }
+
     template <typename value_type>
     list<value_type>::list(list&& l) {
         swap(l);
@@ -57,6 +56,14 @@ namespace s21 {
         std::swap(this->tail_, other.tail_);
         std::swap(this->end_, other.end_);
         std::swap(this->size_, other.size_);
+    }
+
+    template <typename value_type>
+    void list<value_type>::splice(ListConstIterator pos, list& other) {
+                auto end = other.end(), iter = other.begin();
+        for (; iter != end; ++iter) {
+            insert(pos, *iter);
+        }
     }
 
     template <typename value_type>
@@ -119,8 +126,6 @@ namespace s21 {
             }
         }
     }
-
-
 //// push`s
     template <typename value_type>
     void list<value_type>::push_back(const_reference value) {

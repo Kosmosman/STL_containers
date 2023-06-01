@@ -97,7 +97,7 @@ namespace s21 {
 
         ListIterator insert(ListIterator pos, const_reference value);
         void erase(ListIterator pos);
-//        void splice(ListConstIterator pos, list& other);
+        void splice(ListConstIterator pos, list& other);
 //// доп method
      void setNewValueForList(Node* active, Node* add);
      void installationInBlankList(Node* add);
