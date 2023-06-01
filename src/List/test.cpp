@@ -115,26 +115,26 @@ namespace s21 {
         std::list<int> std_list_move(std::move(std_list));
         EXPECT_TRUE(compare_lists(my_list_copy, std_list_copy));
     }
-//
-//    TEST(ListTest, MoveAssignmentOperator) {
-//        s21::list<int> my_list{1, 2, 3};
-//        s21::list<int> my_list_copy(my_list);
-//        s21::list<int> my_list_move = std::move(my_list);
-//        std::list<int> std_list{1, 2, 3};
-//        std::list<int> std_list_copy(std_list);
-//        std::list<int> std_list_move = std::move(std_list);
-//        EXPECT_TRUE(compare_lists(my_list_move, std_list_move));
-//    }
-//
-//    TEST(ListTest, MoveAssignmentOperatorEmpty) {
-//        s21::list<int> my_list;
-//        s21::list<int> my_list_copy(my_list);
-//        s21::list<int> my_list_move = std::move(my_list);
-//        std::list<int> std_list;
-//        std::list<int> std_list_copy(std_list);
-//        std::list<int> std_list_move = std::move(std_list);
-//        EXPECT_TRUE(compare_lists(my_list_move, std_list_move));
-//    }
+
+    TEST(ListTest, MoveAssignmentOperator) {
+        s21::list<int> my_list{1, 2, 3};
+        s21::list<int> my_list_copy(my_list);
+        s21::list<int> my_list_move = std::move(my_list);
+        std::list<int> std_list{1, 2, 3};
+        std::list<int> std_list_copy(std_list);
+        std::list<int> std_list_move = std::move(std_list);
+        EXPECT_TRUE(compare_lists(my_list_move, std_list_move));
+    }
+
+    TEST(ListTest, MoveAssignmentOperatorEmpty) {
+        s21::list<int> my_list;
+        s21::list<int> my_list_copy(my_list);
+        s21::list<int> my_list_move = std::move(my_list);
+        std::list<int> std_list;
+        std::list<int> std_list_copy(std_list);
+        std::list<int> std_list_move = std::move(std_list);
+        EXPECT_TRUE(compare_lists(my_list_move, std_list_move));
+    }
 //
 //    TEST(ListTest, Front) {
 //        s21::list<int> my_list{99, 2, 3, 4, 5};
@@ -148,26 +148,26 @@ namespace s21 {
 //        EXPECT_EQ(my_list.back(), std_list.back());
 //    }
 //
-//    TEST(ListTest, Empty) {
-//        s21::list<int> my_list;
-//        std::list<int> std_list;
-//        EXPECT_EQ(my_list.empty(), std_list.empty());
-//        my_list.push_back(10);
-//        std_list.push_back(10);
-//        EXPECT_EQ(my_list.empty(), std_list.empty());
-//    }
+    TEST(ListTest, Empty) {
+        s21::list<int> my_list;
+        std::list<int> std_list;
+        EXPECT_EQ(my_list.empty(), std_list.empty());
+        my_list.push_back(10);
+        std_list.push_back(10);
+        EXPECT_EQ(my_list.empty(), std_list.empty());
+    }
 //
-//    TEST(ListTest, Size) {
-//        s21::list<int> my_list{1, 2, 3, 4, 5, 6, 7, 8};
-//        std::list<int> std_list{1, 2, 3, 4, 5, 6, 7, 8};
-//        EXPECT_EQ(my_list.size(), std_list.size());
-//    }
+    TEST(ListTest, Size) {
+        s21::list<int> my_list{1, 2, 3, 4, 5, 6, 7, 8};
+        std::list<int> std_list{1, 2, 3, 4, 5, 6, 7, 8};
+        EXPECT_EQ(my_list.size(), std_list.size());
+    }
 //
-//    TEST(ListTest, SizeEmpty) {
-//        s21::list<int> my_list;
-//        std::list<int> std_list;
-//        EXPECT_EQ(my_list.size(), std_list.size());
-//    }
+    TEST(ListTest, SizeEmpty) {
+        s21::list<int> my_list;
+        std::list<int> std_list;
+        EXPECT_EQ(my_list.size(), std_list.size());
+    }
 //
 //    TEST(ListTest, MaxSize) {
 //        s21::list<size_t> my_list_empty;
@@ -175,37 +175,37 @@ namespace s21 {
 //        EXPECT_EQ(my_list_empty.max_size(), std_list_empty.max_size());
 //    }
 //
-//    TEST(ListTest, Clear) {
-//        s21::list<int> my_list{1, 2, 3, 4};
-//        my_list.clear();
-//        std::list<int> std_list{1, 2, 5, 4, 3};
-//        std_list.clear();
-//        EXPECT_TRUE(compare_lists(my_list, std_list));
-//    }
+    TEST(ListTest, Clear) {
+        s21::list<int> my_list{1, 2, 3, 4};
+        my_list.clear();
+        std::list<int> std_list{1, 2, 5, 4, 3};
+        std_list.clear();
+        EXPECT_TRUE(compare_lists(my_list, std_list));
+    }
+
+    TEST(ListTest, ClearEmpty) {
+        s21::list<int> my_list;
+        my_list.clear();
+        std::list<int> std_list;
+        std_list.clear();
+        EXPECT_TRUE(compare_lists(my_list, std_list));
+    }
 //
-//    TEST(ListTest, ClearEmpty) {
-//        s21::list<int> my_list;
-//        my_list.clear();
-//        std::list<int> std_list;
-//        std_list.clear();
-//        EXPECT_TRUE(compare_lists(my_list, std_list));
-//    }
-//
-//    TEST(ListTest, PushBack) {
-//        s21::list<int> my_list{1, 2, 3, 4, 5};
-//        my_list.push_back(6);
-//        std::list<int> std_list{1, 2, 3, 4, 5};
-//        std_list.push_back(6);
-//        EXPECT_TRUE(compare_lists(my_list, std_list));
-//    }
-//
-//    TEST(ListTest, PopBack) {
-//        s21::list<int> my_list{1, 2, 3, 4, 5};
-//        my_list.pop_back();
-//        std::list<int> std_list{1, 2, 3, 4, 5};
-//        std_list.pop_back();
-//        EXPECT_TRUE(compare_lists(my_list, std_list));
-//    }
+    TEST(ListTest, PushBack) {
+        s21::list<int> my_list{1, 2, 3, 4, 5};
+        my_list.push_back(6);
+        std::list<int> std_list{1, 2, 3, 4, 5};
+        std_list.push_back(6);
+        EXPECT_TRUE(compare_lists(my_list, std_list));
+    }
+
+    TEST(ListTest, PopBack) {
+        s21::list<int> my_list{1, 2, 3, 4, 5};
+        my_list.pop_back();
+        std::list<int> std_list{1, 2, 3, 4, 5};
+        std_list.pop_back();
+        EXPECT_TRUE(compare_lists(my_list, std_list));
+    }
 //
 //    TEST(ListTest, PushFront) {
 //        s21::list<int> my_list{1, 2, 3, 4, 5};
@@ -214,82 +214,82 @@ namespace s21 {
 //        std_list.push_front(0);
 //        EXPECT_TRUE(compare_lists(my_list, std_list));
 //    }
+
+    TEST(ListTest, PopFront) {
+        s21::list<int> my_list{1, 2, 3, 4, 5};
+        my_list.pop_front();
+        std::list<int> std_list{1, 2, 3, 4, 5};
+        std_list.pop_front();
+        EXPECT_TRUE(compare_lists(my_list, std_list));
+    }
+
+    TEST(ListTest, Swap) {
+        s21::list<int> my_list1{1, 2, 3, 4, 5};
+        s21::list<int> my_list2{6, 7, 8, 9, 10, 11};
+        my_list1.swap(my_list2);
+
+        std::list<int> std_list1{1, 2, 3, 4, 5};
+        std::list<int> std_list2{6, 7, 8, 9, 10, 11};
+        std_list1.swap(std_list2);
+
+        EXPECT_TRUE(compare_lists(my_list1, std_list1));
+        EXPECT_TRUE(compare_lists(my_list2, std_list2));
+    }
+
+    TEST(ListTest, Swap_2) {
+        s21::list<int> my_list1{1, 5, 8, 100};
+        s21::list<int> my_list2;
+        my_list1.swap(my_list2);
+
+        std::list<int> std_list1{1, 5, 8, 100};
+        std::list<int> std_list2;
+        std_list1.swap(std_list2);
+
+        EXPECT_TRUE(compare_lists(my_list1, std_list1));
+        EXPECT_TRUE(compare_lists(my_list2, std_list2));
+    }
 //
-//    TEST(ListTest, PopFront) {
-//        s21::list<int> my_list{1, 2, 3, 4, 5};
-//        my_list.pop_front();
-//        std::list<int> std_list{1, 2, 3, 4, 5};
-//        std_list.pop_front();
-//        EXPECT_TRUE(compare_lists(my_list, std_list));
-//    }
+    TEST(ListTest, begin_1) {
+        s21::list<int> my_list1{500, 15000, 30000};
+
+        std::list<int> std_list2{500, 15000, 30000};
+        EXPECT_EQ(*my_list1.begin(), *std_list2.begin());
+    }
+
+    TEST(ListTest, begin_2) {
+        s21::list<int> my_list1(4);
+
+        std::list<int> std_list2(4);
+        EXPECT_EQ(*my_list1.begin(), *std_list2.begin());
+    }
+
+    TEST(ListTest, begin_3_throw) {
+        s21::list<int> my_list1;
+        std::list<int> std_list2;
+
+        EXPECT_EQ(*my_list1.begin(), 0);
+    }
 //
-//    TEST(ListTest, Swap) {
-//        s21::list<int> my_list1{1, 2, 3, 4, 5};
-//        s21::list<int> my_list2{6, 7, 8, 9, 10, 11};
-//        my_list1.swap(my_list2);
+    TEST(ListTest, end_1) {
+        s21::list<int> my_list1{500, 15000, 30000};
+
+        std::list<int> std_list2{500, 15000, 30000};
+        EXPECT_EQ(*my_list1.begin(), *std_list2.begin());
+    }
+
+    TEST(ListTest, end_2) {
+        s21::list<int> my_list1(4);
+
+        std::list<int> std_list2(4);
+        EXPECT_EQ(*my_list1.end(), *std_list2.end());
+    }
 //
-//        std::list<int> std_list1{1, 2, 3, 4, 5};
-//        std::list<int> std_list2{6, 7, 8, 9, 10, 11};
-//        std_list1.swap(std_list2);
-//
-//        EXPECT_TRUE(compare_lists(my_list1, std_list1));
-//        EXPECT_TRUE(compare_lists(my_list2, std_list2));
-//    }
-//
-//    TEST(ListTest, Swap_2) {
-//        s21::list<int> my_list1{1, 5, 8, 100};
-//        s21::list<int> my_list2;
-//        my_list1.swap(my_list2);
-//
-//        std::list<int> std_list1{1, 5, 8, 100};
-//        std::list<int> std_list2;
-//        std_list1.swap(std_list2);
-//
-//        EXPECT_TRUE(compare_lists(my_list1, std_list1));
-//        EXPECT_TRUE(compare_lists(my_list2, std_list2));
-//    }
-//
-//    TEST(ListTest, begin_1) {
-//        s21::list<int> my_list1{500, 15000, 30000};
-//
-//        std::list<int> std_list2{500, 15000, 30000};
-//        EXPECT_EQ(*my_list1.begin(), *std_list2.begin());
-//    }
-//
-//    TEST(ListTest, begin_2) {
-//        s21::list<int> my_list1(4);
-//
-//        std::list<int> std_list2(4);
-//        EXPECT_EQ(*my_list1.begin(), *std_list2.begin());
-//    }
-//
-//    TEST(ListTest, begin_3_throw) {
-//        s21::list<int> my_list1;
-//        std::list<int> std_list2;
-//
-//        EXPECT_EQ(*my_list1.begin(), 0);
-//    }
-//
-//    TEST(ListTest, end_1) {
-//        s21::list<int> my_list1{500, 15000, 30000};
-//
-//        std::list<int> std_list2{500, 15000, 30000};
-//        EXPECT_EQ(*my_list1.begin(), *std_list2.begin());
-//    }
-//
-//    TEST(ListTest, end_2) {
-//        s21::list<int> my_list1(4);
-//
-//        std::list<int> std_list2(4);
-//        EXPECT_EQ(*my_list1.end(), *std_list2.end());
-//    }
-//
-//    TEST(ListTest, end_3) {
-//        s21::list<int> my_list1;
-//
-//        std::list<int> std_list2;
-//        EXPECT_EQ(*my_list1.end(), *std_list2.end());
-//    }
+    TEST(ListTest, end_3) {
+        s21::list<int> my_list1;
+
+        std::list<int> std_list2;
+        EXPECT_EQ(*my_list1.end(), *std_list2.end());
+    }
 //
 //    TEST(ListTest, Merge_1) {
 //        s21::list<int> my_list1{1, 9999, 20000};
@@ -449,66 +449,65 @@ namespace s21 {
 //        EXPECT_TRUE(compare_lists(my_list1, std_list1));
 //    }
 //
-//    TEST(ListTest, Insert_1) {
-//        s21::list<int> my_list1{1, 9999, 20000};
-//        my_list1.insert(my_list1.begin(), 5);
+    TEST(ListTest, Insert_1) {
+        s21::list<int> my_list1{1, 9999, 20000};
+        my_list1.insert(my_list1.begin(), 5);
+
+        std::list<int> std_list1{1, 9999, 20000};
+        std_list1.insert(std_list1.begin(), 5);
+
+        EXPECT_TRUE(compare_lists(my_list1, std_list1));
+    }
 //
-//        std::list<int> std_list1{1, 9999, 20000};
-//        std_list1.insert(std_list1.begin(), 5);
+    TEST(ListTest, Insert_2) {
+        s21::list<int> my_list1{1, 9999, 20000};
+        my_list1.insert(my_list1.end(), 5);
+
+        std::list<int> std_list1{1, 9999, 20000};
+        std_list1.insert(std_list1.end(), 5);
+
+        EXPECT_TRUE(compare_lists(my_list1, std_list1));
+    }
 //
-//        EXPECT_TRUE(compare_lists(my_list1, std_list1));
-//    }
+    TEST(ListTest, Insert_3) {
+        s21::list<int> my_list1;
+        my_list1.insert(my_list1.begin(), 5);
+
+        std::list<int> std_list1;
+        std_list1.insert(std_list1.begin(), 5);
+
+        EXPECT_TRUE(compare_lists(my_list1, std_list1));
+    }
 //
-//    TEST(ListTest, Insert_2) {
-//        s21::list<int> my_list1{1, 9999, 20000};
-//        my_list1.insert(my_list1.end(), 5);
+    TEST(ListTest, Insert_4) {
+        s21::list<int> my_list1;
+        my_list1.insert(my_list1.end(), 5);
+
+        std::list<int> std_list1;
+        std_list1.insert(std_list1.end(), 5);
+
+        EXPECT_TRUE(compare_lists(my_list1, std_list1));
+    }
 //
-//        std::list<int> std_list1{1, 9999, 20000};
-//        std_list1.insert(std_list1.end(), 5);
+    TEST(ListTest, Insert_5) {
+        s21::list<int> my_list1(4);
+        my_list1.insert(my_list1.begin(), 5);
+
+        std::list<int> std_list1(4);
+        std_list1.insert(std_list1.begin(), 5);
+
+        EXPECT_TRUE(compare_lists(my_list1, std_list1));
+    }
 //
-//        EXPECT_TRUE(compare_lists(my_list1, std_list1));
-//    }
-//
-//    TEST(ListTest, Insert_3) {
-//        s21::list<int> my_list1;
-//        my_list1.insert(my_list1.begin(), 5);
-//
-//        std::list<int> std_list1;
-//        std_list1.insert(std_list1.begin(), 5);
-//
-//        EXPECT_TRUE(compare_lists(my_list1, std_list1));
-//    }
-//
-//    TEST(ListTest, Insert_4) {
-//        s21::list<int> my_list1;
-//        my_list1.insert(my_list1.end(), 5);
-//
-//        std::list<int> std_list1;
-//        std_list1.insert(std_list1.end(), 5);
-//
-//        EXPECT_TRUE(compare_lists(my_list1, std_list1));
-//    }
-//
-//    TEST(ListTest, Insert_5) {
-//        s21::list<int> my_list1(4);
-//        my_list1.insert(my_list1.begin(), 5);
-//
-//        std::list<int> std_list1(4);
-//        std_list1.insert(std_list1.begin(), 5);
-//
-//        EXPECT_TRUE(compare_lists(my_list1, std_list1));
-//    }
-//
-//    TEST(ListTest, Insert_6) {
-//        s21::list<int> my_list1(4);
-//        my_list1.insert(my_list1.end(), 5);
-//
-//        std::list<int> std_list1(4);
-//        std_list1.insert(std_list1.end(), 5);
-//
-//        EXPECT_TRUE(compare_lists(my_list1, std_list1));
-//    }
-//
+    TEST(ListTest, Insert_6) {
+        s21::list<int> my_list1(4);
+        my_list1.insert(my_list1.end(), 5);
+
+        std::list<int> std_list1(4);
+        std_list1.insert(std_list1.end(), 5);
+
+        EXPECT_TRUE(compare_lists(my_list1, std_list1));
+    }
     TEST(ListTest, Erase_1) {
         s21::list<int> my_list1{1, 9999, 20000};
         my_list1.erase(my_list1.begin());

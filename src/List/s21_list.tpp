@@ -48,7 +48,8 @@ namespace s21 {
     }
     template <typename value_type>   //TODO не работает надо исправить
     list<value_type>::list(list&& l) {
-        *this = std::move(l);
+//        *this = std::move(l);
+        swap(l);
     }
 
     template <typename value_type>
@@ -72,15 +73,6 @@ namespace s21 {
         l.clear();
         return *this;
     }
-//    template <typename value_type>
-//    typename list<value_type>::list& list<value_type>::operator=(list&& l) {
-//        if (this != &l) {
-//            clear();
-//            swap(l);
-//        }
-//        return *this;
-//    }
-
     template <typename value_type>
     void list<value_type>::clear() {
         while (empty() == false) pop_front();
