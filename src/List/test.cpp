@@ -96,15 +96,15 @@ namespace s21 {
         EXPECT_TRUE(compare_lists(my_list_copy, std_list_copy));
     };
 
-//    TEST(ListTest, MoveConstructor) {
-//        s21::list<int> my_list{1, 2, 3};
-//        s21::list<int> my_list_copy(my_list);
-//        s21::list<int> my_list_move(std::move(my_list));
-//        std::list<int> std_list{1, 2, 3};
-//        std::list<int> std_list_copy(std_list);
-//        std::list<int> std_list_move(std::move(std_list));
-//        EXPECT_TRUE(compare_lists(my_list_copy, std_list_copy));
-//    }
+    TEST(ListTest, MoveConstructor) {
+        s21::list<int> my_list{1, 2, 3};
+        s21::list<int> my_list_copy(my_list);
+        s21::list<int> my_list_move(std::move(my_list));
+        std::list<int> std_list{1, 2, 3};
+        std::list<int> std_list_copy(std_list);
+        std::list<int> std_list_move(std::move(std_list));
+        EXPECT_TRUE(compare_lists(my_list_copy, std_list_copy));
+    }
 //
 //    TEST(ListTest, MoveConstructorEmpty) {
 //        s21::list<int> my_list;
@@ -509,47 +509,47 @@ namespace s21 {
 //        EXPECT_TRUE(compare_lists(my_list1, std_list1));
 //    }
 //
-//    TEST(ListTest, Erase_1) {
-//        s21::list<int> my_list1{1, 9999, 20000};
-//        my_list1.erase(my_list1.begin());
-//
-//        std::list<int> std_list1{1, 9999, 20000};
-//        std_list1.erase(std_list1.begin());
-//
-//        EXPECT_TRUE(compare_lists(my_list1, std_list1));
-//    }
-//
-//    TEST(ListTest, Erase_2_throw) {
-//        s21::list<int> my_list1{1, 9999, 20000};
-//
-//        EXPECT_THROW(my_list1.erase(my_list1.end()), std::invalid_argument);
-//    }
-//
-//    TEST(ListTest, Erase_3) {
-//        s21::list<int> my_list1{1, 9999, 20000};
-//        my_list1.erase(--my_list1.end());
-//
-//        std::list<int> std_list1{1, 9999, 20000};
-//        std_list1.erase(std_list1.end().operator--());
-//
-//        EXPECT_TRUE(compare_lists(my_list1, std_list1));
-//    }
-//
-//    TEST(ListTest, Erase_4_throw) {
-//        s21::list<int> my_list1;
-//
-//        EXPECT_THROW(my_list1.erase(my_list1.end()--), std::invalid_argument);
-//    }
-//
-//    TEST(ListTest, Erase_5) {
-//        s21::list<int> my_list1(5);
-//        my_list1.erase(--my_list1.end());
-//
-//        std::list<int> std_list1(5);
-//        std_list1.erase(std_list1.end().operator--());
-//
-//        EXPECT_TRUE(compare_lists(my_list1, std_list1));
-//    }
+    TEST(ListTest, Erase_1) {
+        s21::list<int> my_list1{1, 9999, 20000};
+        my_list1.erase(my_list1.begin());
+
+        std::list<int> std_list1{1, 9999, 20000};
+        std_list1.erase(std_list1.begin());
+
+        EXPECT_TRUE(compare_lists(my_list1, std_list1));
+    }
+
+    TEST(ListTest, Erase_2_throw) {
+        s21::list<int> my_list1{1, 9999, 20000};
+
+        EXPECT_THROW(my_list1.erase(my_list1.end()), std::invalid_argument);
+    }
+
+    TEST(ListTest, Erase_3) {
+        s21::list<int> my_list1{1, 9999, 20000};
+        my_list1.erase(--my_list1.end());
+
+        std::list<int> std_list1{1, 9999, 20000};
+        std_list1.erase(std_list1.end().operator--());
+
+        EXPECT_TRUE(compare_lists(my_list1, std_list1));
+    }
+
+    TEST(ListTest, Erase_4_throw) {
+        s21::list<int> my_list1;
+
+        EXPECT_THROW(my_list1.erase(my_list1.end()--), std::invalid_argument);
+    }
+
+    TEST(ListTest, Erase_5) {
+        s21::list<int> my_list1(5);
+        my_list1.erase(--my_list1.end());
+
+        std::list<int> std_list1(5);
+        std_list1.erase(std_list1.end().operator--());
+
+        EXPECT_TRUE(compare_lists(my_list1, std_list1));
+    }
 //
 //}
 };

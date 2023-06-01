@@ -42,6 +42,8 @@ namespace s21 {
         list(list&& l);
 //        ~list();
         list& operator=(list&& l);
+        list& operator=(const list& l);
+//        list& operator=(List&& l)''
 
 //        const_reference front();
 //        const_reference back();

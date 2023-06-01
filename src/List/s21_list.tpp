@@ -46,92 +46,66 @@ namespace s21 {
 //        *this = l;
 /*        std::copy(l.begin(), l.end(), begin());*/
     }
-    template <typename value_type>
+    template <typename value_type>   //TODO не работает надо исправить
     list<value_type>::list(list&& l) {
         *this = std::move(l);
     }
 
+//    template <typename value_type>
+//    typename list<value_type>::list& list<value_type>::operator=(list&& l) {
+//        if (this != &l) {
+//            if (size_) { clear(); }
+//            while (l.begin() != l.end()) { insert(end(), *l.begin()++); }
+//        }
+//        return *this;
+//    }
     template <typename value_type>
-    typename list<value_type>::list& list<value_type>::operator=(list&& l) {
-        if (this != &l) {
-            if (size_) { clear(); }
-            while (l.begin() != l.end()) { insert(end(), *l.begin()++); }
-        }
+    list<value_type>& list<value_type>::operator=(const list& l) {
+        if (this == &l) throw std::out_of_range("Coping the same list is forbidden!");
+        clear();
+        for (auto it = l.begin(); it != l.end(); ++it) this->push_back(*it);
         return *this;
     }
+
+    template <typename value_type>
+    list<value_type>& list<value_type>::operator=(list&& l) {
+        this->swap(l);
+        l.clear();
+        return *this;
+    }
+//    template <typename value_type>
+//    typename list<value_type>::list& list<value_type>::operator=(list&& l) {
+//        if (this != &l) {
+//            clear();
+//            swap(l);
+//        }
+//        return *this;
+//    }
 
     template <typename value_type>
     void list<value_type>::clear() {
         while (empty() == false) pop_front();
     }
-
-
-
-
-    /*
-     * В erase методе мы сначала проверяем, указывает ли данный итератор posна действительный узел (не нулевой) и
-     * не равен ли он итератору end_. Если это любой из этих случаев, мы ничего не делаем и возвращаемся.
-
-Затем мы проверяем, является ли удаляемый узел узлом head_или tail_. Если это head_, мы обновляем head_указатель
-     на следующий узел. В противном случае мы обновляем next_указатель предыдущего узла, чтобы пропустить стираемый узел.
-
-Точно так же, если удаляемый узел — это tail_, мы обновляем tail_указатель на предыдущий узел. В противном случае
-     мы обновляем prev_указатель следующего узла, чтобы пропустить стираемый узел.
-
-Наконец, мы удаляем узел и уменьшаем значение size_переменной-члена.
-
-Обратите внимание, что эта реализация предполагает наличие в listклассе соответствующих конструкторов, деструкторов
-     и других необходимых методов. Это упрощенный пример для демонстрации eraseметода.
-     */
     template <typename value_type>
     void list<value_type>::erase(ListIterator pos) {
         //// TODO нужна реализация
         Node* node = pos.ptr_;
 
         if (node == nullptr || node == end_) {
-            return;  // Invalid position or end iterator, do nothing TODO исправить на throw
+            throw std::invalid_argument("Invalid argument"); // Invalid position or end iterator, do nothing TODO исправить на throw
         }
-
         if (node == head_) {
             head_ = node->next_;
         } else {
             node->prev_->next_ = node->next_;
         }
-
         if (node == tail_) {
             tail_ = node->prev_;
         } else {
             node->next_->prev_ = node->prev_;
         }
-
         delete node;
         --size_;
-//        if (empty() == true)
-//            throw std::out_of_range("List is empty! Nothing to be erased");
-//        Node* currentNode = pos.ptr_;
-//        if (currentNode == head_) {
-//            pop_front();
-//        } else if (currentNode == tail_) {
-//            pop_back();
-//        } else {
-//            --pos;
-//            Node* previous_node = pos.ptr_;
-//            previous_node->next_ = currentNode->next_;
-//            (currentNode->next_)->prev_ = previous_node;
-//            delete currentNode;
-//            currentNode = nullptr;
-//        }
-
-//        if (currentNode == head_) {
-//            pop_front();
-//        } else if (currentNode == tail_) {
-////            pop_back();
-//        } else {
-//            currentNode->prev_->next_ = currentNode->next_;
-//            currentNode->next_->prev_ = currentNode->prev_;
-//            delete currentNode;
-//            this->size_--;
-//        }
     }
 
     template <typename value_type>
@@ -139,26 +113,6 @@ namespace s21 {
     }
     template <typename value_type>
     void list<value_type>::pop_back() { erase(--end()); }
-
-//    if (this != &l) {
-//    clear();
-//    swap(l);
-//}
-//return *this;
-
-
-
-
-
-//    template <typename T, size_t N>
-//    Array<T, N> &Array<T, N>::operator=(const Array &a) {
-//        if (this != &a) {
-//            std::copy(a.begin(), a.end(), begin());
-//        }
-//
-//        return *this;
-//    }
-
 
 
     template <typename value_type>
