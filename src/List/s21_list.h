@@ -28,7 +28,6 @@ namespace s21 {
             Node(const value_type& value)
                     : value_(value), prev_(nullptr), next_(nullptr) {}
         };
-
         Node* head_;
         Node* tail_;
         Node* end_;

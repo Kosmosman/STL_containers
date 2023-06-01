@@ -13,12 +13,9 @@ namespace s21 {
             : head_(nullptr), tail_(nullptr), end_(nullptr), size_(0) {
         std::cout<<"test2 = size list: ";
         end_ = new Node(size_);
-//        for (size_type i = 0; i < n; ++i) { //// TODO можно так
-//            push_back(value_type());
-//        }
         const_reference val = value_type();
         for (size_type i = 0; i < n; ++i) {
-            insert(end(), val);//// TODO или так
+            insert(end(), val);
         }
 //        change_end();
     }
@@ -36,8 +33,7 @@ namespace s21 {
     template <typename value_type>
     list<value_type>::list(const list& l)
             : head_(nullptr), tail_(nullptr), end_(nullptr), size_(0) {
-        std::cout<<"test list copy construct  ";
-        end_ = new Node(size_); ///// TODO требует рефакторинга раскидать на методы
+        end_ = new Node(size_);
         Node* current = l.head_;
         for (size_type i = 0; i != l.size_; i++) {
             push_back(current->value_);
@@ -46,7 +42,7 @@ namespace s21 {
 //        *this = l;
 /*        std::copy(l.begin(), l.end(), begin());*/
     }
-    template <typename value_type>   //TODO не работает надо исправить
+    template <typename value_type>
     list<value_type>::list(list&& l) {
 //        *this = std::move(l);
         swap(l);
@@ -79,11 +75,10 @@ namespace s21 {
     }
     template <typename value_type>
     void list<value_type>::erase(ListIterator pos) {
-        //// TODO нужна реализация
         Node* node = pos.ptr_;
 
         if (node == nullptr || node == end_) {
-            throw std::invalid_argument("Invalid argument"); // Invalid position or end iterator, do nothing TODO исправить на throw
+            throw std::invalid_argument("Invalid argument");
         }
         if (node == head_) {
             head_ = node->next_;
@@ -143,14 +138,14 @@ namespace s21 {
 
 
 //// push`s
-    template <typename value_type> //// TODO проверить method на тестах
+    template <typename value_type>
     void list<value_type>::push_back(const_reference value) {
         insert(end(), value);
     }
 
     //// insert & erase
 
-    template <typename value_type> //// TODO проверить method на тестах
+    template <typename value_type>
     typename list<value_type>::iterator list<value_type>::insert(iterator pos,
                                                                  const_reference value) {
         Node* active = pos.ptr_;
