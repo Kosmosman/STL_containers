@@ -51,14 +51,13 @@ namespace s21 {
         *this = std::move(l);
     }
 
-//    template <typename value_type>
-//    typename list<value_type>::list& list<value_type>::operator=(list&& l) {
-//        if (this != &l) {
-//            if (size_) { clear(); }
-//            while (l.begin() != l.end()) { insert(end(), *l.begin()++); }
-//        }
-//        return *this;
-//    }
+    template <typename value_type>
+    void list<value_type>::swap(list& other) {
+        std::swap(this->head_, other.head_);
+        std::swap(this->tail_, other.tail_);
+        std::swap(this->end_, other.end_);
+        std::swap(this->size_, other.size_);
+    }
     template <typename value_type>
     list<value_type>& list<value_type>::operator=(const list& l) {
         if (this == &l) throw std::out_of_range("Coping the same list is forbidden!");

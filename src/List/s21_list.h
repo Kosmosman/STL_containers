@@ -43,7 +43,6 @@ namespace s21 {
 //        ~list();
         list& operator=(list&& l);
         list& operator=(const list& l);
-//        list& operator=(List&& l)''
 
 //        const_reference front();
 //        const_reference back();
@@ -57,7 +56,7 @@ namespace s21 {
         void pop_back();
 //        void push_front(const_reference value);
         void pop_front();
-//        void swap(list& other);
+        void swap(list& other);
 //        void merge(list& other);
 //        void reverse();
 //        void unique();

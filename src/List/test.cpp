@@ -106,15 +106,15 @@ namespace s21 {
         EXPECT_TRUE(compare_lists(my_list_copy, std_list_copy));
     }
 //
-//    TEST(ListTest, MoveConstructorEmpty) {
-//        s21::list<int> my_list;
-//        s21::list<int> my_list_copy(my_list);
-//        s21::list<int> my_list_move(std::move(my_list));
-//        std::list<int> std_list;
-//        std::list<int> std_list_copy(std_list);
-//        std::list<int> std_list_move(std::move(std_list));
-//        EXPECT_TRUE(compare_lists(my_list_copy, std_list_copy));
-//    }
+    TEST(ListTest, MoveConstructorEmpty) {
+        s21::list<int> my_list;
+        s21::list<int> my_list_copy(my_list);
+        s21::list<int> my_list_move(std::move(my_list));
+        std::list<int> std_list;
+        std::list<int> std_list_copy(std_list);
+        std::list<int> std_list_move(std::move(std_list));
+        EXPECT_TRUE(compare_lists(my_list_copy, std_list_copy));
+    }
 //
 //    TEST(ListTest, MoveAssignmentOperator) {
 //        s21::list<int> my_list{1, 2, 3};
