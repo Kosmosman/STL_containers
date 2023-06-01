@@ -106,6 +106,14 @@ namespace s21 {
     void list<value_type>::pop_back() { erase(--end()); }
 
 
+
+    template <typename value_type>
+    list<value_type>::const_reference	list<value_type>::front() { return *begin(); }
+
+    template <typename value_type>
+    list<value_type>::const_reference	list<value_type>::back()  { return *(--end()); }
+
+
     template <typename value_type>
     void list<value_type>::change_end() {
         if (end_) {

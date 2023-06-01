@@ -44,8 +44,8 @@ namespace s21 {
         list& operator=(list&& l);
         list& operator=(const list& l);
 
-//        const_reference front();
-//        const_reference back();
+        const_reference front();
+        const_reference back();
 //
         bool empty();
         size_type size();
