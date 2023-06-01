@@ -16,7 +16,7 @@ int main() {
     for (const auto &item: my_list1) {
         std::cout << item << " ";
     }
-
+    std::cout  << "\n";
     for (const auto &item: std_list1) {
         std::cout << item << " ";
     }
