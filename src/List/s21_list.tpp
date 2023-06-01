@@ -60,10 +60,12 @@ namespace s21 {
 
     template <typename value_type>
     void list<value_type>::splice(ListConstIterator pos, list& other) {
-                auto end = other.end(), iter = other.begin();
-        for (; iter != end; ++iter) {
-            insert(pos, *iter);
-        }
+                auto end = other.end();
+                auto iter = other.begin();
+                while(iter != end) {
+                    insert(pos, *iter);
+                    ++iter;
+                }
     }
 
     template <typename value_type>
