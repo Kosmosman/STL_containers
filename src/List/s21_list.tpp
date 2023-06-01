@@ -234,7 +234,11 @@ typename list<value_type>::const_reference list<value_type>::const_iterator::ope
     return ListIterator::operator*();
 }
 
-//    list<value_type>::reference list<value_type>::iterator::
+//    void		push_front(const_refe &val) { insert(begin(), val); }
+template <typename value_type>
+void  list<value_type>::push_front(const_reference value) {
+    insert(begin(), value);
+    }
 
 template <typename value_type>
 typename list<value_type>::iterator list<value_type>::begin() {

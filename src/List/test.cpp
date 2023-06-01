@@ -30,17 +30,17 @@ namespace s21 {
         return result;
     }
 
-//    TEST(ListTest, CompareLists) {
-//        s21::list<int> my_list{1, 2, 3, 4, 5};
-//        std::list<int> std_list{1, 2, 3, 4, 5};
-//        EXPECT_TRUE(compare_lists(my_list, std_list));
-//        std_list.push_back(6);
-//        EXPECT_FALSE(compare_lists(my_list, std_list));
-//        std_list.pop_back();
-//        my_list.push_front(0);
-//        std_list.push_front(0);
-//        EXPECT_TRUE(compare_lists(my_list, std_list));
-//    }
+    TEST(ListTest, CompareLists) {
+        s21::list<int> my_list{1, 2, 3, 4, 5};
+        std::list<int> std_list{1, 2, 3, 4, 5};
+        EXPECT_TRUE(compare_lists(my_list, std_list));
+        std_list.push_back(6);
+        EXPECT_FALSE(compare_lists(my_list, std_list));
+        std_list.pop_back();
+        my_list.push_front(0);
+        std_list.push_front(0);
+        EXPECT_TRUE(compare_lists(my_list, std_list));
+    }
 
     TEST(ListTest, DefaultConstructor) {
         s21::list<int> my_list;
@@ -207,13 +207,13 @@ namespace s21 {
         EXPECT_TRUE(compare_lists(my_list, std_list));
     }
 //
-//    TEST(ListTest, PushFront) {
-//        s21::list<int> my_list{1, 2, 3, 4, 5};
-//        my_list.push_front(0);
-//        std::list<int> std_list{1, 2, 3, 4, 5};
-//        std_list.push_front(0);
-//        EXPECT_TRUE(compare_lists(my_list, std_list));
-//    }
+    TEST(ListTest, PushFront) {
+        s21::list<int> my_list{1, 2, 3, 4, 5};
+        my_list.push_front(0);
+        std::list<int> std_list{1, 2, 3, 4, 5};
+        std_list.push_front(0);
+        EXPECT_TRUE(compare_lists(my_list, std_list));
+    }
 
     TEST(ListTest, PopFront) {
         s21::list<int> my_list{1, 2, 3, 4, 5};
