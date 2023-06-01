@@ -3,16 +3,14 @@ namespace s21 {
 //// Constructs
     template <typename value_type>
     list<value_type>::list() : head_(nullptr), tail_(nullptr), end_(nullptr), size_(0) {
-        std::cout<<"test";
         end_ = new Node(size_);
         change_end();
     }
 
     template <typename value_type>
     list<value_type>::list(size_type n)
-            : head_(nullptr), tail_(nullptr), end_(nullptr), size_(0) {
-        std::cout<<"test2 = size list: ";
-        end_ = new Node(size_);
+            : list() {
+//        end_ = new Node(size_);
         const_reference val = value_type();
         for (size_type i = 0; i < n; ++i) {
             insert(end(), val);
@@ -21,30 +19,35 @@ namespace s21 {
     }
     template <typename value_type>
     list<value_type>::list(std::initializer_list<value_type> const& items)
-            : head_(nullptr), tail_(nullptr), end_(nullptr), size_(0) {
-        std::cout<<"test initializer_list  ";
-        end_ = new Node(size_);
+            : list() {
+//        end_ = new Node(size_);
         for (const auto& item : items) {
             push_back(item);
             change_end();
         }
     }
 
+        template <typename value_type>
+        list<value_type>::list(const list& l)
+                : list() {
+            *this = l;
+    }
+
     template <typename value_type>
-    list<value_type>::list(const list& l)
-            : head_(nullptr), tail_(nullptr), end_(nullptr), size_(0) {
-        end_ = new Node(size_);
+    list<value_type>& list<value_type>::operator=(const list& l) {
+        if (this == &l) {
+            return *this;  // Handle self-assignment
+        }
+        clear();  // Clear the current list
         Node* current = l.head_;
-        for (size_type i = 0; i != l.size_; i++) {
+        for (size_type i = 0; i < l.size_; i++) {
             push_back(current->value_);
             current = current->next_;
         }
-//        *this = l;
-/*        std::copy(l.begin(), l.end(), begin());*/
+        return *this;
     }
     template <typename value_type>
     list<value_type>::list(list&& l) {
-//        *this = std::move(l);
         swap(l);
     }
 
@@ -54,13 +57,6 @@ namespace s21 {
         std::swap(this->tail_, other.tail_);
         std::swap(this->end_, other.end_);
         std::swap(this->size_, other.size_);
-    }
-    template <typename value_type>
-    list<value_type>& list<value_type>::operator=(const list& l) {
-        if (this == &l) throw std::out_of_range("Coping the same list is forbidden!");
-        clear();
-        for (auto it = l.begin(); it != l.end(); ++it) this->push_back(*it);
-        return *this;
     }
 
     template <typename value_type>
@@ -115,26 +111,14 @@ namespace s21 {
             end_->next_ = head_;
             end_->prev_ = tail_;
             end_->value_ = size();
-//            head_ ? head_->prev_ = end_ : head_; // void();
             if (head_) {
                 head_->prev_ = end_;
             }
-//            tail_ ? tail_->next_ = end_ : head_; // void();
                         if (tail_) {
                 tail_->next_ = end_;
             }
         }
     }
-//    template <typename value_type>
-//    void list<value_type>::change_end() {
-//        if (end_) {
-//            end_->next_ = head_;
-//            end_->prev_ = tail_;
-//            head_ ? head_->prev_ = end_ : void();  // Using ternary operator
-//            tail_ ? tail_->next_ = end_ : void();  // Using ternary operator
-//            end_->value_ = size();
-//        }
-//    }
 
 
 //// push`s
