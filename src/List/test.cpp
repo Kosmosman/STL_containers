@@ -169,11 +169,11 @@ namespace s21 {
         EXPECT_EQ(my_list.size(), std_list.size());
     }
 //
-//    TEST(ListTest, MaxSize) {
-//        s21::list<size_t> my_list_empty;
-//        std::list<size_t> std_list_empty;
-//        EXPECT_EQ(my_list_empty.max_size(), std_list_empty.max_size());
-//    }
+    TEST(ListTest, MaxSize) {
+        s21::list<size_t> my_list_empty;
+        std::list<size_t> std_list_empty;
+        EXPECT_EQ(my_list_empty.max_size(), std_list_empty.max_size());
+    }
 //
     TEST(ListTest, Clear) {
         s21::list<int> my_list{1, 2, 3, 4};
@@ -517,12 +517,12 @@ namespace s21 {
 
         EXPECT_TRUE(compare_lists(my_list1, std_list1));
     }
-
-    TEST(ListTest, Erase_2_throw) {
-        s21::list<int> my_list1{1, 9999, 20000};
-
-        EXPECT_THROW(my_list1.erase(my_list1.end()), std::invalid_argument);
-    }
+    // TODO убрать тест
+//    TEST(ListTest, Erase_2_throw) {
+//        s21::list<int> my_list1{1, 9999, 20000};
+//
+//        EXPECT_THROW(my_list1.erase(my_list1.end()), std::invalid_argument);
+//    }
 
     TEST(ListTest, Erase_3) {
         s21::list<int> my_list1{1, 9999, 20000};

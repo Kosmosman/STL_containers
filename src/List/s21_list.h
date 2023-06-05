@@ -48,7 +48,7 @@ namespace s21 {
 //
         bool empty();
         size_type size();
-//        size_type max_size();
+        size_type max_size();
 //
         void clear();
         void push_back(const_reference value);

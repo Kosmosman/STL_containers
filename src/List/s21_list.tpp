@@ -2,8 +2,8 @@ namespace s21 {
 
 //// Constructs
     template <typename value_type>
-    list<value_type>::list() : head_(nullptr), tail_(nullptr), end_(nullptr), size_(0) {
-        end_ = new Node(size_);
+    list<value_type>::list() : head_(nullptr), tail_(nullptr), end_(new Node(0)), size_(0) {
+//        end_ = new Node(size_);
         change_end();
     }
 
@@ -48,6 +48,7 @@ namespace s21 {
     template <typename value_type>
     list<value_type>::list(list&& l) {
         swap(l);
+        std::cout<<"move const\n";
     }
 
     template <typename value_type>
@@ -72,8 +73,10 @@ namespace s21 {
 
     template <typename value_type>
     list<value_type>& list<value_type>::operator=(list&& l) {
-        this->swap(l);
-        l.clear();
+        if (this != &l) {
+            this->swap(l);
+            l.clear();
+        }
         return *this;
     }
     template <typename value_type>
@@ -83,10 +86,10 @@ namespace s21 {
     template <typename value_type>
     void list<value_type>::erase(ListIterator pos) {
         Node* node = pos.ptr_;
-
-        if (node == nullptr || node == end_) {
-            throw std::invalid_argument("Invalid argument");
-        }
+        // TODO не опр поведение
+//        if (node == nullptr || node == end_) {
+//            throw std::invalid_argument("Invalid argument");
+//        }
         if (node == head_) {
             head_ = node->next_;
         } else {
@@ -214,6 +217,11 @@ namespace s21 {
     template <typename value_type>
     typename list<value_type>::size_type list<value_type>::size() {
         return size_;
+    }
+
+    template <typename value_type>
+    typename list<value_type>::size_type list<value_type>::max_size() {
+        return (std::numeric_limits<size_type>::max() / sizeof(Node) / 2);
     }
 
     //// iterator /////////////////////////////////////////////////////
