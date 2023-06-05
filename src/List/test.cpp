@@ -291,71 +291,71 @@ namespace s21 {
         EXPECT_EQ(*my_list1.end(), *std_list2.end());
     }
 //
-//    TEST(ListTest, Merge_1) {
-//        s21::list<int> my_list1{1, 9999, 20000};
-//        s21::list<int> my_list2{500, 15000, 30000};
-//        my_list1.merge(my_list2);
-//
-//        std::list<int> std_list1{1, 9999, 20000};
-//        std::list<int> std_list2{500, 15000, 30000};
-//        std_list1.merge(std_list2);
-//        EXPECT_TRUE(compare_lists(my_list1, std_list1));
-//    }
-//
-//    TEST(ListTest, Merge_2) {
-//        s21::list<int> my_list1{1, 9999, 20000};
-//        s21::list<int> my_list2{15000, 30000};
-//        my_list1.merge(my_list2);
-//
-//        std::list<int> std_list1{1, 9999, 20000};
-//        std::list<int> std_list2{15000, 30000};
-//        std_list1.merge(std_list2);
-//        EXPECT_TRUE(compare_lists(my_list1, std_list1));
-//    }
-//
-//    TEST(ListTest, Merge_3) {
-//        s21::list<int> my_list1{1, 20000, 666};
-//        s21::list<int> my_list2{15000, 154, 124, 30000};
-//        my_list1.merge(my_list2);
-//
-//        std::list<int> std_list1{1, 20000, 666};
-//        std::list<int> std_list2{15000, 154, 124, 30000};
-//        std_list1.merge(std_list2);
-//        EXPECT_TRUE(compare_lists(my_list1, std_list1));
-//    }
-//
-//    TEST(ListTest, Merge_4) {
-//        s21::list<int> my_list1;
-//        s21::list<int> my_list2{15000, 154, 124, 30000};
-//        my_list1.merge(my_list2);
-//
-//        std::list<int> std_list1;
-//        std::list<int> std_list2{15000, 154, 124, 30000};
-//        std_list1.merge(std_list2);
-//        EXPECT_TRUE(compare_lists(my_list1, std_list1));
-//    }
-//
-//    TEST(ListTest, Merge_5) {
-//        s21::list<int> my_list1{1, 20000, 666};
-//        s21::list<int> my_list2;
-//        my_list1.merge(my_list2);
-//
-//        std::list<int> std_list1{1, 20000, 666};
-//        std::list<int> std_list2;
-//        std_list1.merge(std_list2);
-//        EXPECT_TRUE(compare_lists(my_list1, std_list1));
-//    }
-//
-//    TEST(ListTest, Merge_6) {
-//        s21::list<int> my_list1;
-//        s21::list<int> my_list2;
-//        my_list1.merge(my_list2);
-//
-//        std::list<int> std_list1;
-//        std::list<int> std_list2;
-//        std_list1.merge(std_list2);
-//        EXPECT_TRUE(compare_lists(my_list1, std_list1));
-//    }
+    TEST(ListTest, Merge_1) {
+        s21::list<int> my_list1{1, 9999, 20000};
+        s21::list<int> my_list2{500, 15000, 30000};
+        my_list1.merge(my_list2);
+
+        std::list<int> std_list1{1, 9999, 20000};
+        std::list<int> std_list2{500, 15000, 30000};
+        std_list1.merge(std_list2);
+        EXPECT_TRUE(compare_lists(my_list1, std_list1));
+    }
+
+    TEST(ListTest, Merge_2) {
+        s21::list<int> my_list1{1, 9999, 20000};
+        s21::list<int> my_list2{15000, 30000};
+        my_list1.merge(my_list2);
+
+        std::list<int> std_list1{1, 9999, 20000};
+        std::list<int> std_list2{15000, 30000};
+        std_list1.merge(std_list2);
+        EXPECT_TRUE(compare_lists(my_list1, std_list1));
+    }
+
+    TEST(ListTest, Merge_3) {
+        s21::list<int> my_list1{1, 20000, 666};
+        s21::list<int> my_list2{15000, 154, 124, 30000};
+        my_list1.merge(my_list2);
+
+        std::list<int> std_list1{1, 20000, 666};
+        std::list<int> std_list2{15000, 154, 124, 30000};
+        std_list1.merge(std_list2);
+        EXPECT_TRUE(compare_lists(my_list1, std_list1));
+    }
+
+    TEST(ListTest, Merge_4) {
+        s21::list<int> my_list1;
+        s21::list<int> my_list2{15000, 154, 124, 30000};
+        my_list1.merge(my_list2);
+
+        std::list<int> std_list1;
+        std::list<int> std_list2{15000, 154, 124, 30000};
+        std_list1.merge(std_list2);
+        EXPECT_TRUE(compare_lists(my_list1, std_list1));
+    }
+
+    TEST(ListTest, Merge_5) {
+        s21::list<int> my_list1{1, 20000, 666};
+        s21::list<int> my_list2;
+        my_list1.merge(my_list2);
+
+        std::list<int> std_list1{1, 20000, 666};
+        std::list<int> std_list2;
+        std_list1.merge(std_list2);
+        EXPECT_TRUE(compare_lists(my_list1, std_list1));
+    }
+
+    TEST(ListTest, Merge_6) {
+        s21::list<int> my_list1;
+        s21::list<int> my_list2;
+        my_list1.merge(my_list2);
+
+        std::list<int> std_list1;
+        std::list<int> std_list2;
+        std_list1.merge(std_list2);
+        EXPECT_TRUE(compare_lists(my_list1, std_list1));
+    }
 //
 //    TEST(ListTest, Reverse_1) {
 //        s21::list<int> my_list{1, 2, 3, 4, 5};
