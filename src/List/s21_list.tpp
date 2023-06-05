@@ -60,12 +60,14 @@ namespace s21 {
 
     template <typename value_type>
     void list<value_type>::splice(ListConstIterator pos, list& other) {
-                auto end = other.end();
-                auto iter = other.begin();
-                while(iter != end) {
-                    insert(pos, *iter);
-                    ++iter;
-                }
+        if (this != &other && !other.empty()) {
+            auto end = other.end();
+            auto iter = other.begin();
+            while (iter != end) {
+                insert(pos, *iter);
+                ++iter;
+            }
+        }
     }
 
     template <typename value_type>
@@ -204,13 +206,6 @@ namespace s21 {
         other.clear();
     }
     }
-
-
-
-
-
-
-
 //// empty size max_size
     template <typename value_type>
     bool list<value_type>::empty() {
