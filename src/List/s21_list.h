@@ -59,7 +59,7 @@ namespace s21 {
         void merge(list& other);
         void reverse();
 //        void unique();
-//        void sort();
+        void sort();
 
         class ListIterator {
         public:
@@ -103,6 +103,7 @@ namespace s21 {
      void installationInBlankList(Node* add);
      void installationNotInBlankList(Node* active, Node* add);
      void change_end();
+     void mergeSort(list& l);
     };
 }
 #include "s21_list.tpp"

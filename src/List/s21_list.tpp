@@ -131,6 +131,37 @@ namespace s21 {
         std::swap(head_, tail_);
     }
 
+    template<typename value_type>
+    void list<value_type>::mergeSort(list& l) {
+        if (l.size() <= 1) {
+            return;
+        }
+        list<value_type> leftHalf;
+        list<value_type> rightHalf;
+        auto mid = l.size() / 2;
+        auto it = l.begin();
+        for (size_type i = 0; i < mid; ++i) {
+            leftHalf.push_back(*it);
+            ++it;
+        }
+        for (size_type i = mid; i < l.size(); ++i) {
+            rightHalf.push_back(*it);
+            ++it;
+        }
+
+        mergeSort(leftHalf);
+        mergeSort(rightHalf);
+
+        l.clear();
+        l.merge(leftHalf);
+        l.merge(rightHalf);
+    }
+
+    template<typename value_type>
+    void list<value_type>::sort() {
+        mergeSort(*this);
+    }
+
 
 
     template <typename value_type>
