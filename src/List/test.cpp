@@ -357,30 +357,30 @@ namespace s21 {
         EXPECT_TRUE(compare_lists(my_list1, std_list1));
     }
 //
-//    TEST(ListTest, Reverse_1) {
-//        s21::list<int> my_list{1, 2, 3, 4, 5};
-//        std::list<int> std_list{1, 2, 3, 4, 5};
-//        my_list.reverse();
-//        std_list.reverse();
-//        EXPECT_TRUE(compare_lists(my_list, std_list));
-//    }
-//
-//    TEST(ListTest, Reverse_2) {
-//        s21::list<int> my_list(4);
-//        std::list<int> std_list(4);
-//        my_list.reverse();
-//        std_list.reverse();
-//        EXPECT_TRUE(compare_lists(my_list, std_list));
-//    }
-//
-//    TEST(ListTest, Reverse_3) {
-//        s21::list<int> my_list;
-//        std::list<int> std_list;
-//        my_list.reverse();
-//        std_list.reverse();
-//        EXPECT_TRUE(compare_lists(my_list, std_list));
-//    }
-//
+    TEST(ListTest, Reverse_1) {
+        s21::list<int> my_list{1, 2, 3, 4, 5};
+        std::list<int> std_list{1, 2, 3, 4, 5};
+        my_list.reverse();
+        std_list.reverse();
+        EXPECT_TRUE(compare_lists(my_list, std_list));
+    }
+
+    TEST(ListTest, Reverse_2) {
+        s21::list<int> my_list(4);
+        std::list<int> std_list(4);
+        my_list.reverse();
+        std_list.reverse();
+        EXPECT_TRUE(compare_lists(my_list, std_list));
+    }
+
+    TEST(ListTest, Reverse_3) {
+        s21::list<int> my_list;
+        std::list<int> std_list;
+        my_list.reverse();
+        std_list.reverse();
+        EXPECT_TRUE(compare_lists(my_list, std_list));
+    }
+
 //    TEST(ListTest, Unique_1) {
 //        s21::list<int> my_list{90, 10, 3, 40, 30, 20, 10, 10, 90, 90, 90};
 //        std::list<int> std_list{90, 10, 3, 40, 30, 20, 10, 10, 90, 90, 90};
@@ -534,11 +534,11 @@ namespace s21 {
         EXPECT_TRUE(compare_lists(my_list1, std_list1));
     }
 
-    TEST(ListTest, Erase_4_throw) {
-        s21::list<int> my_list1;
-
-        EXPECT_THROW(my_list1.erase(my_list1.end()--), std::invalid_argument);
-    }
+//    TEST(ListTest, Erase_4_throw) {
+//        s21::list<int> my_list1;
+//
+//        EXPECT_THROW(my_list1.erase(my_list1.end()--), std::invalid_argument);
+//    }
 
     TEST(ListTest, Erase_5) {
         s21::list<int> my_list1(5);

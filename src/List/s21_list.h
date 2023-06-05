@@ -57,7 +57,7 @@ namespace s21 {
         void pop_front();
         void swap(list& other);
         void merge(list& other);
-//        void reverse();
+        void reverse();
 //        void unique();
 //        void sort();
 

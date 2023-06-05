@@ -113,6 +113,26 @@ namespace s21 {
 
 
 
+    template<typename value_type>
+    void list<value_type>::reverse() {
+        if (size_ <= 1) {
+            return;
+        }
+        Node* current = head_;
+        Node* prev = nullptr;
+        Node* next = nullptr;
+        while (current != nullptr) {
+            next = current->next_;
+            current->next_ = prev;
+            current->prev_ = next;
+            prev = current;
+            current = next;
+        }
+        std::swap(head_, tail_);
+    }
+
+
+
     template <typename value_type>
     typename list<value_type>::const_reference	list<value_type>::front() { return *begin(); }
 
