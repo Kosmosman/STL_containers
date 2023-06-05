@@ -115,9 +115,9 @@ namespace s21 {
 
     template<typename value_type>
     void list<value_type>::reverse() {
-        if (size_ <= 1) {
-            return;
-        }
+//        if (size_ <= 1) {
+//            return;
+//        }
         Node* current = head_;
         Node* prev = nullptr;
         Node* next = nullptr;
