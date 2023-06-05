@@ -177,8 +177,8 @@ namespace s21 {
     //TODO merge
     template<typename value_type>
     void list<value_type>::merge(list& other) {
+        if (this != &other && !other.empty()) {
         auto mergedList = list<value_type>();
-
         iterator it1 = begin();
         iterator it2 = other.begin();
 
@@ -200,7 +200,9 @@ namespace s21 {
             ++it2;
         }
         *this = std::move(mergedList);
+
         other.clear();
+    }
     }
 
 

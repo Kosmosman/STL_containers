@@ -7,17 +7,21 @@
 
 int main() {
 
-    s21::list<int> my_list1{1, 9999, 20000};
-    my_list1.erase(my_list1.begin());
+    s21::list<int> my_list1{1, 20000, 666};
+    s21::list<int> my_list2{15000, 154, 124, 30000};
+    my_list1.merge(my_list2);
 
-    std::list<int> std_list1{1, 9999, 20000};
-    std_list1.erase(std_list1.begin());
+//    std::list<int> my_list3{1, 20000, 666};
+//    std::list<int> my_list4{15000, 154, 124, 30000};
+////    my_list3.merge(my_list2);
+//    my_list3.merge(my_list4);
 
-    for (const auto &item: my_list1) {
-        std::cout << item << " ";
-    }
+
+//    for (const auto &item: my_list1) {
+//        std::cout << item << " ";
+//    }
     std::cout  << "\n";
-    for (const auto &item: std_list1) {
+    for (const auto &item: my_list1) {
         std::cout << item << " ";
     }
 
