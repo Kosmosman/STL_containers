@@ -90,6 +90,7 @@ namespace s21 {
 //        if (node == nullptr || node == end_) {
 //            throw std::invalid_argument("Invalid argument");
 //        }
+
         if (node == head_) {
             head_ = node->next_;
         } else {
