@@ -58,7 +58,7 @@ namespace s21 {
         void swap(list& other);
         void merge(list& other);
         void reverse();
-//        void unique();
+        void unique();
         void sort();
 
         class ListIterator {

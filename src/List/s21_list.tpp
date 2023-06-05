@@ -2,8 +2,8 @@ namespace s21 {
 
 //// Constructs
     template <typename value_type>
-    list<value_type>::list() : head_(nullptr), tail_(nullptr), end_(new Node(0)), size_(0) {
-//        end_ = new Node(size_);
+    list<value_type>::list() : head_(nullptr), tail_(nullptr), end_(0), size_(0) {
+        end_ = new Node(size_);
         change_end();
     }
 
@@ -30,6 +30,13 @@ namespace s21 {
                 : list() {
             *this = l;
     }
+
+//    template <typename value_type>
+//    list<value_type>::~list() {
+//        clear();
+//        delete end_;
+//        end_ = nullptr;
+//    }
 
     template <typename value_type>
     list<value_type>& list<value_type>::operator=(const list& l) {
@@ -83,26 +90,55 @@ namespace s21 {
     void list<value_type>::clear() {
         while (empty() == false) pop_front();
     }
+
+
+
+//    template <typename value_type>
+//    void list<value_type>::erase(iterator pos) {
+//        if (empty() == true)
+//            throw std::out_of_range("List is empty! Nothing to be erased");
+//        Node* pos_node = pos.ptr_;
+//        if (pos_node == end_)
+//            throw std::out_of_range("The past-the-last element cannot be erased.");
+//        if (pos_node == head_) {
+//            pop_front();
+//        } else if (pos_node == tail_) {
+//            pop_back();
+//        } else {
+//            --pos;
+//            Node* previous_node = pos.ptr_;
+//            previous_node->next_ = pos_node->next_;
+//            (pos_node->next_)->prev_ = previous_node;
+//            delete pos_node;
+//            pos_node = nullptr;
+//        }
+//    }
+
     template <typename value_type>
     void list<value_type>::erase(ListIterator pos) {
         Node* node = pos.ptr_;
         // TODO не опр поведение
-//        if (node == nullptr || node == end_) {
-//            throw std::invalid_argument("Invalid argument");
-//        }
+        if (node != nullptr && node != end_) {
 
-        if (node == head_) {
-            head_ = node->next_;
-        } else {
-            node->prev_->next_ = node->next_;
+            if (node == head_) {
+                if (node->next_ && node->next_ != end_) {
+                    head_ = node->next_;
+                    node->prev_ = end_;
+                }
+            } else {
+                node->prev_->next_ = node->next_;
+            }
+            if (node == tail_) {
+                if (node->next_ && node->next_ != end_) {
+                    tail_ = node->prev_;
+                    node->next_ = head_;
+                }
+            } else {
+                node->next_->prev_ = node->prev_;
+            }
+            delete node;
+            --size_;
         }
-        if (node == tail_) {
-            tail_ = node->prev_;
-        } else {
-            node->next_->prev_ = node->prev_;
-        }
-        delete node;
-        --size_;
     }
 
     template <typename value_type>
@@ -148,7 +184,6 @@ namespace s21 {
             rightHalf.push_back(*it);
             ++it;
         }
-
         mergeSort(leftHalf);
         mergeSort(rightHalf);
 
@@ -160,6 +195,21 @@ namespace s21 {
     template<typename value_type>
     void list<value_type>::sort() {
         mergeSort(*this);
+    }
+
+
+    template<typename value_type>
+    void list<value_type>::unique() {
+        iterator current = begin();
+        while (current != end()) {
+            iterator next = current;
+            ++next;
+            if (next != end() && *current == *next) {
+                erase(next);
+            } else {
+                ++current;
+            }
+        }
     }
 
 
@@ -286,13 +336,15 @@ typename list<value_type>::reference list<value_type>::iterator::operator*() {
 }
 template <typename value_type>
 typename list<value_type>::iterator list<value_type>::iterator::operator++(int) {
+    Node* tmp = ptr_;
     ptr_ = ptr_->next_;
-    return *this;
+    return iterator(tmp);
 }
 template <typename value_type>
 typename list<value_type>::iterator list<value_type>::iterator::operator--(int) {
+    Node* tmp = ptr_;
     ptr_ = ptr_->prev_;
-    return *this;
+    return iterator(tmp);
 }
 template <typename value_type>
 typename list<value_type>::iterator& list<value_type>::iterator::operator++() {

@@ -11,6 +11,7 @@ int main() {
     s21::list<int> my_list2{15000, 154, 124, 30000};
     my_list1.merge(my_list2);
     my_list1.sort();
+    my_list1.unique();
 
 //    std::list<int> my_list3{1, 20000, 666};
 //    std::list<int> my_list4{15000, 154, 124, 30000};

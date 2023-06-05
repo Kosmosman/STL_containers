@@ -381,29 +381,29 @@ namespace s21 {
         EXPECT_TRUE(compare_lists(my_list, std_list));
     }
 
-//    TEST(ListTest, Unique_1) {
-//        s21::list<int> my_list{90, 10, 3, 40, 30, 20, 10, 10, 90, 90, 90};
-//        std::list<int> std_list{90, 10, 3, 40, 30, 20, 10, 10, 90, 90, 90};
-//        my_list.unique();
-//        std_list.unique();
-//        EXPECT_TRUE(compare_lists(my_list, std_list));
-//    }
-//
-//    TEST(ListTest, Unique_2) {
-//        s21::list<int> my_list(3);
-//        std::list<int> std_list(3);
-//        my_list.unique();
-//        std_list.unique();
-//        EXPECT_TRUE(compare_lists(my_list, std_list));
-//    }
-//
-//    TEST(ListTest, Unique_3) {
-//        s21::list<int> my_list;
-//        std::list<int> std_list;
-//        my_list.unique();
-//        std_list.unique();
-//        EXPECT_TRUE(compare_lists(my_list, std_list));
-//    }
+    TEST(ListTest, Unique_1) {
+        s21::list<int> my_list{90, 10, 3, 40, 30, 20, 10, 10, 90, 90, 90};
+        std::list<int> std_list{90, 10, 3, 40, 30, 20, 10, 10, 90, 90, 90};
+        my_list.unique();
+        std_list.unique();
+        EXPECT_TRUE(compare_lists(my_list, std_list));
+    }
+
+    TEST(ListTest, Unique_2) {
+        s21::list<int> my_list(3);
+        std::list<int> std_list(3);
+        my_list.unique();
+        std_list.unique();
+        EXPECT_TRUE(compare_lists(my_list, std_list));
+    }
+
+    TEST(ListTest, Unique_3) {
+        s21::list<int> my_list;
+        std::list<int> std_list;
+        my_list.unique();
+        std_list.unique();
+        EXPECT_TRUE(compare_lists(my_list, std_list));
+    }
 //
     TEST(ListTest, Splice_1) {
         s21::list<int> my_list1{1, 9999, 20000};
