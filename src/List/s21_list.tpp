@@ -174,6 +174,41 @@ namespace s21 {
         active->prev_ = add;
     }
 
+    //TODO merge
+    template<typename value_type>
+    void list<value_type>::merge(list& other) {
+        auto mergedList = list<value_type>();
+
+        iterator it1 = begin();
+        iterator it2 = other.begin();
+
+        while (it1 != end() && it2 != other.end()) {
+            if (*it1 <= *it2) {
+                mergedList.push_back(*it1);
+                ++it1;
+            } else {
+                mergedList.push_back(*it2);
+                ++it2;
+            }
+        }
+        while (it1 != end()) {
+            mergedList.push_back(*it1);
+            ++it1;
+        }
+        while (it2 != other.end()) {
+            mergedList.push_back(*it2);
+            ++it2;
+        }
+        *this = std::move(mergedList);
+        other.clear();
+    }
+
+
+
+
+
+
+
 //// empty size max_size
     template <typename value_type>
     bool list<value_type>::empty() {

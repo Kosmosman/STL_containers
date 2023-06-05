@@ -56,7 +56,7 @@ namespace s21 {
         void push_front(const_reference value);
         void pop_front();
         void swap(list& other);
-//        void merge(list& other);
+        void merge(list& other);
 //        void reverse();
 //        void unique();
 //        void sort();
