@@ -45,9 +45,11 @@ endif
 	$(OPEN_CMD) ./report/index.html
 
 clang:
+	cp ../materials/linters/.clang-format .
 	clang-format -style=Google -n unit_test/* s21_list/list/* s21_set_map/set/s21* s21_set_map/map/* s21_set_map/tree/* \
 	s21_stack_queue_array/s21_array/s21* s21_stack_queue_array/s21_queue/s21* s21_stack_queue_array/s21_stack/s21* \
 	s21_vector/vector/*
+	rm -f .clang-fromat
 
 leaks: test
 	leaks -atExit -- ./tests
