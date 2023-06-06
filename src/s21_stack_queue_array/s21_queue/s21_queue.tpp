@@ -32,14 +32,7 @@ Queue<T>::Queue(Queue &&q) noexcept
 
 template <typename T>
 Queue<T>::~Queue() {
-  Node *tmp = nullptr;
-  while (first_ != nullptr) {
-    tmp = first_;
-    first_ = first_->next;
-    delete tmp;
-    tmp = nullptr;
-  }
-  size_ = 0;
+  clear();
 }
 
 /* ------------------------ OPERATORS ---------------------------- */
@@ -48,7 +41,7 @@ template <typename T>
 Queue<T> &Queue<T>::operator=(const Queue &q) {
   if (this == &q) return *this;
 
-  this->~Queue();
+  clear();
   Node *tmp = q.first_;
   while (tmp) {
     push(tmp->value);
@@ -62,7 +55,7 @@ template <typename T>
 Queue<T> &Queue<T>::operator=(Queue &&q) noexcept {
   if (this == &q) return *this;
 
-  this->~Queue();
+  clear();
   std::swap(first_, q.first_);
   std::swap(last_, q.last_);
   std::swap(size_, q.size_);
@@ -146,6 +139,18 @@ void Queue<T>::swap(Queue &other) {
   std::swap(first_, other.first_);
   std::swap(last_, other.last_);
   std::swap(size_, other.size_);
+}
+
+template <typename T>
+void Queue<T>::clear() {
+  Node *tmp = nullptr;
+  while (first_ != nullptr) {
+    tmp = first_;
+    first_ = first_->next;
+    delete tmp;
+    tmp = nullptr;
+  }
+  size_ = 0;
 }
 
 };  // namespace s21

@@ -28,6 +28,7 @@ class Queue {
   void push(const_reference value);
   void pop();
   void swap(Queue& other);
+  void clear();
 
   template <class... Args>
   void emplace_back(Args&&... args);

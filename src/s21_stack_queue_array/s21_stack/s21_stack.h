@@ -26,6 +26,7 @@ class Stack {
   void push(const_reference value);
   void pop();
   void swap(Stack& other);
+  void clear();
 
   template <class... Args>
   void emplace_front(Args&&... args);

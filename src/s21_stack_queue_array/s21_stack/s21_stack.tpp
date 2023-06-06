@@ -35,13 +35,7 @@ Stack<T>::Stack(Stack &&s) noexcept : head_(s.head_), size_(s.size_) {
 
 template <typename T>
 Stack<T>::~Stack() {
-  Node *tmp = nullptr;
-  while (head_ != nullptr) {
-    tmp = head_;
-    head_ = head_->next;
-    delete tmp;
-    tmp = nullptr;
-  }
+  clear();
 }
 
 /* ------------------------ OPERATORS ---------------------------- */
@@ -50,7 +44,7 @@ template <typename T>
 Stack<T> &Stack<T>::operator=(Stack &&s) noexcept {
   if (this == &s) return *this;
 
-  this->~Stack();
+  clear();
   head_ = s.head_;
   size_ = s.size_;
 
@@ -64,9 +58,7 @@ template <typename T>
 Stack<T> &Stack<T>::operator=(const Stack &s) {
   if (this == &s) return *this;
 
-  this->~Stack();
-  head_ = nullptr;
-  size_ = 0;
+  clear();
 
   Node **this_p = &head_;
   Node *other_p = s.head_;
@@ -132,6 +124,19 @@ template <typename T>
 void Stack<T>::swap(Stack &other) {
   std::swap(head_, other.head_);
   std::swap(size_, other.size_);
+}
+
+template <typename T>
+void Stack<T>::clear() {
+  Node *tmp = nullptr;
+  while (head_ != nullptr) {
+    tmp = head_;
+    head_ = head_->next;
+    delete tmp;
+    tmp = nullptr;
+  }
+
+  size_ = 0;
 }
 
 template <typename T>
