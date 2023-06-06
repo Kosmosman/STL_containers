@@ -45,12 +45,14 @@ endif
 	$(OPEN_CMD) ./report/index.html
 
 clang:
-	cp ../materials/linters/.clang-format ../src/.clang-format
-	clang-format -style=Google -n unit_tests.cc s21_list/* s21_set_map/* s21_stack_queue_array/* s21_vector/*
+	cp ../materials/linters/.clang-format .
+	clang-format -style=Google -n unit_test/* s21_list/list/* s21_set_map/set/s21* s21_set_map/map/* s21_set_map/tree/* \
+	s21_stack_queue_array/s21_array/s21* s21_stack_queue_array/s21_queue/s21* s21_stack_queue_array/s21_stack/s21* \
+	s21_vector/vector/* 
 	rm .clang-format
 
 leaks: test
-	leaks -atExit -- ./unit_test
+	leaks -atExit -- ./tests
 
 valgrind: clean 
 	${CC} $(TEST_FLAGS) ${TEST_SRC}  $(CPPFLAGS) -o valgrind_test $(LIBS) $(LINUX_FLAGS)
@@ -74,7 +76,7 @@ clean_test:
 	rm -rf *.dSYM
 
 clean: clean_lib clean_lib clean_test clean_obj
-	rm -rf unit_test
+	rm -rf tests
 	rm -rf RESULT_VALGRIND.txt
 
 .PHONY : all clean test clang valgrind gcov_report rebuild

@@ -1,8 +1,11 @@
 #include <gtest/gtest.h>
 
 #include <list>
+#include <map>
 #include <queue>
+#include <set>
 #include <stack>
+#include <utility>
 #include <vector>
 
 #include "../s21_containers.h"
