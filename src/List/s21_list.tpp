@@ -149,6 +149,7 @@ namespace s21 {
         erase(--end());
     }
 
+
     template <typename value_type>
     void list<value_type>::reverse() {
         //        if (size_ <= 1) {
@@ -167,34 +168,24 @@ namespace s21 {
         std::swap(head_, tail_);
     }
 
-    template <typename value_type>
-    void list<value_type>::mergeSort(list& l) {
-        if (l.size() <= 1) {
+    template<typename value_type>
+    void list<value_type>::sort() {
+        if (size_ <= 1) {
             return;
         }
-        list<value_type> leftHalf;
-        list<value_type> rightHalf;
-        auto mid = l.size() / 2;
-        auto it = l.begin();
-        for (size_type i = 0; i < mid; ++i) {
-            leftHalf.push_back(*it);
-            ++it;
-        }
-        for (size_type i = mid; i < l.size(); ++i) {
-            rightHalf.push_back(*it);
-            ++it;
-        }
-        mergeSort(leftHalf);
-        mergeSort(rightHalf);
 
-        l.clear();
-        l.merge(leftHalf);
-        l.merge(rightHalf);
-    }
-
-    template <typename value_type>
-    void list<value_type>::sort() {
-        mergeSort(*this);
+        bool swapped = true;
+        while (swapped) {
+            swapped = false;
+            Node* current = head_;
+            while (current != nullptr && current->next_ != nullptr) {
+                if (current->value_ > current->next_->value_) {
+                    std::swap(current->value_, current->next_->value_);
+                    swapped = true;
+                }
+                current = current->next_;
+            }
+        }
     }
 
     template <typename value_type>
