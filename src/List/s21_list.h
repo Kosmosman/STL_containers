@@ -44,11 +44,11 @@ public:
 
   const_reference front();
   const_reference back();
-  //
+
   bool empty();
   size_type size();
   size_type max_size();
-  //
+
   void clear();
   void push_back(const_reference value);
   void pop_back();
@@ -97,7 +97,7 @@ public:
   ListIterator insert(ListIterator pos, const_reference value);
   void erase(ListIterator pos);
   void splice(ListConstIterator pos, list &other);
-  //// доп method
+
   void setNewValueForList(Node *active, Node *add);
   void installationInBlankList(Node *add);
   void installationNotInBlankList(Node *active, Node *add);
