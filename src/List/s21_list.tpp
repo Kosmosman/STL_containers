@@ -2,7 +2,6 @@ namespace s21 {
 template <typename value_type>
 list<value_type>::list() : head_(nullptr), tail_(nullptr), end_(0), size_(0) {
   end_ = new Node(size_);
-    index_alignment();
 }
 
 template <typename value_type> list<value_type>::list(size_type n) : list() {
@@ -10,14 +9,12 @@ template <typename value_type> list<value_type>::list(size_type n) : list() {
   for (size_type i = 0; i < n; ++i) {
     insert(end(), val);
   }
-    index_alignment();
 }
 template <typename value_type>
 list<value_type>::list(std::initializer_list<value_type> const &items)
     : list() {
   for (const auto &item : items) {
     push_back(item);
-      index_alignment();
   }
 }
 
