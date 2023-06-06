@@ -14,10 +14,10 @@ class Queue {
   Queue(std::initializer_list<value_type> const& items);
   Queue(const Queue& q);
   Queue(Queue&& q) noexcept;
+  ~Queue();
+
   Queue<T>& operator=(const Queue& q);
   Queue<T>& operator=(Queue&& q) noexcept;
-  // Добавить оператор перемещения копированием
-  ~Queue();
 
   reference front();
   const_reference front() const;

@@ -113,7 +113,7 @@ constexpr typename Array<T, N>::reference Array<T, N>::back() {
   return *(end() - 1);
 }
 
-/* ---------------------------- CHECK ------------------------------ */
+/* ---------------------------- CAPACITY ------------------------- */
 
 template <typename T, size_t N>
 constexpr bool Array<T, N>::empty() const noexcept {

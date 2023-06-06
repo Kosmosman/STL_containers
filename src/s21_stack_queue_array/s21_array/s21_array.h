@@ -15,9 +15,10 @@ class Array {
   Array(std::initializer_list<value_type> const &items);
   Array(const Array &a);
   Array(Array &&a);
+  ~Array() = default;
+
   Array<T, N> &operator=(const Array &a);
   Array<T, N> &operator=(Array &&a);
-  ~Array() = default;
 
   constexpr reference at(size_type pos);
   constexpr reference operator[](size_type pos);
