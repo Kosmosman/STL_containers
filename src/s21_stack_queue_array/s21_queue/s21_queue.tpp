@@ -129,7 +129,7 @@ void Queue<T>::pop() {
 
 template <typename T>
 template <typename... Args>
-void Queue<T>::emplace_back(Args &&... args) {
+void Queue<T>::emplace_back(Args &&...args) {
   value_type temp(std::forward<Args>(args)...);
   push(temp);
 };

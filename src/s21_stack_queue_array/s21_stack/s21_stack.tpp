@@ -1,4 +1,4 @@
-namespace s21 {
+ namespace s21 {
 
 /* ------------------ CONSTRUSCTORS / DESTRUCTOR ----------------- */
 
@@ -141,7 +141,7 @@ void Stack<T>::clear() {
 
 template <typename T>
 template <typename... Args>
-void Stack<T>::emplace_front(Args &&... args) {
+void Stack<T>::emplace_front(Args &&...args) {
   value_type temp(std::forward<Args>(args)...);
   push(temp);
 };
